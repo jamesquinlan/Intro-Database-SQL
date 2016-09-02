@@ -8,6 +8,12 @@ SELECT column(s)
 FROM table
 `
 
+Often (although not necessary) each statement/clause is written at the beginning of a line.  In particular, 
+
+` SELECT column(s)
+
+FROM table
+`
 ### Directions 
 ---
 
