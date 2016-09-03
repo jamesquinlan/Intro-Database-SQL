@@ -29,6 +29,8 @@ For example, the following query will return the entire table (use with caution)
 SELECT * FROM database.table;
 ```
 
+===
+
 #### Exercises
 
 Using the Products table, find the following 
