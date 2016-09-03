@@ -18,7 +18,7 @@ NOTE: If database is housed on a shared server, the database name must proceed t
 
 ```SQL
 SELECT column(s) 
-FROM databse.table
+FROM database.table
 ```
 
 If multiple columns are desired in the query results, a comma delimited list of column names is supplied after the SELECT statement. Similar a list of one or more tables follows the FROM clause.  The * is a wildcard and returns **all** columns from the table.  
@@ -30,6 +30,10 @@ SELECT * FROM database.table;
 ```
 
 #### Exercises
+
+Using the Products table, find the following 
+
 ---
 
-1. 
+1. Select ... 
+
