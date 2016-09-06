@@ -119,9 +119,10 @@ FROM database.table;
 ===
 
 1. What does SQL stand for?  How is it pronounced?
+2. Are SQL commands case-sensitive?  How can you determine? 
 2. What does DQL stand for?
 3. True or False:  Is it necessary to use the `FROM` clause with the select statement? 
 4. True or False:  Is it necessary to use a `WHERE` clause?  If not, when and why would you use a `WHERE` clause?
 5. What is the purpose of the `ORDER BY` clause?  What is its default value?  
-6.  
+6. Find all  
 
