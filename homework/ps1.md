@@ -123,5 +123,5 @@ FROM database.table;
 3. True or False:  Is it necessary to use the `FROM` clause with the select statement? 
 4. True or False:  Is it necessary to use a `WHERE` clause?  If not, when and why would you use a `WHERE` clause?
 5. What is the purpose of the `ORDER BY` clause?  What is its default value?  
-6. 
+6.  
 
