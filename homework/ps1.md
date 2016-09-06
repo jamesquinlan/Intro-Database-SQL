@@ -114,7 +114,7 @@ FROM database.table;
 
 #### Exercises
 
-**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format (e.g., .md, .txt) EXCEPT word processors (e.g., MS Word) to upload your solutions.  All queries will use the `Products` table.  
+**Directions**: Create a GitHub account.  All assignments will be submitted to your GitHub account.  You can use any format (e.g., .md, .txt) EXCEPT word processors (e.g., MS Word) to upload your solutions.  All queries will use the `Products` table.  Connect to the database.  Copy [Products.sql](https://github.com/jamesquinlan/mat301/tree/master/products), change database name to your database, paste in Query window, then execute.
 
 ===
 
@@ -124,5 +124,13 @@ FROM database.table;
 3. True or False:  Is it necessary to use the `FROM` clause with the select statement? 
 4. True or False:  Is it necessary to use a `WHERE` clause?  If not, when and why would you use a `WHERE` clause?
 5. What is the purpose of the `ORDER BY` clause?  What is its default value?  
-6. Find all  
+6. Is the data in the products table case sensitive?  Should it be case sensitive/insensitive? 
+7. Select all product names.
+8. List the MSRP for all products in ascending order.
+9. Find all products within  category 430.
+10. Find all product id and names in category 430 manufactured by 428.
+11. How many products in category 430 manufactured by 428?
+12. How many countries make products contained in the store?
+13. How many products are manufactured in the USA?
+14. How many products cost the store less than \$10? 
 
