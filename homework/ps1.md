@@ -6,8 +6,8 @@ Before we begin, it is noteworthy to list the synonyms for various database term
 |Row |Column   | 
 |:--- |:---- |
 |Records  | Field |
-|Tuple | Component  |
 | Recordset | Attribute |
+|Tuple | Component  |
 
 ---
 
@@ -90,13 +90,31 @@ FROM database.table
 ORDER BY column2;
 ```
 
+#### The DISTINCT option
 
+The `DISTINCT` option is used in a query to select distinct records.  The syntax is, 
+
+```SQL
+SELECT DISTINCT column
+FROM database.table;
+```
+
+
+
+#### The COUNT function
+
+The `COUNT` function is used, as the name implies, to count the results of the query.    
+
+```SQL
+SELECT COUNT(*)
+FROM database.table;
+```
 
 ---
 
 #### Exercises
 
-**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format EXCEPT word processors (e.g., MS Word) to upload your solutions.
+**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format EXCEPT word processors (e.g., MS Word) to upload your solutions.  All queries will use the `Products` table.  
 
 ===
 
