@@ -132,5 +132,5 @@ FROM database.table;
 11. How many products in category 430 manufactured by 428?
 12. How many countries make products contained in the store?
 13. How many products are manufactured in the USA?
-14. How many products cost the store less than \$10? 
+14. How many products cost the store less than $10? 
 
