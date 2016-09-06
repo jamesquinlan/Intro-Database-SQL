@@ -1,7 +1,21 @@
 ### Problem Set 1 - Introduction to DQL 
 ---
 
-Data Query Language (DQL) is a sub-language of Structured Query Language (SQL).  The `SELECT` statement is the one (and only) statement needed to construct database queries.  A query extracts data from the database.  A `SELECT` statement **must** contain a `FROM` clause.  The basic syntax for `SELECT` statement is:
+Before we begin, it is noteworthy to list the synonyms for various database terminology.  
+
+|Row |Column   | 
+|:--- |:---- |
+|Records  | Field |
+|Tuple | Component  |
+| Recordset | Attribute |
+
+---
+
+Data Query Language (DQL) is a sub-language of Structured Query Language (SQL).  
+
+#### SELECT statement
+
+The `SELECT` statement is the one (and only) statement needed to construct database queries.  A query extracts data from the database.  A `SELECT` statement **must** contain a `FROM` clause.  The basic syntax for `SELECT` statement is:
 
 ```SQL
 SELECT column(s) FROM table(s)
@@ -37,6 +51,34 @@ For example, the following query will return the entire table (use with caution)
 ```SQL
 SELECT * FROM database.table;
 ```
+
+
+#### The WHERE clause
+
+The `WHERE` clause is a conditional that limits the number of records returned to ones that match the *condition*.  The value of the condition is TRUE or FALSE.  The general syntax is:
+
+```SQL
+SELECT column(s)
+FROM database.table
+WHERE [condition]
+```
+For example, selecting all records from the products table where country is China, 
+
+```SQL
+SELECT *
+FROM Products
+WHERE country='China';
+```
+
+
+Multiple/complex conditions can be specified using `AND` or `OR`.  In particular,
+
+```SQL
+SELECT column(s)
+FROM database.table
+WHERE [condition1] AND/OR [condition2]
+```
+
 
 
 
