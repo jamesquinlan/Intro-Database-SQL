@@ -114,7 +114,7 @@ FROM database.table;
 
 #### Exercises
 
-**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format EXCEPT word processors (e.g., MS Word) to upload your solutions.  All queries will use the `Products` table.  
+**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format (e.g., .md, .txt) EXCEPT word processors (e.g., MS Word) to upload your solutions.  All queries will use the `Products` table.  
 
 ===
 
