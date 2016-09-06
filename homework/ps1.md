@@ -55,7 +55,7 @@ SELECT * FROM database.table;
 
 #### The WHERE clause
 
-The `WHERE` clause is a conditional that limits the number of records returned to ones that match the *condition*.  The value of the condition is TRUE or FALSE.  The general syntax is:
+The `WHERE` clause is a conditional that limits the number of records returned to ones that match a specified *condition*.  The value of the condition is TRUE or FALSE.  The `WHERE` clause limits or **filters** the number of records returned by the query. The general syntax is:
 
 ```SQL
 SELECT column(s)
@@ -80,7 +80,15 @@ WHERE [condition1] AND/OR [condition2]
 ```
 
 
+#### The ORDER BY clause
 
+Another clause that can be added to a `SELECT` statment is the `ORDER BY` clause.  Like the name implies, it will order the records in ascending or descending order.  Ascending is default.  It can be used with or without the `WHERE` clause.  
+
+```SQL
+SELECT column1, column2
+FROM database.table
+ORDER BY column2;
+```
 
 
 
@@ -88,9 +96,14 @@ WHERE [condition1] AND/OR [condition2]
 
 #### Exercises
 
-Using the Products table, find the following 
+**Directions**: Create a GitHub account.  All assignments will be submitted in GitHub.  You can use any format EXCEPT word processors (e.g., MS Word) to upload your solutions.
 
 ===
 
-1. Select ... 
+1. What does SQL stand for?  How is it pronounced?
+2. What does DQL stand for?
+3. True or False:  Is it necessary to use the `FROM` clause with the select statement? 
+4. True or False:  Is it necessary to use a `WHERE` clause?  If not, when and why would you use a `WHERE` clause?
+5. What is the purpose of the `ORDER BY` clause?  What is its default value?  
+6. 
 
