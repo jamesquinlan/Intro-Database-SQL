@@ -164,5 +164,13 @@ SELECT 1.35*price AS `Sale Price` FROM Products;
 5. Find products whose ID is between 5000 and 6000 or 7483, 4939, 3452, 9848, 11293, 12001.
 6. Find products that are not between 5000 and 6000 or 7483, 4939, 3452, 9848, 11293, 12001.
 7. Find products whose country code is NULL.
+8. Calculuate the shipping volume and report it as 'Volume'.
+9. Suppose you want to have a 35% markup on all products and sales tax is 7.5%.  Determine the 'Sales Price' of each product.
+10. True or False: Both conditions when using the OR operator must be true.
+11. What is the logical negation of the IN operator?
+12. What is wrong with the folling statement: `SELECT * FROM Products WHERE price BETWEEN 10, 100;
+13. Select products with length less than 12 inches and sort decsending.
+14. How many products are there whose price is between $10 and $20?
+15. How many products are there made in China whose MSRP is between $10 and $20.
 
 
