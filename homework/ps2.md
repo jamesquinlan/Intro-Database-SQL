@@ -56,7 +56,7 @@ SELECT product_id FROM Products WHERE product_id<>2000;
 And example using less than, (greater than is similar), which will return all product id's that cost less than $10:
 
 ```SQL
-SELECT product_id FROM Products WHERE cost<10;
+SELECT product_id FROM Products WHERE price<10;
 ```
 
 ###### Less than or equal
@@ -65,7 +65,7 @@ Combining the operators can give more specific results.  For example, SELECT all
 
 
 ```SQL
-SELECT product_id FROM Products WHERE cost<=10;
+SELECT product_id FROM Products WHERE price<=10;
 ```
 
 ---
@@ -73,6 +73,82 @@ SELECT product_id FROM Products WHERE cost<=10;
 ##### Logical Operators
 
 Logical operators include `IS NULL`, `BETWEEN`, `IN`, `LIKE`, `EXISTS`, `UNIQUE`, `ALL`, `SOME`, and `ANY`.
+Logical operators are used (mostly) with the `WHERE` clause.  
+
+The following queries serve as examples for the LOGICAL operators.
+
+
+```SQL
+SELECT * FROM Products WHERE price IS NULL;
+```
+
+
+```SQL
+SELECT * FROM Products WHERE price BETWEEN 10 and 20;
+```
+
+
+```SQL
+SELECT * FROM Products WHERE price IN(9.99, 19.99, 29.99);
+```
+
+The `LIKE` operator returns similar values using *wildcards* (underscore _ and percent %).  The underscore represents one character where as the percent represents multiple characters.
+
+The following returns all rows where the country starts with a letter 'C'.  
+
+```SQL
+SELECT * FROM Products WHERE country like 'C%';
+```
+
+The following returns all rows where the price ends in a 9.
+
+
+```SQL
+SELECT * FROM Products WHERE price like '%9';
+```
+
+The following returns rows where price has any value for the tens place and a 9 in the ones (pennies):
+
+
+```SQL
+SELECT * FROM Products WHERE price like '%._9';
+```
+
+#### Conjunctive operators (AND and OR)
+
+Conjunctions are used to make more complex queries.  For example suppose we want all products whose price is greater than 10 but less than 20.  The following will return the desired results:
+
+```SQL
+SELECT * FROM Products WHERE price>10 AND price<20;
+```
+
+Two ways to write the query to return products with price less than or equal to $20:
+
+
+```SQL
+SELECT * FROM Products WHERE price<=20;
+```
+
+
+```SQL
+SELECT * FROM Products WHERE price<20 OR price=20;
+```
+
+#### Negation
+
+Equality is negated using `!=` or `<>`.  All other statements can be negated using `NOT` operator. 
+
+
+
+#### Arithmetic operators
+
+Arithmetic operators (`+`, `-`, `*`, `/`) can be used to perform calculations on the results of columns.  It is good to alias results of using arithmetic operators.  For example, 
+
+
+```SQL
+SELECT 1.35*price AS `Sale Price` FROM Products;
+```
+
 
 
 
@@ -81,25 +157,6 @@ Logical operators include `IS NULL`, `BETWEEN`, `IN`, `LIKE`, `EXISTS`, `UNIQUE`
 
 ===
 
-1. What does SQL stand for?  How is it pronounced?
-2. Are SQL commands case-sensitive?  How can you determine? 
-3. What does DQL stand for?
-4. True or False:  Is it necessary to use the `FROM` clause with the select statement? 
-5. True or False:  Is it necessary to use a `WHERE` clause?  If not, when and why would you use a `WHERE` clause?
-6. What is the purpose of the `ORDER BY` clause?  What is its default value?  
-7. Is the data in the products table case sensitive?  Should it be case sensitive/insensitive? 
-8. Select all product names.
-9. List the MSRP for all products in ascending order.
-10. Find all products within  category 430.  What is category 430?
-11. Find all product id and names in category 430 manufactured by 428.
-12. How many products in category 430 manufactured by 428?
-13. How many countries make products contained in the store?
-14. How many products are manufactured in the USA?
-15. How many products cost the company less than $10?
-16. How many products cost the company less than $10 and sell for more than $20?
-17. How many products cost the company less than $10 and sell for less than $20?
-18. Which products cost less than $10 and sell for more than $20?
-19. Count all product's that have shipping weight less than 1 pound or greater than 20 pounds.
-20. Create your own query.
+1. 
 
 
