@@ -1,7 +1,7 @@
 ###  Arithmetic Operators and Aggregate Functions
 ---
 
-
+ 
 
 #### Arithmetic operators
 
@@ -23,7 +23,21 @@ SELECT MSRP-0.1*MSRP AS `Sale Price` FROM Products;
 
 ### Aggregate Functions
 
-Aggregate functions `COUNT`, `SUM`, `MAX`, `MIN`, and `AVG` expand the variety of queries and allow returning several useful results.  For instance using the Products table, we can find the maximum (or minumim) priced items.  In a Sales table, we could use `AVG` to return the average sale or `SUM` to find the total sales.  `SUM` and `AVG` must be applied to numeric data whereas `MAX` and `MIN` can also be applied to character data.
+Aggregate functions `COUNT`, `SUM`, `MAX`, `MIN`, and `AVG` expand the variety of queries and allow returning several useful results.  For instance using the Products table, we can find the maximum (or minumim) priced items.  In a Sales table, we could use `AVG` to return the average sale or `SUM` to find the total sales.  `SUM` and `AVG` must be applied to numeric data whereas `MAX` and `MIN` can also be applied to character data.  
+
+Using the Products table, we could find the average price.  
+
+```SQL
+SELECT AVG(price) AS Avg_Price FROM Products;
+```
+
+Similiarly, we could find the maximum price.
+
+```SQL
+SELECT MAX(price) AS Max_Price FROM Products;
+```
+
+
 
 ###### DISTINCT
 
