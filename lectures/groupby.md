@@ -20,7 +20,7 @@ The query will always group the results of the SELECT statement (including the W
  
  ---
  
- #### HAVING clause
+#### HAVING 
  
  ----
  
