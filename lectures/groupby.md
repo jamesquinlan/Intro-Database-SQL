@@ -29,7 +29,7 @@ The query will always group the results of the SELECT statement (including the W
   ```SQL
  SELECT category_id, ROUND(AVG(price),2) as AveragePrice
  FROM Products
- WHERE manufacturer_id=200
+ WHERE manufacturer_id=208
  GROUP BY category_id
  HAVING AveragePrice>10;
  ```
@@ -39,10 +39,20 @@ The query will always group the results of the SELECT statement (including the W
   ```SQL
  SELECT category_id, ROUND(AVG(price),2) as AveragePrice
  FROM Products
- WHERE manufacturer_id=200
+ WHERE manufacturer_id=208
  GROUP BY category_id
  HAVING AveragePrice>10
  ORDER BY category_id DESC;
+ ```
+ 
+ However, the same results will be return by using the `DESC` after the column name in the `GROUP BY` clause.  In particular, the above query returns the same results as:
+ 
+  ```SQL
+ SELECT category_id, ROUND(AVG(price),2) as AveragePrice
+ FROM Products
+ WHERE manufacturer_id=208
+ GROUP BY category_id DESC
+ HAVING AveragePrice>10;
  ```
  
  ---
