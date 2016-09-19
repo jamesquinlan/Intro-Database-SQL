@@ -19,6 +19,7 @@ The query will always group the results of the SELECT statement (including the W
  ```
  
  #### HAVING
+ 
  ----
  
  `GROUP BY` also has its own conditional clause statement, called the `HAVING` clause.  The `HAVING` clause specifies a search condition for the group or aggregate.  Some RDBMS (e.g., MySQL) apply the `HAVING` condition after groups are formed effectively acting as a filter.
@@ -34,6 +35,17 @@ The query will always group the results of the SELECT statement (including the W
  ```
  
  Lastly, the `ORDER BY` clause can be appended after the `GROUP BY` / `HAVING` clause(s).  
+ 
+  ```SQL
+ SELECT category_id, ROUND(AVG(price),2) as AveragePrice
+ FROM Products
+ WHERE manufacturer_id=200
+ GROUP BY category_id
+ HAVING AveragePrice>10
+ ORDER BY category_id DESC;
+ ```
+ 
+ ---
  
  
  
