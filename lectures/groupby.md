@@ -18,7 +18,9 @@ The query will always group the results of the SELECT statement (including the W
  GROUP BY catgory_id;
  ```
  
- ### HAVING
+ ---
+ 
+ #### HAVING clause
  
  ----
  
