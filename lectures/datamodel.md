@@ -23,6 +23,20 @@ A key containing two or more attributes is referred to as a __composite key__.  
 
 __Surrogate key__ is a column made by an arbitrary assignment of a key to a row.  Mostly, a surrogate key is an auto-incremented integer that has no connection to the data and is void of meaning.  For example, a __natural key_ for products is the `UPC` since it is unique to each product and each product has (or should have) a UPC.  (Another example of a *natural key* is a social security number of individuals).  However, it is possible for the UPC to change or become obsolete.  A generic (surrogate) key is often a better choice.  Google 'natural key vs. surrogate key', there is much discussion and debate on which is better and why.
 
+__Foreign Key__ of one relation is a primary key in another.  Foreign keys are used to represent relationships between the relations.  In our case, there is a Manufacturers table which has `manufacturer_id` as its primary key, but is a foreign key in the `Products` table which is used to connected (or relate) the two tables.  
+
+---
+### Functional Dependencies
+
+A __functional dependency__ is a form expression of a relationship between objects.  For example, `TotalCost = Quantity x Unit Cost`.  Therefore, (Quantity, Unit Cost) --> TotalCost.  That is, the quantity and unit cost DETERMINE the total cost.  The arrow --> can be read "determines".  Consider objects of different color, shape and weight.  If a yellow object is round and weighs 5lbs, a blue object is round and weigh 6 lbs, and a red object is cubic and weighs 5 lbs, THEN the object's color DETERMINES the weight and shape.  `color` is a candidate key.
+
+### Relational Modeling
+The basic steps are:
+1. Identify entities
+2. Subdivide (further) objects within entities
+3. Select primary key (composite key)
+4. Determine 
+
 
 
 
