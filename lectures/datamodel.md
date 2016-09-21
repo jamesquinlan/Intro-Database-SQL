@@ -28,15 +28,10 @@ __Foreign Key__ of one relation is a primary key in another.  Foreign keys are u
 ---
 ### Functional Dependencies
 
-A __functional dependency__ is a form expression of a relationship between objects.  For example, `TotalCost = Quantity x Unit Cost`.  Therefore, (Quantity, Unit Cost) --> TotalCost.  That is, the quantity and unit cost DETERMINE the total cost.  The arrow --> can be read "determines".  Consider objects of different color, shape and weight.  If a yellow object is round and weighs 5lbs, a blue object is round and weigh 6 lbs, and a red object is cubic and weighs 5 lbs, THEN the object's color DETERMINES the weight and shape.  `color` is a candidate key.
+A __functional dependency__ is a form expression of a relationship between objects.  For example, `TotalCost = Quantity x Unit Cost`.  Therefore, (Quantity, Unit Cost) --> TotalCost.  That is, the quantity and unit cost DETERMINE the total cost.  The arrow --> can be read "determines".  The quantity(s) on the left is called a __determinant__.  Consider objects of different color, shape and weight.  If a yellow object is round and weighs 5lbs, a blue object is round and weigh 6 lbs, and a red object is cubic and weighs 5 lbs, THEN the object's color DETERMINES the weight and shape.  `color` is a candidate key.  In fact, __all_ determinants are candidate keys.
 
-### Relational Modeling
-The basic steps are:
-1. Identify entities
-2. Subdivide (further) objects within entities
-3. Select primary key (composite key)
-4. Determine 
-
+### Normalization
+Determinants and dependencies aid in the design of relations.  Each relation should have only one theme.  __Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  
 
 
 
