@@ -21,7 +21,7 @@ Keys play an important part in relational models (thus database design). Keys ar
 
 A key containing two or more attributes is referred to as a __composite key__.  __Candidate keys__ are one or more attributes that uniquely identify each row in a relation.  Primary key(s) is/are the selected candidate key(s) to use.  In the `Products` table, `product_id` was the primary key.  Note `UPC` was a candidate key.
 
-__Surrogate key__ is a column made by an arbitrary assignment of a key to a row.  Mostly, a surrogate key is an auto-incremented integer that has no connection to the data and is void of meaning.  For example, you could use `UPC` as a primary key since it is unique to each product and each product has (or should have) a UPC.  (Another example is a social security number of individuals).  However, it is possible for the UPC to change or become obsolete.  A generic (surrogate) key is a better choice.  Google 'is it better to use a surrogate key'.
+__Surrogate key__ is a column made by an arbitrary assignment of a key to a row.  Mostly, a surrogate key is an auto-incremented integer that has no connection to the data and is void of meaning.  For example, a __natural key_ for products is the `UPC` since it is unique to each product and each product has (or should have) a UPC.  (Another example of a *natural key* is a social security number of individuals).  However, it is possible for the UPC to change or become obsolete.  A generic (surrogate) key is often a better choice.  Google 'natural key vs. surrogate key', there is much discussion and debate on which is better and why.
 
 
 
