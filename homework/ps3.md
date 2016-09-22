@@ -34,6 +34,8 @@ R
 
 
 9.  Find the natural join between the Faculty and Department relations below:
+
+
 Faculty
 --------------
 | Name | ID | Dept |
