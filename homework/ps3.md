@@ -1,4 +1,5 @@
 1. Define the terms: relation, tuple, attribute, record, and field.
+2. What are keys in a relation?
 
 2. What is a surrogate key and how is it used?
 
@@ -8,7 +9,7 @@
 
 5. Give an example of a relation.  Determine a natural key for this relation.
 
-For question 6 - 7, Consider product *orders*.  In particular, associated with an order is: customer name (first and last), address (street, city, state, zip), phone, email, the products orders (including item, quantity, and price).  
+  For question 6 - 7, Consider product *orders*.  In particular, associated with an order is: customer name (first and last), address (street, city, state, zip), phone, email, the products orders (including item, quantity, and price).  
 
 6. Create a relational data model for *orders*.  Consider applying normalization rules (discuss Monday)
 
