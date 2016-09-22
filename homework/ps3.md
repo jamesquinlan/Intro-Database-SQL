@@ -36,13 +36,13 @@ R
 9.  Find the natural join between the Faculty and Department relations below:
 Faculty
 --------------
-| Name | ID | Dept|
-|---|---|---|
-| Joe  |  1 | Chemistry|
-| Sally | 2 | Math |
-| Tom | 3  | Marine Science|
-| Mike |4 | Math|
----------
+| Name | ID | Dept |
+|-------|----|----------------|
+| Joe | 1 | Chemistry |
+| Susan | 2 | Math |
+| Tom | 3 | Marine Science |
+| Mike | 4 | Math |
+
 
 Department
 ------------
