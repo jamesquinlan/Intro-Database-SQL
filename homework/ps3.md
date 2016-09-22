@@ -37,7 +37,7 @@ R
 Faculty
 --------------
 | Name | ID | Dept|
-|------|----|-----|
+|---|---|---|
 | Joe  |  1 | Chemistry|
 | Sally | 2 | Math |
 | Tom | 3  | Marine Science|
