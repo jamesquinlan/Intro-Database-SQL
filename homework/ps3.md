@@ -14,13 +14,40 @@ For question 6 - 7, Consider product *orders*.  In particular, associated with a
 
 7. For customer, could email be used as a primary key?  If so, state why.  Also, if possible to use as a primary key, discuss any disadvantages of using email as a primary key.
 
-8. Given two relations S and R below:
+8. Given two relations S and R below find the Cartsian Product S x R. 
 
-
+S
+--------------
 | A | B |
 |---|---|
 | 1 | 2 |
 | 2 | 3 |
-| 3 | 4 |
 ---------
-S
+
+R
+------------
+| C | D | E |
+|---|---|---|
+| 3 | 1 | 1 |
+| 2 | 2 | 3 |
+| 2 | 1 | 5 |
+
+
+9.  Find the natural join between the Faculty and Department relations below:
+Faculty
+--------------
+| Name | ID | Dept|
+|------|----|-----|
+| Joe  |  1 | Chemistry|
+| Sally | 2 | Math |
+| Tom | 3  | Marine Science|
+| Mike |4 | Math|
+---------
+
+Department
+------------
+| Dept | Chair  |
+|---|---|
+| Chemistry | John |
+| Math | Mike |
+| Marine Science | Barry |
