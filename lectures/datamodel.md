@@ -34,5 +34,8 @@ A __functional dependency__ is a form expression of a relationship between objec
 Determinants and dependencies aid in the design of relations.  Each relation should have only one theme.  __Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  
 
 
+Relationships between two entities may be classified as being either "identifying" or "non-identifying". Identifying relationships exist when the primary key of the parent entity is included in the primary key of the child entity. On the other hand, a non-identifying relationship exists when the primary key of the parent entity is included in the child entity but not as part of the child entity's primary key. In addition, non-identifying relationships may be further classified as being either "mandatory" or "non-mandatory". A mandatory non-identifying relationship exists when the value in the child table cannot be null. On the other hand, a non-mandatory non-identifying relationship exists when the value in the child table can be null.
+
+
 
 
