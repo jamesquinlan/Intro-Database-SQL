@@ -1,11 +1,11 @@
-# Joins
+# Joining Tables - Selecting data from multiple (related) tables
 
 
-__Joins__ (_left, right, outer, inner_) are used in order to select data from multiple (related) tables.  [See reference](https://dev.mysql.com/doc/refman/5.7/en/join.html).
+__JOIN__ (_left, right, outer, inner_) are used in order to select data from multiple (related) tables.  [See reference](https://dev.mysql.com/doc/refman/5.7/en/join.html).
 
 ---
 
-### Inner join
+### INNER JOIN
 ---
 
 The `INNER JOIN` keyword selects all rows from both tables with common column(s).  This is perhaps the most common JOIN.  It is also known as the EQUIJOIN.  In terms of Venn diagrams, it is the INTERSECTION.  The syntax follows:
@@ -18,7 +18,7 @@ ON table_1.column_name=table_2.column_name;
 ```
 
 
-### LEFT (RIGHT) Join
+### LEFT (RIGHT) JOIN
 ---
 
 A LEFT JOIN returns all rows from the left table (table_1) and the matching rows of the right table (table_2). The result of the right is NULL when there is no match. The RIGHT JOIN is defined analogous replacing _left_ with _right_ and _table_1_ with _table_2_ in definition above.   The syntax for LEFT JOIN is:
