@@ -63,10 +63,31 @@ What about referential integrity?
 ## More functions
 ---
 
-Research the following functions:
+Research the following, determine their functionality and syntax of use:
 
+1. UPPER()
+1. LOWER()
 1. LTRIM()
 1. RTRIM()
 1. CONCAT()
+1. LENGTH()
+1. ISNULL()
+1. LPAD()
+1. RPAD()
 
+## Triple joins
+---
 
+```sql
+SELECT column(s)
+FROM
+    table1 A
+        INNER JOIN
+    table2 B
+        ON A.commonField = B.commonField
+        INNER JOIN 
+    Table3 C
+        ON B.commonField = C.commonField
+WHERE (if needed)
+```        
+        
