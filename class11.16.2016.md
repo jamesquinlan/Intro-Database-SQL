@@ -60,3 +60,13 @@ What about referential integrity?
 1. Select all products that customers from zip code 26034 have ordered.
 1. What other queries can you form?  What other queries might be of interest to the owners of the store?  What queries might be of interest to the customers?
 
+## More functions
+---
+
+Research the following functions:
+
+1. LTRIM()
+1. RTRIM()
+1. CONCAT()
+
+
