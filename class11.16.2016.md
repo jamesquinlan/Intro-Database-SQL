@@ -91,3 +91,9 @@ FROM
 WHERE (if needed)
 ```        
         
+---
+
+### Assignment
+
+Create a datamodel (database) for the math department.  We need a database that can be used to track and advise students as well as 
+aid in scheduling future classes.  The database should include students (include e.g., PIN, graduation year), whether they are major/minor, list of faculty advisors from the math department, and which classes the students have had and in which semester.  Any other details you can think of?
