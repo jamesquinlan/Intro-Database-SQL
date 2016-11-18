@@ -6,7 +6,7 @@
 |+	|addition|	2 + 3|	5|
 |-	| subtraction|	2 - 3|	-1|
 |*|	 multiplication	|2 * 3|	6|
-| /	division| (integer division truncates results)	|4 / 2|	2|
+| /	| division (integer division truncates results)	|4 / 2|	2|
 |%|	modulo (remainder)|	5 % 4|	1|
 |^	|exponentiation|	2.0 ^ 3.0|	8|
 
