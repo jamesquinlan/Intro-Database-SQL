@@ -4,7 +4,7 @@ A __subquery__ is a `SELECT` statement used within another SQL statement.  A sub
 
 NOTE: 
 
-1. Subqueries cannot include `ORDER BY` clause.  
+1. Subqueries cannot include `ORDER BY` clause. 
 2. Most JOINS can be coded as subqueries and most subqueries can be coded as JOINS.
 
 There are two questions that immediately need answered:
