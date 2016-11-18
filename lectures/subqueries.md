@@ -1,6 +1,11 @@
 ## SUBQUERIES
 ---
-A __subquery__ is a `SELECT` statement used within another SQL statement.  A subquery can return results just like any query.  
+A __subquery__ is a `SELECT` statement used within another SQL statement.  A subquery can return results just like any query.  Subqueries can be _nested_. 
+
+NOTE: 
+
+1. Subqueries cannot include `ORDER BY` clause.  
+2. Most JOINS can be coded as subqueries and most subqueries can be coded as JOINS.
 
 There are two questions that immediately need answered:
 
@@ -28,3 +33,6 @@ WHERE Customers.zip in
   )
   ;
 ```
+
+Can you think of a way to code the above example using JOINS?
+
