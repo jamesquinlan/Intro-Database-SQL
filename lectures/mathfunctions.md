@@ -19,8 +19,9 @@
 
 
 
-Function	Return Type	Description	Example	Result
-abs(x)	(same as x)	absolute value	abs(-17.4)	17.4
+|Function|	Return Type|	Description|	Example|	Result|
+|--------|-------------|-------------|---------|--------|
+|abs(x)	|(same as x)	|absolute value|	abs(-17.4)|	17.4|
 cbrt(dp)	dp	cube root	cbrt(27.0)	3
 ceil(dp or numeric)	(same as input)	smallest integer not less than argument	ceil(-42.8)	-42
 degrees(dp)	dp	radians to degrees	degrees(0.5)	28.6478897565412
