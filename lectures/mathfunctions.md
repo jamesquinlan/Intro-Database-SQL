@@ -1,20 +1,14 @@
-+	addition	2 + 3	5
--	subtraction	2 - 3	-1
-*	multiplication	2 * 3	6
-/	division (integer division truncates results)	4 / 2	2
-%	modulo (remainder)	5 % 4	1
-^	exponentiation	2.0 ^ 3.0	8
-|/	square root	|/ 25.0	5
-||/	cube root	||/ 27.0	3
-!	factorial	5 !	120
-!!	factorial (prefix operator)	!! 5	120
-@	absolute value	@ -5.0	5
-&	binary AND	91 & 15	11
-|	binary OR	32 | 3	35
-#	binary XOR	17 # 5	20
-~	binary NOT	~1	-2
-<<	binary shift left	1 << 4	16
->>	binary shift right	8 >> 2	2
+## Math Functions
+---
+
+| Operator | Description | Example | Result|
+|----------|-------------|---------|-------|
+|+	|addition|	2 + 3|	5|
+|-	| subtraction|	2 - 3|	-1|
+|*|	 multiplication	|2 * 3|	6|
+| /	division| (integer division truncates results)	|4 / 2|	2|
+|%|	modulo (remainder)|	5 % 4|	1|
+|^	|exponentiation|	2.0 ^ 3.0|	8|
 
 
 
@@ -42,4 +36,4 @@
 |sqrt(dp or numeric) |	(same as input)|	square root|	sqrt(2.0)|	1.4142135623731|
 |trunc(dp or numeric)|	(same as input)|	truncate toward zero|	trunc(42.8)	|42|
 |trunc(v numeric, s integer)	|numeric	truncate to s decimal places|	trunc(42.4382, 2)|	42.43|
-|--------|-------------|-------------|---------|--------|
+
