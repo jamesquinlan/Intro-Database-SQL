@@ -55,3 +55,26 @@ __Example__:  Create a stored procedure that gets all the products.
 ```
 
 NOTE:  Duration time - is the time that query needs to be executed. You should try to minimize it when optimizing performance of sql query.
+
+
+
+```sql
+
+# INCOMPLETE: Still working
+DELIMITER //
+ CREATE PROCEDURE CustomerOrder
+ (
+       # parameters - can not be changed
+       IN cust_num int,   # can be used without the keyword IN
+       IN order_num int,
+       OUT order_total decimal(9,2)
+ )
+   BEGIN
+	# declare local variables
+	declare quan int default 1; 
+       declare unit_price decimal(9,2);
+        
+   SELECT   FROM products;
+   END //
+ DELIMITER ;
+```
