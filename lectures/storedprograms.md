@@ -25,3 +25,16 @@ There are four types of stored programs:
 
 ### Stored Procedures
 ---
+The basic sytax for a store procedure is given below.  Note the use of `DELIMITER`.  This is needed to change from the default (semi-colon), to something else because semi-colons are used within the procedure.  Procedures are called using the `CALL` command.
+
+```sql
+USE [database];  # database is the name of the database you want to use  
+
+# change the delimited (// is also commonly used)
+DELIMITER $$  
+
+CREATE PROCEDURE procedure_name
+      (
+        
+      )
+```
