@@ -1,7 +1,6 @@
-### Stored Programs
+### Stored Programs INCOMPLETE (Covered Monday after Thankgiving)
 ---
-Starting with version 5.0, MySQL introduced extensions to standard SQL to allow writing _stored programs_ which uses procdural code to control the flow of execution and 
-consists of one or more SQL statements stored within the database.  
+__Stored Procedures__ are one of four types of stored programs introduced with version MySQL 5.0.   _Stored programs_ which uses procdural code to control the flow of execution and consists of one or more SQL statements stored within the database.  
 
 There are four types of stored programs:
 
@@ -34,7 +33,25 @@ USE [database];  # database is the name of the database you want to use
 DELIMITER $$  
 
 CREATE PROCEDURE procedure_name
-      (
-        
-      )
+(
+       parameters 
+)
+BEGIN
+      DECLARE variable varType Default def_value;
+      
+      QUERY
+END $$
+
+DELIMITER;
+
+CALL procedure_name;
+
 ```
+
+__Example__:  Create a stored procedure that gets all the products.
+
+```sql
+
+```
+
+NOTE:  Duration time - is the time that query needs to be executed. You should try to minimize it when optimizing performance of sql query.
