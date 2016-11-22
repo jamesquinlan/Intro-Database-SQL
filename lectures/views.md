@@ -70,7 +70,7 @@ DROP VIEW LowInventory
 
 3. Complex queries can be stored as a view then simplier queries based on the view can be run by non power users.
 
-4. As mentioned before, views can be used to update, insert, and delete data from the base table.
+4. As mentioned before, views can be used to update, insert, and delete data from the base table as long as the view is not based on a query containing aggregate functions, `DISTINCT`, `GROUP BY`, or `HAVING` clauses, nor the `UNION` operator.  Aggregate functions compress many records into one record and therefore updates would not be well-defined.
 
 5. You can create views based on other views (a.k.a. _nested view_).
 
