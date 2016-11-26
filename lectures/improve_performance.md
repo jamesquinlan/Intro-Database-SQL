@@ -111,7 +111,8 @@ __DO NOT USE__: On small tables, filter conditions returning high percentage of 
 ### SQL Statement Tuning 
 ---
 
-Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` and `WHERE` clauses, NOT to be confused with _database tuning_ which is concerned with the design and structure of the tables, the allocation of memory, and disk usage.  NOTE: All SQL tuning performance depends on the _SQL Optimizer_ and not all optimizers are the same.  Check your implementation and/or consult DBA to learn how the optimizer reads SQL code. 
+Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` and `WHERE` clauses, NOT to be confused with _database tuning_ which is concerned with the design and structure of the tables, the allocation of memory, and disk usage.  NOTE: All SQL tuning performance depends on the _SQL Optimizer_ and not all optimizers are the same.  Check your implementation and/or consult DBA to learn how the optimizer reads SQL code. NOTE: Although not directly effecting the performance, __ALWAYS__ establish __coding standards__ in a multiuser programming environment.
+
 
 Three tuning techniques:
 
@@ -119,6 +120,8 @@ Three tuning techniques:
 ```sql
 SELECT * FROM Smallest_Table, Largest_Table;
 ```
+
+
 - Place the most restrictive conditions first in the `WHERE` clause (which actually maybe last since some optimizers read bottom up).  The most restrictive condition is the one that returns the fewest rows of data.  You can test the order of the optimizer by switching conditions in the `WHERE` condition.  For example, test the two queries 
 ```sql
 Select * from unemath_LastName.Products Where inventory<100 and category_id=200;
@@ -131,7 +134,12 @@ Select * from unemath_LastName.Products Where category_id=200 and inventory<100;
 
 Here the condition `inventory<100` should return the most records, so `category_id=200` is the most restrictive.  
 
+It is also good practice to use an indexed column as the most restrictive condition in a query as in general indexes improve query performance.   
+
+
+
+
+
 - Placement of join conditions in the `WHERE` clause.
 
-NOTE: Although not directly effecting the performance, __ALWAYS__ establish __coding standards__ in a multiuser programming environment.
 
