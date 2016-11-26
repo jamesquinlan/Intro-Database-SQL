@@ -58,7 +58,11 @@ WHERE NAME='SMITH';
 
 ##### CREATE INDEX
 
-The MySQL syntax is:  `CREATE INDEX index_name ON TABLE_NAME`
+The MySQL syntax is:  
+
+```sql
+CREATE INDEX index_name ON TABLE_NAME
+```
 
 NOTE: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres, etc.)
 
