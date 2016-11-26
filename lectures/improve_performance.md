@@ -68,22 +68,22 @@ NOTE: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres,
 
 ##### TYPES OF INDEXES
 
-1. Single-column: the simplest and most common.  Best used with frequently searched columns used in the `WHERE` clause. 
+__Single-column__: the simplest and most common.  Best used with frequently searched columns used in the `WHERE` clause. 
 
-__EXAMPLE__:
+_EXAMPLE_:
 ```sql
 CREATE INDEX last_name_idx
 ON Customers (last_name)
 ```
 
-2. Unique Indexes: Best used when designing database one columns that are to be distinct.  This will help ensure the constraint on the inputed data.  Primary keys implicitly defined unique index.  
+__Unique Indexes__: Best used when designing database one columns that are to be distinct.  This will help ensure the constraint on the inputed data.  Primary keys implicitly defined unique index.  
 
 ```sql
 CREATE UNIQUE INDEX last_name_idx
 ON Customers (last_name)
 ```
 
-3. Composite Indexes: index on two or more columns of a table (typically columns frequently queried together).  Order matters, therefore consider putting the most frequently used column first.
+__Composite Indexes__: index on two or more columns of a table (typically columns frequently queried together).  Order matters, therefore consider putting the most frequently used column first.
 
 
 ```sql
@@ -111,11 +111,14 @@ __DO NOT USE__: On small tables, filter conditions returning high percentage of 
 ### SQL Statement Tuning 
 ---
 
-Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` and `WHERE` clauses, NOT to be confused with _database tuning_ which is concerned with the design and structure of the tables, the allocation of memory, and disk usage.  
+Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` and `WHERE` clauses, NOT to be confused with _database tuning_ which is concerned with the design and structure of the tables, the allocation of memory, and disk usage.  NOTE: All SQL tuning performance depends on the _SQL Optimizer_ and not all optimizers are the same.  Check your implementation and/or consult DBA to learn how the optimizer reads SQL code. 
 
-The three tuning techniques:
+Three tuning techniques:
 
-1. The order of the tables in the `FROM` clause
+1. The order of the tables in the `FROM` clause should be listed from smallest to largest.  For example,
+```sql
+SELECT * FROM Smallest_Table, Largest_Table;
+```
 2. Placing the most restrictive conditions first in the `WHERE` clause
 3. Placement of join conditions in the `WHERE` clause.
 
