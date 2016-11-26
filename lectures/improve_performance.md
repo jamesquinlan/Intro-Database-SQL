@@ -115,12 +115,12 @@ Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` a
 
 Three tuning techniques:
 
-1. The order of the tables in the `FROM` clause should be listed from smallest to largest.  For example,
+- The order of the tables in the `FROM` clause should be listed from smallest to largest.  For example,
 ```sql
 SELECT * FROM Smallest_Table, Largest_Table;
 ```
-2. Placing the most restrictive conditions first in the `WHERE` clause
-3. Placement of join conditions in the `WHERE` clause.
+- Placing the most restrictive conditions first in the `WHERE` clause
+- Placement of join conditions in the `WHERE` clause.
 
 NOTE: Although not directly effecting the performance, __ALWAYS__ establish __coding standards__ in a multiuser programming environment.
 
