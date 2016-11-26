@@ -101,7 +101,23 @@ __USE__: As already mentioned, Indexes are automatically created for primary key
 
 __DO__:  Test using different indexes.
 
----
+
 
 __DO NOT USE__: On small tables, filter conditions returning high percentage of the table's data, columns with high number of NULL values, or columns that are frequently manipulated.  
+
+---
+
+
+### SQL Statement Tuning 
+---
+
+Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` and `WHERE` clauses, NOT to be confused with _database tuning_ which is concerned with the design and structure of the tables, the allocation of memory, and disk usage.  
+
+The three tuning techniques:
+
+1. The order of the tables in the `FROM` clause
+2. Placing most restrictive conditions in the `WHERE` clause
+3. Placement of join conditions in the `WHERE` clause.
+
+NOTE: Although not directly effecting the performance, __ALWAYS__ establish __coding standards__ in a multiuser programming environment.
 
