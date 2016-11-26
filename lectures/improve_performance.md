@@ -41,6 +41,7 @@ __CUSTOMERS__
 
 
 __INDEX__
+
 |Name|Location|
 |---|---|
 |Davis|7, 10|
