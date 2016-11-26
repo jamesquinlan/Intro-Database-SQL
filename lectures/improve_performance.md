@@ -116,7 +116,7 @@ Optimally written SQL statements mainly consisting of "fine tuning" the `FROM` a
 The three tuning techniques:
 
 1. The order of the tables in the `FROM` clause
-2. Placing most restrictive conditions in the `WHERE` clause
+2. Placing the most restrictive conditions first in the `WHERE` clause
 3. Placement of join conditions in the `WHERE` clause.
 
 NOTE: Although not directly effecting the performance, __ALWAYS__ establish __coding standards__ in a multiuser programming environment.
