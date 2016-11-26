@@ -140,6 +140,29 @@ It is also good practice to use an indexed column as the most restrictive condit
 
 
 
-- Placement of join conditions in the `WHERE` clause.
+- Placement of join conditions in the `WHERE` clause.  The general rule of thumb is to place the base table condition on the right side of the `WHERE` condition.  A __base__ table is a table that links two tables with a common column when needing to retrieve data from two tables taht do not have a common column to join.  If no need to use a base table, then place the most restrictive condition on the right side of the `WHERE` condition.  For example, suppose we want a list of categories that manufacturer 200 makes.  Notice the Categories and Manufacturers tables are not directly linked, but indirectly through the (base) table Products.
+
+```sql
+use unemath_quinlan;
+SELECT 
+    M.manufacturer_id
+FROM
+    Manufacturers AS M
+        INNER JOIN
+    Products AS P ON M.manufacturer_id = P.manufacturer_id
+        INNER JOIN
+    Categories AS C ON C.category_id = P.category_id
+WHERE
+    C.category_id = 200
+        AND M.manufacturer_id = P.manufacturer_id
+GROUP BY M.manufacturer_id;   
+```
 
 
+##### Other considerations
+---
+1. Avoid the `LIKE` operator
+2. Avoid the `OR` operator
+3. Avoid the `HAVING` clause (recall: used with `GROUP BY` and aggregate functions)
+4. Avoid sorting (large recordsets)
+5. Do use stored procedures
