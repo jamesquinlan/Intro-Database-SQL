@@ -23,7 +23,7 @@ For example:
 
 __CUSTOMERS__
 
-|id|Last Name|
+|id|Name|
 |---|---|
 |1|Jones|
 |2|Williams|
@@ -40,4 +40,63 @@ __CUSTOMERS__
 
 
 
+__INDEX__
+|Name|Location|
+|---|---|
+|Davis|7, 10|
+|Johnson|3|
+|Jones|1|
+|Smith|4, 6, 8, 1000|
+|Williams|2, 5, 9|
+
+```sql
+SELECT *
+FROM CUSTOMERS
+WHERE NAME='SMITH';
+```
+
+##### CREATE INDEX
+
+The MySQL syntax is:  `CREATE INDEX index_name ON TABLE_NAME`
+
+NOTE: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres, etc.)
+
+##### TYPES OF INDEXES
+
+1. Single-column: the simplest and most common.  Best used with frequently searched columns used in the `WHERE` clause. 
+
+__EXAMPLE__:
+```sql
+CREATE INDEX last_name_idx
+ON Customers (last_name)
+```
+
+2. Unique Indexes: Best used when designing database one columns that are to be distinct.  This will help ensure the constraint on the inputed data.  Primary keys implicitly defined unique index.  
+
+```sql
+CREATE UNIQUE INDEX last_name_idx
+ON Customers (last_name)
+```
+
+3. Composite Indexes: index on two or more columns of a table (typically columns frequently queried together).  Order matters, therefore consider putting the most frequently used column first.
+
+
+```sql
+CREATE UNIQUE INDEX customer_idx
+ON Customers (last_name, first_name)
+```
+
+##### Implicit Indexes
+ 
+Indexes are automatically created for primary key and unique constraints. 
+
+##### To index or not to index
+
+__USE__: As already mentioned, Indexes are automatically created for primary key and unique constraints. Also, __foreign keys__ are excellent candidates to be indexed as they are often used to join the parent table.  In short, __columns used for table joins should be indexed__.  Columns used in `ORDER BY` and `GROUP BY` should be indexed.  Index columns columns with high frequency of unique values and columns used in `WHERE` clause that return a low percentage of rows. 
+
+__DO__:  Test using different indexes.
+
+---
+
+__DO NOT USE__: On small tables, filter conditions returning high percentage of the table's data, columns with high number of NULL values, or columns that are frequently manipulated.  
 
