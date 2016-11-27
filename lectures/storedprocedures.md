@@ -1,4 +1,4 @@
-### Stored Programs INCOMPLETE (Covered Monday after Thankgiving)
+### Stored Programs INCOMPLETE (maybe for Wednesday after Thankgiving)
 ---
 __Stored Procedures__ are one of four types of stored programs introduced with version MySQL 5.0.   _Stored programs_ which uses procdural code to control the flow of execution and consists of one or more SQL statements stored within the database.  
 
