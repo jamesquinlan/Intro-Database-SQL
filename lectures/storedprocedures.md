@@ -9,6 +9,16 @@ There are four types of stored programs:
 3. __Trigger__: executed in response to DML commands
 4. __Event__: scheduled execution
 
+
+##### Benefits of Stored Procedures
+
+- Stored procedures can increase the database performance since in many implementations stored procedures are __compiled__ and stored in the database. NOTE: MySQL implements the stored procedures differently as stored procedures are compiled on the fly (the first time per connection) and stores the compiled version in cache.  Applications that call the stored procedure multiple times per connection will use the compiled version, thus run faster.  
+
+- Stored procedures reduce traffic between application and database.  The application only sends name and parameters to the procedure instead of multi-line queries. 
+
+- Stored procedures are secure. Permissions can be given to access stored procedures without giving permissions to the underlying database tables.  Using stored procedures can counter SQL injection attacks.
+
+
 ### Flow Control Statements
 ---
 
