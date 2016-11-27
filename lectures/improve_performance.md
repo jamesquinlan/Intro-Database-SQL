@@ -161,7 +161,7 @@ GROUP BY M.manufacturer_id;
 
 ##### Other considerations
 ---
-1. Avoid the `LIKE` operator
+1. Avoid the `LIKE` operator or wildcards
 2. Avoid the `OR` operator
 3. Avoid the `HAVING` clause (recall: used with `GROUP BY` and aggregate functions)
 4. Avoid sorting (large recordsets)
