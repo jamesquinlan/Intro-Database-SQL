@@ -19,19 +19,6 @@ There are four types of stored programs:
 - Stored procedures are secure. Permissions can be given to access stored procedures without giving permissions to the underlying database tables.  Using stored procedures can counter SQL injection attacks.
 
 
-### Flow Control Statements
----
-
-`IF...ELSEIF...ELSE`: conditional flow control.
-
-`CASE...WHEN...ELSE`: also a conditional flow control typically used when there are a small number of conditional cases
-
-`WHILE...DO...LOOP`: repetition structure that continually executes while a condition is true
-
-`REPEAT...UNTIL...END REPEAT`:  repeat while condition is true
-
-`DECLARE CURSOR FOR`:  Defines a result set that can be processed by a loop
-
 ### Stored Procedures
 ---
 The basic sytax for a store procedure is given below.  Note the use of `DELIMITER`.  This is needed to change from the default (semi-colon), to something else because semi-colons are used within the procedure.  Procedures are called using the `CALL` command.
@@ -61,30 +48,64 @@ CALL procedure_name;
 __Example__:  Create a stored procedure that gets all the products.
 
 ```sql
+use unemath_quinlan; 	# select database to use
 
+DROP PROCEDURE IF EXISTS GetAllProducts;
+
+DELIMITER //			# change the delimited from semi-colon to something else
+
+ CREATE PROCEDURE GetAllProducts()
+   BEGIN
+		SELECT *  FROM Products;
+   END //
+ 
+ DELIMITER ;			# change delimited back to original	
 ```
 
 NOTE:  Duration time - is the time that query needs to be executed. You should try to minimize it when optimizing performance of sql query.
 
 
 
-```sql
+### Flow Control Statements
+---
 
-# INCOMPLETE: Still working
-DELIMITER //
+`IF...ELSEIF...ELSE`: conditional flow control.
+
+`CASE...WHEN...ELSE`: also a conditional flow control typically used when there are a small number of conditional cases
+
+`WHILE...DO...LOOP`: repetition structure that continually executes while a condition is true
+
+`REPEAT...UNTIL...END REPEAT`:  repeat while condition is true
+
+`DECLARE CURSOR FOR`:  Defines a result set that can be processed by a loop
+
+
+##### STORED PROCEDURE TEMPLATE
+
+```sql
+USE unemath_quinlan;
+DROP PROCEDURE IF EXISTS CustomerOrder;
+DELIMITER //	# change default delimiter
  CREATE PROCEDURE CustomerOrder
  (
-       # parameters - can not be changed
-       IN cust_num int,   # can be used without the keyword IN
-       IN order_num int,
-       OUT order_total decimal(9,2)
+       # parameters - use if needed
+       IN order_num 	int,		# can be used without the keyword IN
+       OUT order_total 	decimal(9,2)  	# must use keyword OUT
  )
    BEGIN
 	# declare local variables
-	declare quan int default 1; 
-       declare unit_price decimal(9,2);
+	declare quantity	int default 1; 
+        declare unit_price 	decimal(9,2);
+	declare running_total	decimal(9,2);
         
-   SELECT   FROM products;
+	SELECT 
+    		SUM(P.msrp * OD.qty) AS order_total
+	FROM
+    		unemath_quinlan.Products AS P
+        		INNER JOIN
+    		unemath_quinlan.OrderDetails AS OD ON P.id = OD.product
+	WHERE
+    		OD.`order` = 1;
    END //
  DELIMITER ;
 ```
