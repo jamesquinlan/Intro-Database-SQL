@@ -20,6 +20,33 @@ FROM
 ```
 
 
+__Example__  Select all customers that orders a specific product from a specific zipcode.
+
+```sql
+# Specify a few variables
+SET @zip=43920;
+SET @prod=1003;
+
+# Choose the database
+use unemath_quinlan;
+
+# Query DB
+SELECT 
+    C.id,
+    CONCAT(C.fname, ' ', C.lname) AS Customer,
+    O.id,
+    OD.product
+FROM
+    Customers AS C
+        INNER JOIN
+    Orders AS O ON C.id = O.customer
+        INNER JOIN
+    OrderDetails AS OD ON O.id = OD.order
+WHERE
+    C.zip = @zip AND OD.product = @prod
+ORDER BY C.id , O.id , OD.product; 
+```
+
 ### LEFT (RIGHT) JOIN
 ---
 
