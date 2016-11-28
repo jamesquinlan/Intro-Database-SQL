@@ -62,19 +62,3 @@ What about referential integrity?
 1. What other queries can you form?  What other queries might be of interest to the owners of the store?  What queries might be of interest to the customers?
 
 
-
-## Triple joins
----
-
-```sql
-SELECT column(s)
-FROM
-    table1 A
-        INNER JOIN
-    table2 B
-        ON A.commonField = B.commonField
-        INNER JOIN 
-    Table3 C
-        ON B.commonField = C.commonField
-WHERE (if needed)
-```        
