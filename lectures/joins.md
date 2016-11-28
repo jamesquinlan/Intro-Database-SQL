@@ -20,6 +20,25 @@ FROM
 ```
 
 
+
+##### Triple joins
+---
+
+```sql
+SELECT column(s)
+FROM
+    table1 A
+        INNER JOIN
+    table2 B
+        ON A.commonField = B.commonField
+        INNER JOIN 
+    Table3 C
+        ON B.commonField = C.commonField
+WHERE (if needed)
+```        
+
+
+
 __Example__  Select all customers that orders a specific product from a specific zipcode.
 
 ```sql
