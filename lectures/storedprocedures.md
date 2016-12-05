@@ -142,3 +142,69 @@ END //
 
 DELIMITER ;
 ```
+
+
+
+#### Functions (UDF)
+---
+
+Functions (a.k.a. user defined functions) is a executable block of code.  MySQL only allows scalar functions (functions that return a single value).  Use the`RETURN` keyword in the function declaration (just before the `BEGIN`) and use the `RETURN()` to specify the value returned.
+
+NOTE: Functions do not execute DML.
+
+To CREATE a function: 
+
+```sql
+USE `unemath_quinlan`;
+Delimiter //
+CREATE FUNCTION `getManufacturerID` 
+(
+	manufacturer_parameter varchar(38) 
+)
+RETURNS INT
+BEGIN
+	declare man_id_var int;
+
+	SELECT 
+		manufacturer_id
+	INTO man_id_var FROM
+		unemath_quinlan.Manufacturers
+	WHERE
+		Manufacturers.manufacturer = manufacturer_parameter;
+
+	RETURN man_id_var;
+END//
+
+DELIMITER ;
+```
+
+To use a function, call it just like any other (built-in) function in SQL.  For example, 
+
+```sql
+SELECT * FROM unemath_quinlan.Products WHERE manufacturer_id=ManufacturerID('Artline');
+```
+
+
+##### TRIGGERS
+---
+Triggers (introduced in 5.0) execute __before__ or __after__  (in response to) a DML command.  A `FOR EACH ROW` clause must be used.  `OLD` and `NEW` keywords can be used to get and set the values for the columns that are stored in the old row and the new row.
+
+
+```sql
+USE unemath_quinlan;
+DELIMITER \\
+CREATE TRIGGER customer_before_update
+	BEFORE UPDATE ON customers
+	FOR EACH ROW
+BEGIN
+	SET NEW.email=LOWER(NEW.email);
+END\\
+DELIMITER ;
+```
+
+Fire the trigger like:
+```sql
+UPDATE Customers
+SET email='JSMITH@YAHOO.COM'
+WHERE Customers.id=1;
+```
