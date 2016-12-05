@@ -134,9 +134,9 @@ DELIMITER //	# change default delimiter
         
 	IF theDate<Now() THEN
 		SELECT 
-    			Orders.id AS Order_Number,
-   			Orders.date AS Order_Date,
-    			Orders.customer AS Customer
+			Orders.id AS Order_Number,
+			Orders.date AS Order_Date,
+			Orders.customer AS Customer
 		FROM
     			Orders;
         END IF;
