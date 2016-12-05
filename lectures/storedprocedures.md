@@ -138,7 +138,7 @@ DELIMITER //	# change default delimiter
 			Orders.date AS Order_Date,
 			Orders.customer AS Customer
 		FROM
-    			Orders;
+			Orders;
         END IF;
    END //
  DELIMITER ;
