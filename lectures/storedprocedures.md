@@ -208,3 +208,23 @@ UPDATE Customers
 SET email='JSMITH@YAHOO.COM'
 WHERE Customers.id=1;
 ```
+
+
+##### EVENTS
+---
+
+You can use events to purge old records from the database for example.  Before working with EVENTS check to be sure the event scheduler is ON, by default it is off.  The syntax is:
+
+```sql
+SHOW VARIABLES;
+SET event_scheduler = ON; # if OFF in show variables
+DELIMITER //
+
+CREATE EVENT deleteOldOrders
+ON SCHEDULE EVERY 1 MONTH
+STARTS '2017-01-01'
+DO BEGIN
+	DELETE FROM Orders WHERE Orders.date < NOW() - INTERVAL 1 MONTH
+END //
+DELIMITER ;
+```
