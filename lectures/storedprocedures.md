@@ -123,23 +123,22 @@ __EXAMPLE__: We want all orders before a certain date (or after a certain date)
 ```sql
 USE unemath_quinlan;
 DROP PROCEDURE IF EXISTS OrdersBeforeDate;
-DELIMITER //	# change default delimiter
+DELIMITER //    # change default delimiter
  CREATE PROCEDURE OrdersBeforeDate
  (
        # parameters - use if needed
-       theDate	 	date,		# NOTE: no IN keyword
+       theDate      date       # NOTE: no IN keyword
  )
    BEGIN
-	# declare local variables (if any)
-        
-	IF theDate < Now() THEN
-		SELECT 
-			Orders.id AS Order_Number,
-			Orders.date AS Order_Date,
-			Orders.customer AS Customer
-		FROM
-			Orders;
-        END IF;
-   END //
- DELIMITER ;
+    IF theDate<Now() THEN
+        SELECT 
+                Orders.id AS Order_Number,
+				Orders.date AS Order_Date,
+                Orders.customer AS Customer
+        FROM
+                Orders;
+	END IF;
+END //
+
+DELIMITER ;
 ```
