@@ -132,7 +132,7 @@ DELIMITER //	# change default delimiter
    BEGIN
 	# declare local variables (if any)
         
-	IF theDate<Now() THEN
+	IF theDate < Now() THEN
 		SELECT 
 			Orders.id AS Order_Number,
 			Orders.date AS Order_Date,
