@@ -181,7 +181,7 @@ DELIMITER ;
 To use a function, call it just like any other (built-in) function in SQL.  For example, 
 
 ```sql
-SELECT * FROM unemath_quinlan.Products WHERE manufacturer_id=ManufacturerID('Artline');
+SELECT * FROM unemath_quinlan.Products WHERE manufacturer_id=getManufacturerID('Artline');
 ```
 
 
