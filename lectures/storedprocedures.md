@@ -1,11 +1,11 @@
-### Stored Programs INCOMPLETE (maybe for Wednesday after Thankgiving)
+### Stored Programs 
 ---
 __Stored Procedures__ are one of four types of stored programs introduced with version MySQL 5.0.   _Stored programs_ which uses procdural code to control the flow of execution and consists of one or more SQL statements stored within the database.  
 
 There are four types of stored programs:
 
 1. __Stored Procededures__:  Called from an application that has access to the database
-2. __Stored function__: called from a SQL statement  
+2. __Stored function__: called from a SQL statement.  Works much like a pre-build function like `sum` or `max` 
 3. __Trigger__: executed in response to DML commands
 4. __Event__: scheduled execution
 
@@ -21,7 +21,7 @@ There are four types of stored programs:
 
 ### Stored Procedures
 ---
-The basic sytax for a store procedure is given below.  Note the use of `DELIMITER`.  This is needed to change from the default (semi-colon), to something else because semi-colons are used within the procedure.  Procedures are called using the `CALL` command.
+The basic syntax for a store procedure is given below.  Note the use of `DELIMITER`.  This is needed to change from the default (semi-colon), to something else because semi-colons are used within the procedure.  Procedures are called using the `CALL` command.
 
 ```sql
 USE [database];  # database is the name of the database you want to use  
@@ -34,9 +34,9 @@ CREATE PROCEDURE procedure_name
        parameters 
 )
 BEGIN
-      DECLARE variable varType Default def_value;
+      DECLARE variableName varType Default def_value; #NOTE: Must be called different than Table Column
       
-      QUERY
+      QUERY or CODE
 END $$
 
 DELIMITER;
@@ -71,7 +71,7 @@ NOTE:  Duration time - is the time that query needs to be executed. You should t
 
 `IF...ELSEIF...ELSE`: conditional flow control.
 
-`CASE...WHEN...ELSE`: also a conditional flow control typically used when there are a small number of conditional cases
+`CASE...WHEN...ELSE`: also a conditional flow control typically used when there are a small number of cases
 
 `WHILE...DO...LOOP`: repetition structure that continually executes while a condition is true
 
@@ -80,13 +80,13 @@ NOTE:  Duration time - is the time that query needs to be executed. You should t
 `DECLARE CURSOR FOR`:  Defines a result set that can be processed by a loop
 
 
-##### STORED PROCEDURE TEMPLATE
+##### STORED PROCEDURE EXAMPLE (use as a template)
 
 ```sql
 USE unemath_quinlan;
-DROP PROCEDURE IF EXISTS CustomerOrder;
+DROP PROCEDURE IF EXISTS OrderTotal;
 DELIMITER //	# change default delimiter
- CREATE PROCEDURE CustomerOrder
+ CREATE PROCEDURE OrderTotal
  (
        # parameters - use if needed
        IN order_num 	int,		# can be used without the keyword IN
@@ -105,7 +105,39 @@ DELIMITER //	# change default delimiter
         		INNER JOIN
     		unemath_quinlan.OrderDetails AS OD ON P.id = OD.product
 	WHERE
-    		OD.`order` = 1;
+    		OD.`order` = order_num;
+   END //
+ DELIMITER ;
+```
+
+
+Call this procedure using `CALL OrderTotal(1,@order_total)`.
+
+
+##### IF THEN ELSE
+
+__EXAMPLE__: We want all orders before a certain date (or after a certain date)
+
+
+
+```sql
+USE unemath_quinlan;
+DROP PROCEDURE IF EXISTS OrdersBeforeDate;
+DELIMITER //	# change default delimiter
+ CREATE PROCEDURE OrdersBeforeDate
+ (
+       # parameters - use if needed
+       theDate	 	date,		# NOTE: no IN keyword
+ )
+   BEGIN
+	# declare local variables (if any)
+        
+	IF theDate<Now() THEN
+	SELECT 
+    		Orders.id AS `Order Number`, Orders.date as `Order Date`, Orders.customer as Customer
+	FROM
+    		unemath_quinlan.Orders AS O;
+        END IF;
    END //
  DELIMITER ;
 ```
