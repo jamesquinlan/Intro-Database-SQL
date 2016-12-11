@@ -51,7 +51,15 @@ __Normal Forms__:
 
 There are many ways to summarize data. Some of most common methods are to count the number or observations, add together all the values in a set of rows, take the average of values in a set of rows (or columns), or return the maximum value of a column in a set of rows.  Each of this summary methods aggregate the data in some way. Some aggregate functions in SQL are `count`, `sum`, `average`, and `max`. 
 
-#### Database Design
+#### DQL
+
+Data query language uses the `SELECT` statement to obtain data from the database.  Every (nontrivial) query must contain the `FROM` clause.  By trivial query, we mean `SELECT 'HELLO WORLD'` uses the `SELECT` statement without the `FROM` clause, to print 'HELLO WORLD'.  Select queries can be simple or complex, contain subqueries and joins (depending on what questions you are trying to answer).  Here are a few questions (or statements).
+
+* List all customers from West Virginia
+
+```sql
+
+```
 
 
 
