@@ -55,11 +55,33 @@ There are many ways to summarize data. Some of most common methods are to count 
 
 Data query language uses the `SELECT` statement to obtain data from the database.  Every (nontrivial) query must contain the `FROM` clause.  By trivial query, we mean `SELECT 'HELLO WORLD'` uses the `SELECT` statement without the `FROM` clause, to print 'HELLO WORLD'.  Select queries can be simple or complex, contain subqueries and joins (depending on what questions you are trying to answer).  Here are a few questions (or statements).
 
-* List all customers from West Virginia
+* Find all zipcodes from the state of West Virginia.
+```sql
+SELECT zip FROM unemath_quinlan.Zipcodes where state='WV';
+```
+
+* Find all customers' email addresses from West Virginia (note the use of a subquery).  Also, there is most likely more than one way to do this.
 
 ```sql
+use unemath_quinlan;
 
+SELECT 
+    Customers.email
+FROM
+    Customers
+WHERE
+    Customers.zip IN 
+       (
+       SELECT 
+            zip
+        FROM
+            unemath_quinlan.Zipcodes
+        WHERE
+            state = 'WV'
+        ); 
 ```
+
+* List all products purchased from West Virginia customers.  In other words, what are the customers from West Virginia buying?
 
 
 
