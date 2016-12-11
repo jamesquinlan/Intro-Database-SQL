@@ -33,9 +33,9 @@ Storing data in a flat file (e.g., Spreadsheet) is not efficient and typically t
 
 #### Data Model and Normal Form(s)
 
-The logical design of the database is of extreme importance.  Given a scenario, you will need to create a data model that contains relations and relationships among these relations.  The "graph" diagrams used during class are called __Entity Relation Diagrams__ (or ERD for short).  Essential to the design are __keys__ and _normal forms__.  Every relation should have a key and the entire design should follow the three normal forms (NOTE: There are eight total normal forms.  In theory, all designs should follow all normal forms, but in practice, only 3 are followed.  
+The logical design of the database is of extreme importance.  Given a scenario, you will need to create a data model that contains relations and relationships among these relations.  The "graph" diagrams used during class are called __Entity Relation Diagrams__ (or ERD for short).  Essential to the design are __keys__ and __normal forms__.  Every relation should have a key and the entire design should follow the three normal forms (NOTE: There are eight total normal forms.  In theory, all designs should follow all normal forms, but in practice, only 3 are followed.  
 
-View notes on keys: 
+View notes on [keys](https://github.com/jamesquinlan/mat301/blob/master/lectures/datamodel.md): 
 
 #### Aggregate Functions
 
