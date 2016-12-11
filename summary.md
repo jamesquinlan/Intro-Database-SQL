@@ -78,10 +78,32 @@ WHERE
             unemath_quinlan.Zipcodes
         WHERE
             state = 'WV'
-        ); 
+        )
+; 
 ```
 
-* List all products purchased from West Virginia customers.  In other words, what are the customers from West Virginia buying?
+* List all products purchased from West Virginia customers.  In other words, what are the customers from West Virginia buying?  This is a complex query.  Ultimately, we want a listing of product names.  A good strategy would be to break this problem into smaller parts.  For example, first we will create a VIEW of customer ID from West Virginia.
+
+```sql
+use unemath_quinlan;
+
+CREATE VIEW AS WVcustomers
+SELECT 
+    Customers.email
+FROM
+    Customers
+WHERE
+    Customers.zip IN 
+       (
+       SELECT 
+            zip
+        FROM
+            unemath_quinlan.Zipcodes
+        WHERE
+            state = 'WV'
+        )
+; 
+```
 
 
 
