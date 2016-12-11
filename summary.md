@@ -37,6 +37,16 @@ The logical design of the database is of extreme importance.  Given a scenario, 
 
 View notes on [keys](https://github.com/jamesquinlan/mat301/blob/master/lectures/datamodel.md): 
 
+View debate on natural vs. surrogate keys [here](http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm)
+
+__Normal Forms__: 
+
+1NF - requires each row to be unique.  In particular, one main rationale of using a RDB over a spreadsheet is to eliminate redundancy.  Second, each field (column, attribute) should only contain ONE piece of information.  For example, you do not want ADDRESS to be a column, instead split into street number, city, state, zip.  Similarly, NAME should be split into FIRST and LAST.  
+
+2NF - Removes _functional dependencies_.   In a 2NF-compliant database structure, remove subsets of data that apply to multiple rows of a table and place them in separate tables.  Use foreign keys to connect.  For example, in the `CUSTOMERS` table storing the CITY, STATE, and ZIP would violate 2NF.  That is, the ZIP = f(CITY, STATE). The goal is to NOT include redundant data (for example, two customers from Portland, Maine).  NOTE: Assumes already in 1NF
+
+3NF - Removes _transitive dependencies_. A transitive dependency exists if one attribute of a relation depends on another in the same relation (i.e., table).  For example, storing the manufacturer's website URL in the `Products`  table would produce a transitive dependency.  That is, the product is dependent on the manufacturer, a manufacturer's website URL is unique.  Then by transitivity, the product dependent on the URL.  NOTE:  Assumes table is already in 2NF.
+
 #### Aggregate Functions
 
 There are many ways to summarize data. Some of most common methods are to count the number or observations, add together all the values in a set of rows, take the average of values in a set of rows (or columns), or return the maximum value of a column in a set of rows.  Each of this summary methods aggregate the data in some way. Some aggregate functions in SQL are `count`, `sum`, `average`, and `max`. 
