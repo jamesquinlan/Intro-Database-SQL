@@ -146,15 +146,15 @@ Next, we find all products using the VIEW we created.  This uses both inner and 
 use unemath_quinlan;
 
 SELECT 
-    Products.id, Products.name
+	Products.id, Products.name
 FROM
 	Products AS P
 		RIGHT OUTER JOIN
- OrderDetails AS OD ON P.id = OD.product
-    		INNER JOIN
- Orders AS O ON OD.order = O.id
+	OrderDetails AS OD ON P.id = OD.product
 		INNER JOIN
-WVcustomers AS WV ON O.customer=WV.id;   
+	Orders AS O ON OD.order = O.id
+		INNER JOIN
+	WVcustomers AS WV ON O.customer=WV.id;   
 ```
 How would you suggest setting this scenario up if you wanted to find the products that customers from ANY (variable) state?
 
