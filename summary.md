@@ -171,3 +171,4 @@ Discuss some of the primary responsibilities of a DBA (e.g., database replicatio
 
 #### Stored Programs
 
+There are four types of stored programs ([Read]())Stored programs can be thought of as one aspect of _performance tuning_.
