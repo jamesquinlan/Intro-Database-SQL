@@ -167,14 +167,31 @@ Discuss some of the primary responsibilities of a DBA (e.g., database replicatio
 
 #### Performance Tuning
 
+There are several ways to "_tune_" your database.  A few include: creating indexes, using stored procedures, and writing queries in a way that most restrictive conditions are executed first.  You should be able to discuss the various methods and their consequences.  
 
 
 #### Stored Programs
 
 There are four types of stored programs ([Read](https://github.com/jamesquinlan/mat301/blob/master/lectures/storedprocedures.md)).  There are several benefits of using stored programs.  For example, stored programs can be thought of as one aspect of _performance tuning_.  Stored programs can make the database more robust by adding __triggers__ (fired before or after DML) and __events__ (to automate several scheduled processes for routine maintenance).  
 
-You should be able to write a function to say return the results of a list of customers from _some_ state (see above).  In particular, we could write a function that will return customers from a given state where the state is a variable input passed to the function as a parameter.  In particular, 
+We could write a function that will return average msrp of all products made from a particular country. Remember, a function returns a single value.  In particular, consider the function below: 
 
 ```sql
+USE `unemath_quinlan`;
+Delimiter //
+CREATE FUNCTION `getAverageCostByCountry` 
+(
+	country_parameter varchar(24) 
+)
+RETURNS decimal(2)
+BEGIN
+	declare products_average decimal(2);
 
+	SELECT round(avg(Products.cost),2) FROM Products WHERE Products.country=country_parameter;
+
+
+	RETURN products_average;
+END//
+
+DELIMITER ;
 ```
