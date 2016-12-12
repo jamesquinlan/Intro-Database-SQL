@@ -124,7 +124,7 @@ use unemath_quinlan;
 
 CREATE VIEW WVcustomers AS
 SELECT 
-    Customers.id
+    Customers.id AS id
 FROM
     Customers
 WHERE
@@ -148,13 +148,13 @@ use unemath_quinlan;
 SELECT 
     Products.id, Products.name
 FROM
-	Products
+	Products AS P
 		RIGHT OUTER JOIN
- OrderDetails ON Products.id = OrderDetails.product
+ OrderDetails AS OD ON P.id = OD.product
     		INNER JOIN
- Orders ON OrderDetails.order = Orders.id
+ Orders AS O ON OD.order = O.id
 		INNER JOIN
-	WVcustomers ON Orders.customer=WVcustomers.id;   
+WVcustomers AS WV ON O.customer=WV.id;   
 ```
 How would you suggest setting this scenario up if you wanted to find the products that customers from ANY (variable) state?
 
