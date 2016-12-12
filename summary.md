@@ -5,6 +5,7 @@
 * [Normal Forms](#data-model-and-normal-forms)
 * [Aggregate Functions](#aggregate-functions)
 * [DQL](#dql)
+* [DML](#dml)
 * [DBA](#dba)
 * [Perfomance Tuning](#performance-tuning)
 * [Stored Programs](#stored-programs)
@@ -159,6 +160,10 @@ FROM
 How would you suggest setting this scenario up if you wanted to find the products that customers from ANY (variable) state?
 
 
+
+#### DML
+
+DML stands for _data manipulation language_ and includes SQL commands: `INSERT`, `UPDATE`, and `DELETE`.  Example and syntax can be found [here]().
 ---
 
 #### DBA
