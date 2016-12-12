@@ -2,7 +2,9 @@
 
 * [Overview](#overview)
 * [Tables](#relations--tables)
-* [Normal Forms](#data-model-and-normal-form)
+* [Normal Forms](#data-model-and-normal-forms)
+* [Aggregate Functions](#aggregate-functions)
+* [DQL](#dql)
  
 
 
@@ -39,9 +41,7 @@ The logical design of the database is of extreme importance.  Given a scenario, 
 
 View notes on [keys](https://github.com/jamesquinlan/mat301/blob/master/lectures/datamodel.md): 
 
-View debate on natural vs. surrogate keys [here](http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm)
-
-__Normal Forms__: 
+View debate on natural vs. surrogate keys [here](http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm) 
 
 1NF - requires each row to be unique.  In particular, one main rationale of using a RDB over a spreadsheet is to eliminate redundancy.  Second, each field (column, attribute) should only contain ONE piece of information.  For example, you do not want ADDRESS to be a column, instead split into street number, city, state, zip.  Similarly, NAME should be split into FIRST and LAST.  
 
