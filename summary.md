@@ -5,6 +5,10 @@
 * [Normal Forms](#data-model-and-normal-forms)
 * [Aggregate Functions](#aggregate-functions)
 * [DQL](#dql)
+* [DBA](#dba)
+* [Perfomance Tuning](#performance-tuning)
+* [Stored Programs](#stored-programs)
+
  
 
 
@@ -155,9 +159,11 @@ FROM
 
 #### DBA
 
-Discuss some of the primary responsibilities of a DBA.
+Discuss some of the primary responsibilities of a DBA (e.g., database replication and assigning user privileges)
+
+#### Performance Tuning
 
 
 
-
+#### Stored Programs
 
