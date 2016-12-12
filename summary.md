@@ -55,6 +55,18 @@ There are many ways to summarize data. Some of most common methods are to count 
 
 Data query language uses the `SELECT` statement to obtain data from the database.  Every (nontrivial) query must contain the `FROM` clause.  By trivial query, we mean `SELECT 'HELLO WORLD'` uses the `SELECT` statement without the `FROM` clause, to print 'HELLO WORLD'.  Select queries can be simple or complex, contain subqueries and joins (depending on what questions you are trying to answer).  Here are a few questions (or statements).
 
+* Find all product names that contain the word "Bird".
+
+```sql
+SELECT Products.name FROM unemath_quinlan.Products WHERE Products.name LIKE '%Bird%';
+```
+
+* Count all products that have the word "Bird" in its name.
+```sql
+SELECT COUNT(Products.id) FROM unemath_quinlan.Products WHERE Products.name LIKE '%Bird%';
+```
+
+* Find all products made in China from category 
 * Find all zipcodes from the state of West Virginia.
 ```sql
 SELECT zip FROM unemath_quinlan.Zipcodes where state='WV';
@@ -87,9 +99,9 @@ WHERE
 ```sql
 use unemath_quinlan;
 
-CREATE VIEW AS WVcustomers
+CREATE VIEW WVcustomers AS
 SELECT 
-    Customers.email
+    Customers.id
 FROM
     Customers
 WHERE
@@ -105,7 +117,22 @@ WHERE
 ; 
 ```
 
+Next, we find all products using the VIEW we created.  This uses both inner and outer joins.  There is _certainly_ other ways to find this information.
 
+```sql
+use unemath_quinlan;
+
+SELECT 
+    Products.id, Products.name
+FROM
+	Products
+		  RIGHT OUTER JOIN
+ OrderDetails ON Products.id = OrderDetails.product
+    INNER JOIN
+ Orders ON OrderDetails.order = Orders.id
+		INNER JOIN
+	WVcustomers ON Orders.customer=WVcustomers.id;   
+```
 
 
 
