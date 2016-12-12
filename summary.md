@@ -1,7 +1,8 @@
 ### Index
 
 * [Overview](#overview)
-* [Tables](#relations)
+* [Tables](#relations--tables)
+* [Normal Forms](#data-model-and-normal-form)
  
 
 
