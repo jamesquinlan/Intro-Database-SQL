@@ -171,4 +171,10 @@ Discuss some of the primary responsibilities of a DBA (e.g., database replicatio
 
 #### Stored Programs
 
-There are four types of stored programs ([Read]())Stored programs can be thought of as one aspect of _performance tuning_.
+There are four types of stored programs ([Read](https://github.com/jamesquinlan/mat301/blob/master/lectures/storedprocedures.md)).  There are several benefits of using stored programs.  For example, stored programs can be thought of as one aspect of _performance tuning_.  Stored programs can make the database more robust by adding __triggers__ (fired before or after DML) and __events__ (to automate several scheduled processes for routine maintenance).  
+
+You should be able to write a function to say return the results of a list of customers from _some_ state (see above).  In particular, we could write a function that will return customers from a given state where the state is a variable input passed to the function as a parameter.  In particular, 
+
+```sql
+
+```
