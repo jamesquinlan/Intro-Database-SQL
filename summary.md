@@ -164,6 +164,7 @@ How would you suggest setting this scenario up if you wanted to find the product
 #### DML
 
 DML stands for _data manipulation language_ and includes SQL commands: `INSERT`, `UPDATE`, and `DELETE`.  Example and syntax can be found [here](https://github.com/jamesquinlan/mat301/blob/master/lectures/dml.md).
+
 ---
 
 #### DBA
