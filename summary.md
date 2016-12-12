@@ -143,9 +143,9 @@ SELECT
     Products.id, Products.name
 FROM
 	Products
-		  RIGHT OUTER JOIN
+		RIGHT OUTER JOIN
  OrderDetails ON Products.id = OrderDetails.product
-    INNER JOIN
+    		INNER JOIN
  Orders ON OrderDetails.order = Orders.id
 		INNER JOIN
 	WVcustomers ON Orders.customer=WVcustomers.id;   
