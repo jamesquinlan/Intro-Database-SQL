@@ -153,6 +153,7 @@ FROM
 
 #### DBA
 
+Discuss some of the primary responsibilities of a DBA.
 
 
 
