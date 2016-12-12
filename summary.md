@@ -66,7 +66,24 @@ SELECT Products.name FROM unemath_quinlan.Products WHERE Products.name LIKE '%Bi
 SELECT COUNT(Products.id) FROM unemath_quinlan.Products WHERE Products.name LIKE '%Bird%';
 ```
 
-* Find all products made in China from category 
+* Find all products made in China from categories 116 and 430.
+```sql
+SELECT Products.id FROM unemath_quinlan.Products WHERE Products.country='China' and Products.category_id IN (116,430);
+```
+
+* Find the average cost of all products made in China from categories 116 and 430, round to two decimal places.
+```sql
+SELECT round(avg(Products.cost),2) 
+FROM 
+	unemath_quinlan.Products 
+WHERE 
+	Products.country='China' 
+AND 	
+	Products.category_id IN (116,430)
+;
+'''
+
+
 * Find all zipcodes from the state of West Virginia.
 ```sql
 SELECT zip FROM unemath_quinlan.Zipcodes where state='WV';
