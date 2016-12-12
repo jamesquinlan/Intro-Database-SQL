@@ -174,7 +174,7 @@ There are several ways to "_tune_" your database.  A few include: creating index
 
 There are four types of stored programs ([Read](https://github.com/jamesquinlan/mat301/blob/master/lectures/storedprocedures.md)).  There are several benefits of using stored programs.  For example, stored programs can be thought of as one aspect of _performance tuning_.  Stored programs can make the database more robust by adding __triggers__ (fired before or after DML) and __events__ (to automate several scheduled processes for routine maintenance).  
 
-We could write a function that will return average msrp of all products made from a particular country. Remember, a function returns a single value.  In particular, consider the function below: 
+Functions are another type of stored programs.  We could write a function that will return average msrp of all products made from a particular country. Remember, a function returns a single value.  In particular, consider the function below: 
 
 ```sql
 USE `unemath_quinlan`;
