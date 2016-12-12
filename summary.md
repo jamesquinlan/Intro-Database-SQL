@@ -167,7 +167,7 @@ Discuss some of the primary responsibilities of a DBA (e.g., database replicatio
 
 #### Performance Tuning
 
-There are several ways to "_tune_" your database.  A few include: creating indexes, using stored procedures, and writing queries in a way that most restrictive conditions are executed first.  You should be able to discuss the various methods and their consequences.  
+There are several ways to "_tune_" your database.  A few include: creating indexes, using stored procedures, and writing queries in a way that most restrictive conditions are executed first.  You should be able to discuss the various methods and their consequences.  See [Also](https://github.com/jamesquinlan/mat301/blob/master/lectures/improve_performance.md).
 
 
 #### Stored Programs
