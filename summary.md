@@ -156,6 +156,10 @@ FROM
 		INNER JOIN
 	WVcustomers ON Orders.customer=WVcustomers.id;   
 ```
+How would you suggest setting this scenario up if you wanted to find the products that customers from ANY (variable) state?
+
+
+---
 
 #### DBA
 
