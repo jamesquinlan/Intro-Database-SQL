@@ -54,6 +54,11 @@ View debate on natural vs. surrogate keys [here](http://www.databasejournal.com/
 
 3NF - Removes _transitive dependencies_. A transitive dependency exists if one attribute of a relation depends on another in the same relation (i.e., table).  For example, storing the manufacturer's website URL in the `Products`  table would produce a transitive dependency.  That is, the product is dependent on the manufacturer, a manufacturer's website URL is unique.  Then by transitivity, the product dependent on the URL.  NOTE:  Assumes table is already in 2NF.
 
+Here is an example of a simple data model of houses for sale.  Check for normal forms.  Would you model it differently?  How?
+
+![Data Model - Real Estate](http://www.unemath.com/mat301/RealEstate.png)
+
+
 #### Aggregate Functions
 
 There are many ways to summarize data. Some of most common methods are to count the number or observations, add together all the values in a set of rows, take the average of values in a set of rows (or columns), or return the maximum value of a column in a set of rows.  Each of this summary methods aggregate the data in some way. Some aggregate functions in SQL are `count`, `sum`, `avg`, and `max`. 
