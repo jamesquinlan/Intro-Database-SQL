@@ -2,6 +2,8 @@
 
 The basic set of aggregate functions are: `COUNT`, `SUM`, `MAX`, `MIN`, `AVG`, `ROUND`.
 
+###### COUNT
+
 `COUNT` is used to count rows that do not contain NULL.  It can be used in conjunction with `DISTINCT`.  NOTE:  `COUNT(*)` includes the NULL values too. 
 
 Here are a few examples:
@@ -16,6 +18,42 @@ Here are a few examples:
  
  
  #### SUM
+
+```SQL
+ SELECT SUM(cost) FROM Products;
+ ```
+
+
+ 
+ #### MAX
+
+```SQL
+ SELECT MAX(cost) FROM Products;
+ ```
+
+
+
+ #### MIN
+
+```SQL
+ SELECT MIN(cost) FROM Products;
+ ```
+
+
+ #### AVG
+
+```SQL
+ SELECT AVG(cost) FROM Products;
+ ```
+
+
+ #### ROUND
+
+```SQL
+ SELECT ROUND(1.35*cost) FROM Products;
+ ```
+
+
 
 #### GROUP BY 
 ###### Summarizing data
