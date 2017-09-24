@@ -2,13 +2,18 @@
 ### Data design
 
 ---
- 
 
-Consider the design of a data structure.  It is important to have a well-designed database to make queries easy and to advoid redundant data.  Steps in the design of a data structure are:
+
+Consider the design of a data structure.  It is important to have a well-designed database to make queries easy and to advoid redundancy.  System requirements must be transformed into a data model.  
+
+
+
+Steps in the design of a data model (or structure) are:
 
 1. __Identify data elements__ (make a list.  For example, customer's name would be a data element of an order)
 2. __Subdivide elements into smallest useful component__ (address can be split into 4 or 5 parts including city, state, and zip)
 3. __Identify tables and assign columns__ (group elements into "entities" = tables)
+4. __Each entity will have attributes__ (the nouns on the list are attributes per entity.
 4. __Identify primary and foreign keys__.  Each table needs a primary key.  There are different schools of thought, take notice.  If for each element in one table there exists several related elements in another table, include a foreign key in the "many" table. (Also see __Referential integrity__)
 5. Normalize
 6. Identify indexes
