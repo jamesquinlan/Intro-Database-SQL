@@ -6,6 +6,11 @@
 
 Consider the design of a data structure.  It is important to have a well-designed database to make queries easy and to advoid redundancy.  System requirements must be transformed into a data model.  
 
+#### Entity-Relationship Data Model
+
+ER model is extremely popular. 
+
+1.  __Entity__: something the user wants to track (e.g., ORDERS, PRODUCTS, STUDENTS, CUSTOMERS, etc.).  In DB terms: ENTITY = TABLE
 
 
 Steps in the design of a data model (or structure) are:
@@ -19,10 +24,11 @@ Steps in the design of a data model (or structure) are:
 6. Identify indexes
 
 
-##### Referential Integrity
+
+#### Referential Integrity
 Referential integrity preserves relationships between tables so as to not create _orphaned_ rows.  Referential integrity (if you want to have it) must be declaired using foreign key constraints.  For example, if a row in the primate key table is deleted, then what happens to the related rows in the foreign key table?  Similar circumstances can occur if inserting a row in foreign key table, or updating values in either table.
 
-##### Normalization
+#### Normalization
 
 
 __Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  Normalization eliminates data redundancy (which causes storage and maintenance problems).  Normalization must be applied in sequential order.  There are 7 forms, but in practice typically only 3 are used.  In some cases you __denormalize__ a data structure. We cover the first three.
