@@ -108,16 +108,21 @@ In particular, advisorID is a function determinant, i.e., advisorID --> (advisor
 1. Well-formed relations mean that every determinant must be a candidate key.
 2. Relations that are not well-formed can be broken into two or more relations that are well-formed.
 
-
+###### 
 
 1. (1NF) All data is atomic (indivisible units).  More specifically, rows contain data about one entity (e.g., products), no two rows hold identical data, and no repeated columns.  Primary key is set and all attributes depend on primary key.  Specifically, 
 
-    a. Each row holds data pertaining to the entity
-    b. Each column holds data represeting an attribute
-    c. Cells must hold single data type (value).  Cannot be name AND address
-    d. Columns must be the same data type.
-    e. Row and column order doesn't matter.
-    f. Rows are unique
+    - Each row holds data pertaining to the entity
+    
+    - Each column holds data represeting an attribute
+    
+    - Cells must hold single data type (value).  Cannot be name AND address
+    
+    - Columns must be the same data type.
+    
+    - Row and column order doesn't matter.
+    
+    - Rows are unique
     
 
 
