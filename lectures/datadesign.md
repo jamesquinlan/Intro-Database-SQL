@@ -77,18 +77,49 @@ _______
 
 #### Functional Dependencies
 
-y=f(x), y is dependent on x.  Or x --> y.
+y=f(x)
+
+y is dependent on x 
+
+x --> y
+
+SSN --> (Name, age, etc.)
+
+Therefore, we can define __primary key__ more formally as "one or more attributes that functionally determine all other attributes in the relation.'  SSN --> (first, last, department, email, phone) of the STUDENTS table (i.e., relation), BUT email --> (first, last, department, phone, ssn) as does (first, last, department) --> ssn, email, phone; assuming (first, last, department) is a candidate key.  
 
 
 #### Referential Integrity
 Referential integrity preserves relationships between tables so as to not create _orphaned_ rows.  Referential integrity (if you want to have it) must be declaired using foreign key constraints.  For example, if a row in the primate key table is deleted, then what happens to the related rows in the foreign key table?  Similar circumstances can occur if inserting a row in foreign key table, or updating values in either table.
 
+______
+
 #### Normalization
 
 
-__Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  Normalization eliminates data redundancy (which causes storage and maintenance problems).  Normalization must be applied in sequential order.  There are 7 forms, but in practice typically only 3 are used.  In some cases you __denormalize__ a data structure. We cover the first three.
+__Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  Normalization eliminates data redundancy (which causes storage and maintenance problems).  Normalization must be applied in sequential order.  There are 7 forms, but in practice typically only 3 are used.  In some cases you __denormalize__ a data structure. We cover the first three.  These are the essentials.  
 
-1. (1NF) All data is atomic (indivisible units).  More specifically, rows contain data about one entity (e.g., products), no two rows hold identical data, and no repeated columns.  Primary key is set and all attributes depend on primary key.
+Consider ADVISOR-LIST (advisorID, advisorName, department, phone, office, studentID, studentName).  What is the primary key?
+__Problem__, advisor information is listed many times in the table, thus inefficient data design.  In particular, __modification problem__.  If you needed to change an advisors information (office), you must do it *many* times.  Also, if an advisor only has one advisee, then deleting the student will delete the advisor too.  Lastly, there is redundancy in storage.
+
+In particular, advisorID is a function determinant, i.e., advisorID --> (advisorName, department, phone, office) but is not a candidate key. 
+
+##### RULES 
+
+1. Well-formed relations mean that every determinant must be a candidate key.
+2. Relations that are not well-formed can be broken into two or more relations that are well-formed.
+
+
+
+1. (1NF) All data is atomic (indivisible units).  More specifically, rows contain data about one entity (e.g., products), no two rows hold identical data, and no repeated columns.  Primary key is set and all attributes depend on primary key.  Specifically, 
+
+    a. Each row holds data pertaining to the entity
+    b. Each column holds data represeting an attribute
+    c. Cells must hold single data type (value).  Cannot be name AND address
+    d. Columns must be the same data type.
+    e. Row and column order doesn't matter.
+    f. Rows are unique
+
+
 
 2. (2NF) Split any partial depended data into separate table.  For example, if customer table contained order information (as customers place orders), move order data to new table.  To apply, data must already be in 1NF.  
 
