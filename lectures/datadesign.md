@@ -134,6 +134,8 @@ __Example__: CustNum, First, Last, Address, City, State, and Zip.  City and stat
 
 3. (3NF)  Non-key columns must depend _only_ on primary key, that is remove transitive dependencies.  Reduces the duplication of data and ensure referential integrity; improve database processing while minimizing storage costs.
 
+__Example__: ProductID, Manufacturer, Model.  Since the model=f(manufacturer), this violoates 3NF.  Apple makes 13" MacBook Air.  So, 13" MacBook Air depends on manufacturer, "Apple".  
+
 For example,  (a, b, c, d, e) where PK=(a,b), then c, d, and e cannot be determined by c, d, e, or any combination of them. In particular, c <> f(d,e).  Order lines (specific items and quantities) are not solely dependent on order_id, as other customers can order the same products.   Another example, employee position information is not dependent on the employee.  More specifically, "associate professor" and the duties/description of the position are not dependent on me.  To apply, data must already be in 2NF.
 
 __________
