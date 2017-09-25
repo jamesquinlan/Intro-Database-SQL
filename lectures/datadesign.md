@@ -118,12 +118,15 @@ In particular, advisorID is a function determinant, i.e., advisorID --> (advisor
     d. Columns must be the same data type.
     e. Row and column order doesn't matter.
     f. Rows are unique
+    
 
 
 
 2. (2NF) Split any partial depended data into separate table.  For example, if customer table contained order information (as customers place orders), move order data to new table.  To apply, data must already be in 1NF.  
 
 3. (3NF)  Non-key columns must depend _only_ on primary key, that is remove transitive dependencies.  Order lines (specific items and quantities) are not solely dependent on order_id, as other customers can order the same products.   Another example, employee position information is not dependent on the employee.  More specifically, "associate professor" and the duties/description of the position are not dependent on me.  To apply, data must already be in 2NF.
+
+__________
 
 Example:
 
