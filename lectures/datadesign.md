@@ -1,5 +1,5 @@
 
-### Data design
+### Data modeling and design
 
 ---
 
@@ -28,15 +28,42 @@ More examples (also ID-Dependent entities)
 5. Patient - Prescription 1:OM
 6. Employee - Project
 
-Steps in the design of a data model (or structure) are:
-
-
-#### Relational Data Model (near physical model)
-
-
 
 
 ______
+
+#### Relational Data Model (near physical model)
+
+TABLES = RELATIONS  = (2d table with rows and columns) have properties:
+1. Each row holds data pertaining to the entity
+2. Each column holds data represeting an attribute
+3. Cells must hold single data type (value).  Cannot be name AND address
+4. Columns must be the same data type.
+5. Row and column order doesn't matter.
+6. Rows are unique
+
+Equivalent Terms:
+ 1. Table = Relation = Entity
+ 2. Row = Record = Tuple
+ 3. Column = Field = Attribute
+
+______
+
+#### KEYS (identifiers)
+
+A __key__ is one or more columns of a relation that is used to identify a row.  Unique (ID) or nonunique (department).  A __composite key__ is two or more attributes.   
+
+__Candidate key__ are keys that uniquely identify each row.  __Primary key__ is *the* choosen key.  In PRODUCTS table, *id*, *code* and *upc* are candidate keys.
+
+__Surrogate keys__ added to be short, arbitrary, and never changing.  Auto-incremented.  *id* is a surrogate key.  
+
+__Foreign key__ a primary key in one table that is used to make a relation between tables.  
+
+_______
+
+
+
+Steps in the design of a data model (or structure) are:
 
 1. __Identify data elements__ (make a list.  For example, customer's name would be a data element of an order)
 2. __Subdivide elements into smallest useful component__ (address can be split into 4 or 5 parts including city, state, and zip)
@@ -46,6 +73,11 @@ ______
 5. Normalize
 6. Identify indexes
 
+_______
+
+#### Functional Dependencies
+
+y=f(x), y is dependent on x.  Or x --> y.
 
 
 #### Referential Integrity
