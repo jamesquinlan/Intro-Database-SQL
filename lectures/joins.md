@@ -42,6 +42,30 @@ WHERE (if needed)
 __Example__  Select all customers that orders a specific product from a specific zipcode.
 
 ```sql
+# Choose the database
+use unemath_quinlan;
+
+# Query DB
+
+SELECT DISTINCT
+    (Customers.id) AS 'Customer Number',
+    CONCAT(Customers.fname, ' ', Customers.lname) AS 'Customer Name'
+FROM
+    Customers
+        INNER JOIN
+    Orders ON Customers.id = Orders.customer
+WHERE
+    Orders.date >= '2015-01-01'
+        AND Orders.date <= '2015-12-31'
+ORDER BY lname;
+
+```
+
+  
+
+__Example__  Select all customers that orders a specific product from a specific zipcode.
+
+```sql
 # Specify a few variables
 SET @zip=43920;
 SET @prod=1003;
