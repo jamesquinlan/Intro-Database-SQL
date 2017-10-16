@@ -14,9 +14,12 @@ ER model is extremely popular. ER is a logical data model, as opposed to a datab
 2.  __Attribute__: characteristics of an entity.  (cost, quantity, length, weight).  ATTRIBUTES = COLUMNS in table.
 3.  __Identifies__: Each instance of an entity has identifiers (attributes that identify, e.g., SS Number).  If identifier consists of two or more attributes, then it is a __composite identifier__.  Identifiers can be unique (ss #) or nonunique (name).  Unique identifier is associated with one and only one entity instance, whereas nonunique associated with sets of instances.
 4.  __Relationships__: Associate entities with each other.  There are three types of Degree 2 relationships (a.k.a. binary relationships).
-    a).  one-to-one (1:1)
-    b).  one-to-many (1:N).  Parent - Child
-    c).  many-to-many (M:N)
+
+    a).  one-to-one (1:1).  Often used to improve performance; large column can be in a separate table.
+    
+    b).  one-to-many (1:N).  Parent - Child.  Most types of relationships.  
+    
+    c).  many-to-many (M:N).  Requires a _linking_ table.  Example: faculty and committees.  
 
 Classify the relationships between (student and locker, customer and orders, product and manufacturer). 
 
@@ -25,8 +28,9 @@ More examples (also ID-Dependent entities)
 2. Textbook - Edition
 3. Salesperson - Order 1:OM
 4. Project - Assignment 1:OM
-5. Patient - Prescription 1:OM
+5. Patient - Prescription 1:OM.  This is different than _Patient and Pills_ (M:N).  In that case, Prescription would be the linking table.
 6. Employee - Project
+7. Faculty and committees
 
 
 
@@ -57,7 +61,7 @@ __Candidate key__ are keys that uniquely identify each row.  __Primary key__ is 
 
 __Surrogate keys__ added to be short, arbitrary, and never changing.  Auto-incremented.  *id* is a surrogate key.  
 
-__Foreign key__ a primary key in one table that is used to make a relation between tables.  
+__Foreign key__ a primary key in one table that is used to make a relation between tables. In a relationship, the _many_ side.   
 
 _______
 
@@ -89,7 +93,7 @@ Therefore, we can define __primary key__ more formally as "one or more attribute
 
 
 #### Referential Integrity
-Referential integrity preserves relationships between tables so as to not create _orphaned_ rows.  Referential integrity (if you want to have it) must be declaired using foreign key constraints.  For example, if a row in the primate key table is deleted, then what happens to the related rows in the foreign key table?  Similar circumstances can occur if inserting a row in foreign key table, or updating values in either table.
+Referential integrity preserves relationships between tables so as to not create _orphaned_ rows.  Referential integrity must be explicitly declared using foreign key constraints.  For example, if a row in the primate key table is deleted, then what happens to the related rows in the foreign key table?  Similar circumstances can occur if inserting a row in foreign key table, or updating values in either table. Recap: Delect row from primary table; Insert row in foreign key table.   Example: Manufacturer ID is a foreign key in the Products table.  If we deleted the manufacturer from the Manufacturer table, then there would be a orphan in Man_ID in the Products table.  Similar, if we insert a row in the Products table that doesn't have a match in the Manufacturers table.
 
 ______
 
