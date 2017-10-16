@@ -87,7 +87,7 @@ y is dependent on x
 
 x --> y
 
-SSN --> (Name, age, etc.)
+SSN --> (Name, age, etc., i.e., Person)
 
 Therefore, we can define __primary key__ more formally as "one or more attributes that functionally determine all other attributes in the relation.'  SSN --> (first, last, department, email, phone) of the STUDENTS table (i.e., relation), BUT email --> (first, last, department, phone, ssn) as does (first, last, department) --> ssn, email, phone; assuming (first, last, department) is a candidate key.  
 
@@ -100,12 +100,21 @@ ______
 #### Normalization
 
 
-__Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  Normalization eliminates data redundancy (which causes storage and maintenance problems).  Normalization must be applied in sequential order.  There are 7 forms, but in practice typically only 3 are used.  In some cases you __denormalize__ a data structure. We cover the first three.  These are the essentials.  
+__Normalization__ is the process of splitting a relation with more than one theme into a set of (related) relations each having only one theme.  Normalization eliminates data redundancy (which causes storage and maintenance problems).  Normalization must be applied in sequential order.  There are 7 forms, but in practice typically only 3 are used.  In some cases you __denormalize__ a data structure. We cover the first three.  These are the essentials. 
+
+Consider:
+
+| __Customer__ | __Order Number__ | __Item 1__ | __Item 2__  | __Item 3__ |
+|--------------|------------------|------------|-------------|------------|
+| 1            | 1                | 1          | 2           | 3          | 
+| 1            | 2                | 4          | 2           |            | 
+| 2            | 3                | 5          | 9           |            | 
+| 2            | 4                | 1          |             |            | 
+
 
 Consider ADVISOR-LIST (advisorID, advisorName, department, phone, office, studentID, studentName).  What is the primary key?
 __Problem__, advisor information is listed many times in the table, thus inefficient data design.  In particular, __modification problem__.  If you needed to change an advisors information (office), you must do it *many* times.  Also, if an advisor only has one advisee, then deleting the student will delete the advisor too.  Lastly, there is redundancy in storage.
 
-In particular, advisorID is a function determinant, i.e., advisorID --> (advisorName, department, phone, office) but is not a candidate key. 
 
 ##### RULES 
 
@@ -128,19 +137,26 @@ In particular, advisorID is a function determinant, i.e., advisorID --> (advisor
     
     - Rows are unique
     
+    - No repeated columns
+    
 
 
 
 2. (2NF) Minimize redudancy.  All nonkey attributes are determined by the primary key. Split any (partial) functional depended data into separate table.  For example, if customer table contained order information (as customers place orders), move order data to new table.  To apply, data must already be in 1NF.  If the PK is composite, no nonkey attributes can be determined by attribute(s) in the PK.  For example, (a, b, c, d, e) where PK=(a,b), then c, d, and e cannot be determined by a or b. 
 
-__Example__: CustNum, First, Last, Address, City, State, and Zip.  City and state are determined by Zip.  City and state are dependent on Zip.  Zip is a determinant of City and State.  That is [City, State] = f(Zip).
+__Example__: Since two different orders may contain the same items, those items don't depend on the order.  
 
 
-3. (3NF)  Non-key columns must depend _only_ on primary key, that is remove transitive dependencies.  Reduces the duplication of data and ensure referential integrity; improve database processing while minimizing storage costs.
+
+3. (3NF)  Non-key columns must depend _only_ on primary key, that is remove transitive dependencies.  Reduces the duplication of data and ensure referential integrity; improve database processing while minimizing storage costs. 
+
+(a, b, c, d, e) where PK=(a,b), then c, d, and e cannot be determined by c, d, e, or any combination of them. In particular, c <> f(d,e).  Order lines (specific items and quantities) are not solely dependent on order_id, as other customers can order the same products.   Another example, employee position information is not dependent on the employee.  More specifically, "associate professor" and the duties/description of the position are not dependent on me.  To apply, data must already be in 2NF.
+
+__Example__: CustNum, First, Last, Address, City, State, and Zip.  City and state are determined by Zip.  City and state are dependent on Zip.  Zip is a determinant of City and State.  That is [City, State] = f(Zip).City and State depend on Zip.  
 
 __Example__: ProductID, Manufacturer, Model.  Since the model=f(manufacturer), this violoates 3NF.  Apple makes 13" MacBook Air.  So, 13" MacBook Air depends on manufacturer, "Apple".  
 
-For example,  (a, b, c, d, e) where PK=(a,b), then c, d, and e cannot be determined by c, d, e, or any combination of them. In particular, c <> f(d,e).  Order lines (specific items and quantities) are not solely dependent on order_id, as other customers can order the same products.   Another example, employee position information is not dependent on the employee.  More specifically, "associate professor" and the duties/description of the position are not dependent on me.  To apply, data must already be in 2NF.
+
 
 __________
 
