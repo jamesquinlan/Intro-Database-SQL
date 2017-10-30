@@ -9,8 +9,16 @@ many records into the store database.  The syntax is:
 
 ```sql
 INSERT INTO table
-column_list
-VALUES (value1, value 2, ...);
+[(column_list)]
+VALUES (value1, value2, ...);
+```
+
+A _subquery_ may be used to insert into a table.  The syntax is:
+```sql
+INSERT INTO table
+[(column_list)]
+SELECT col1,col2 FROM table2 WHERE expression;
+VALUES (value1, value2, ...);
 ```
 
 
@@ -35,6 +43,22 @@ WHERE [condition]
 
 TRY IT:  Update a customers phone number to: 614-223-2983.  (Pick one customer)
 
+
+A _subquery_ may be used to update a table.  The syntax is:
+```sql
+UPDATE table 
+SET 
+    column = expression
+WHERE
+    column2 IN (SELECT 
+            col1, col2
+        FROM
+            table2
+        WHERE
+            expression);
+```
+
+
 ## DELETE 
 ---
 The `DELETE` command removes records.  For example, suppose a customer demands to be removed from the database.  IMPORTANT: Do NOT forget the `WHERE` clause, else all records will be deleted.
@@ -43,6 +67,14 @@ The `DELETE` command removes records.  For example, suppose a customer demands t
 DELETE FROM table
 WHERE [condition]
 ```
+
+_Subqueries_ can also be used in DELETE statements:
+
+```sql
+DELETE FROM table
+WHERE column IN (SELECT col FROM anotherTable WHERE expression);
+```
+
 
 What about referential integrity?  
 
