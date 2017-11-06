@@ -91,3 +91,28 @@ NOTE: You cannot use `DISTINCT`, `GROUP BY`, `HAVING` clauses, `UNION` operator,
 #### OR REPLACE
 ---
 You can __replace__ a view with the `CREATE OR REPLACE VIEW` statement, else you must specify a new name for a view.
+
+---
+
+#### EXERCISES
+
+1. Write a statement to create a view based on products with inventory.
+
+2. Write a statement that creates a summarized view containing the average cost of products in several categories.
+
+3.  Create a view for average customer order.
+
+4. Create a view for customers and phone numbers.
+
+5. Drop the view for customers and phone numbers.
+
+6. Create a view that contains the count of all products made from China.
+
+7. Create a view of all customers from Maine.
+
+8.  Create a view of all customers without including full address, only zip code.
+
+9.  Create a view for products weight and shipping dimensions.
+
+10.  Create a view of orders that contain customer and order information.
+---
