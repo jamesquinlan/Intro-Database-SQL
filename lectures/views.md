@@ -1,8 +1,11 @@
 ### Views
 ---
+A __view__ is a virtual table based on the result-set of an SQL statement. It looks like and acts like a table from the users point of view but does not require physical storage.  It is a stored query (or filter) that represents a users "view".  A view is a database object. 
 
-It is often desirable to run a particular (`SELECT`) query over and over.  For example, you may want to track products with low or no inventory on a weekly or daily basis.
-A query to SELECT low inventory, where "low" inventory is defined as inventory less than 5:
+Views can be created from tables or other views.  
+
+
+It is often desirable to run a particular (`SELECT`) query over and over.  For example, you may want to track products with low or no inventory on a weekly or daily basis.  A query to SELECT low inventory, where "low" inventory is defined as inventory less than 5:
 
 ```sql
 SELECT Products.id, Products.inventory 
@@ -13,6 +16,10 @@ WHERE inventory<5;
 Therefore you may want to save this query along with any other queries used frequently.  Saving this query as a script (.sql) file is one way, 
 another way is to create a VIEW which are stored as part of the databaase.  That is, a VIEW is a SELECT query that is stored as a database object.  
  
+Views can be used as a form of security.  Views can contain limited information of a table.  For example, views allow you restrict access to a table that contains sensitive information.  The view can allow someone access to the parts of the table you allow them to retrieve.  
+
+Views can be used to maintain summarized data and calculations instead of storing these in the table.  
+
 
 #### CREATE VIEW
 ---
@@ -74,7 +81,12 @@ DROP VIEW LowInventory
 
 5. You can create views based on other views (a.k.a. _nested view_).
 
+6. You cannot update data through a view using joins.
+
 NOTE: You cannot use `DISTINCT`, `GROUP BY`, `HAVING` clauses, `UNION` operator, or aggregate functions in updatable VIEWs.
+
+
+
 
 #### OR REPLACE
 ---
