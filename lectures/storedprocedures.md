@@ -4,7 +4,7 @@ __Stored Procedures__ are one of four types of stored programs introduced with v
 
 There are four types of stored programs:
 
-1. __Stored Procededures__:  Called from an application that has access to the database
+1. __Stored Procedures__:  Called from an application that has access to the database
 2. __Stored function__: called from a SQL statement.  Works much like a pre-build function like `sum` or `max` 
 3. __Trigger__: executed in response to DML commands
 4. __Event__: scheduled execution
