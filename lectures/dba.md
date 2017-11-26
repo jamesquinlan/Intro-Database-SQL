@@ -5,7 +5,7 @@ A DBA's primary responsibilities are:
 
 1. Maintenance: (a) monitor server, (b) configure server, (c) maintain log files
 2. Design: (a) design database, (b) create database
-3. Security: (a) maintain user accounts, (b) secure server and databases
+3. Security: (a) maintain user accounts (create, edit, drop users as well as set permissions/grant privileges), (b) secure server and databases
 4. Backup: (a) backup database, (b) restore database, (c) Migrate data to another server
 5. Miscellaneous: (a) start/stop server, (b) optimize server, (c) update software, (d) enable/manage replication (setting up two or more DB servers linked where changes propogate from one to the others).
 
@@ -44,7 +44,7 @@ SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
 
 - slave:
 
-- configuration file: contains server configuration default values.  Files are "my.cnf" on Linux and "my.ini" on Windows.
+- configuration file: contains server configuration default values.  Files are "my.cnf" on Linux and "my.ini" on Windows.  https://dba.stackexchange.com/questions/10014/is-there-a-way-to-find-my-cnf-in-shared-hosting
 
 - data file: a (.frm file) contains database objects (e.g., tables, views, indexes) information.  InnoDB assigns one file for each table.  MyISAM uses three per table (.frm, .myd, and .myi).
 
