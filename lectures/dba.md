@@ -73,6 +73,8 @@ SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
 
 2. Use Workbench's Client Connections window to view these status variables: connections, threads_connected, bytes_received, and bytes_sent.  Read the descriptions for these variables to get an idea of what they do.
 
-3. 
+3. Use Workbench's Status and System Variables window to view the system varaibles named basedir adn datadir.  Note the paths to these directories. Then, view the system variables named log_error and log_bin.  Determine whether these system variables are set to ON or OFF.
 
+4. Use a SET statement to temporarily enable the general log.  Then, to make sure that this varaible was set, use a SELECT statement to view the variable.  If you get an error indicating that access is denied, you may need to stop Workbench and run it as an administrator.  
 
+5. Use a SET statement to disable the general log.  Then, to make sure this varaible was set, use a SELECT statement to view the variable.
