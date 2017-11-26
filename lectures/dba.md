@@ -40,4 +40,33 @@ SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
 
 - database replication: 
 
--
+- master:
+
+- slave:
+
+- configuration file: 
+
+- data file: a (.frm file) contains database objects (e.g., tables, views, indexes) information.  InnoDB assigns one file for each table.  MyISAM uses three per table (.frm, .myd, and .myi).
+
+- log files: information logged by the database server
+
+- general log: contains client connections and SQL statements received from these clients
+
+- error log: error messages and information about server startup and shutdown
+
+- slow query log: a list of SQL statements that take a long time to execute
+
+- binary log: record of changes to the database
+
+- relay log: relays any changes that have been made on the master machine
+
+- process: a connection to the database
+
+- status variable: variable that contains MySQL server status information
+
+- system variable: varaible that stores a setting for the current configuration
+
+
+##### Exercises
+
+
