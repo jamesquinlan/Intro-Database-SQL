@@ -44,7 +44,7 @@ SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
 
 - slave:
 
-- configuration file: 
+- configuration file: contains server configuration default values.  Files are "my.cnf" on Linux and "my.ini" on Windows.
 
 - data file: a (.frm file) contains database objects (e.g., tables, views, indexes) information.  InnoDB assigns one file for each table.  MyISAM uses three per table (.frm, .myd, and .myi).
 
@@ -68,5 +68,11 @@ SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
 
 
 ##### Exercises
+
+1. Start MySQL Workbench and open the Client Connections window to view the process list.  Then, open four SQL Editor tabs.  As you open each one, switch back to the process list and note how the number of processes grows.  Next, run some queires and note how they use system resources.
+
+2. Use Workbench's Client Connections window to view these status variables: connections, threads_connected, bytes_received, and bytes_sent.  Read the descriptions for these variables to get an idea of what they do.
+
+3. 
 
 
