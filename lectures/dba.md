@@ -26,7 +26,18 @@ Status variables contain information about the server (show status).  System var
 ###### GETTING and SETTING system variables
 
 @@GLOBAL.var_name
+
 @@[SESSION.]var_name
 
 SET GLOBAL var_name = var_value;
+
 SET SESSION var_name = var_value;  (SESSION is default.  aka LOCAL)
+
+
+#### TERMS
+
+- database administrator: 
+
+- database replication: 
+
+-
