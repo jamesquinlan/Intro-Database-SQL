@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
 --
--- Host: unemath.com    Database: unemath_quinlan
+-- Host: localhost      Database: <dbname>
 -- ------------------------------------------------------
 -- Server version	5.5.51-38.2
 
