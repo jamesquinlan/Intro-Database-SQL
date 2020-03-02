@@ -1,25 +1,27 @@
 
+
 ### Data modeling and design
 
 ---
 
 
-Consider the design of a data structure.  It is important to have a well-designed database to make queries easy and to advoid redundancy.  System requirements must be transformed into a data model.  
+Consider the design of a data structure.  It is important to have a well-designed database to make queries easy and to avoid redundancy.  System requirements must be transformed into a data model.  
 
 #### Entity-Relationship Data Model (LOGICAL DATA MODELING)
 
-ER model is extremely popular. ER is a logical data model, as opposed to a database design which is the physical model.  
+The ER model is extremely popular. ER is a logical data model, as opposed to a database design which is the physical model.  
 
 1.  __Entity__: something the user wants to track (e.g., ORDERS, PRODUCTS, STUDENTS, CUSTOMERS, etc.).  In DB terms: effectively, ENTITY = TABLE
-2.  __Attribute__: characteristics of an entity.  (cost, quantity, length, weight).  ATTRIBUTES = COLUMNS in table.
-3.  __Identifies__: Each instance of an entity has identifiers (attributes that identify, e.g., SS Number).  If identifier consists of two or more attributes, then it is a __composite identifier__.  Identifiers can be unique (ss #) or nonunique (name).  Unique identifier is associated with one and only one entity instance, whereas nonunique associated with sets of instances.
+2.  __Attribute__: characteristics of an entity.  (cost, quantity, length, weight).  ATTRIBUTES = COLUMNS in the table.
+3.  __Identifies__: Each instance of an entity has identifiers (attributes that identify, e.g., SS Number).  If the identifier consists of two or more attributes, then it is a __composite identifier__.  Identifiers can be unique (ss #) or nonunique (name).  The unique identifier is associated with one and only one entity instance, whereas nonunique associated with sets of instances.
 4.  __Relationships__: Associate entities with each other.  There are three types of Degree 2 relationships (a.k.a. binary relationships).
 
-    a).  one-to-one (1:1).  Often used to improve performance; large column can be in a separate table.
-    
+    a).  one-to-one (1:1).  Often used to improve performance; large columns can be in a separate table.
+
     b).  one-to-many (1:N).  Parent - Child.  Most types of relationships.  
     
-    c).  many-to-many (M:N).  Requires a _linking_ table.  Example: faculty and committees.  
+    c).  many-to-many (M:N).  Requires a _linking_ table.  Example: faculty and committees.
+    
 
 Classify the relationships between (student and locker, customer and orders, product and manufacturer). 
 
