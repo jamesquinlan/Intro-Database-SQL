@@ -23,7 +23,8 @@ Upon successful completion of this course, students will be able to:
 ----------------------
 The course will cover
 1. Relational database management systems (RDBMS)
-2. Table design, including primary/foreign keys, and referential data integrity 3. Tables and Views
+2. Table design, including primary/foreign keys, and referential data integrity
+3. Tables and Views
 4. Table Relationships (inner and outer joins)
 5. Entity-Relationship (ER) models
 6. Structured Query Language (SQL)
