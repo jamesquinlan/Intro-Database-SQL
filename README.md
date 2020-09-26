@@ -1,10 +1,12 @@
 # Introduction to Database and SQL
 
 Introduction to Database and SQL is a course offered at the University of New England (DSC 301).  
+Lectures and homework centers around an online store (products, manufacturers, customers, and orders).  Course materials contain optional project activity ideas and materials.    
+  
 
 ## Course Description
 ----------------------
-This course is an introduction to Database Design and Structured Query Language (SQL). Stu- dents will be exposed to relational databases including table design, relationships, dependencies, and normalization forms. Additionally, the course will cover data modeling using Entity-Relation (ER) models. Data models found in business, medicine, biology, and science will be considered.
+This course is an introduction to Database Design and Structured Query Language (SQL). Students will be exposed to relational databases including table design, relationships, dependencies, and normalization forms. Additionally, the course will cover data modeling using Entity-Relation (ER) models. Data models found in business, medicine, biology, and science will be considered.
 
 ## Learning Outcomes
 ---------------------
