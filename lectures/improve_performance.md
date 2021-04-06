@@ -1,4 +1,4 @@
-##### DATABASE MANAGEMENT:  Performance Tuning
+# DATABASE MANAGEMENT:  Performance Tuning
 ---
 In many cases queries return tens of thousands (if not hundreds of thousands) of records or are highly complex, subsequently affecting the performance (i.e., slow queries).  There are several techniques for improving the performance of database queries, this is referred to as __performance tuning__.
 
@@ -10,7 +10,7 @@ Some ways to improve the performance of a database (assuming it is in third norm
 4. Avoid using `OR` and `HAVING`
 5. Avoid using large sorting operations
 
-### Indexes
+## Indexes
 ---
 
 Imagine seaching a book from the first page to the last for a particular topic or keyword.  It is much faster to look the keyword up in the book's index which specifies the page or pages the topic is found.  Without an index, a query will have to perform a _full table scan_.  
