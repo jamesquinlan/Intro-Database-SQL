@@ -1,6 +1,5 @@
 # DATABASE MANAGEMENT:  Performance Tuning
 
-
 In many cases queries return tens of thousands (if not hundreds of thousands) of records or are highly complex, subsequently affecting the performance (i.e., slow queries).  There are several techniques for improving the performance of database queries, this is referred to as __performance tuning__.
 
 Some ways to improve the performance of a database (assuming it is in third normal form 3NF):
@@ -11,8 +10,9 @@ Some ways to improve the performance of a database (assuming it is in third norm
 4. Avoid using `OR` and `HAVING`
 5. Avoid using large sorting operations
 
+
+
 ## Indexes
----
 
 Imagine seaching a book from the first page to the last for a particular topic or keyword.  It is much faster to look the keyword up in the book's index which specifies the page or pages the topic is found.  Without an index, a query will have to perform a _full table scan_.  
 
@@ -57,7 +57,7 @@ FROM CUSTOMERS
 WHERE NAME='SMITH';
 ```
 
-##### CREATE INDEX
+### CREATE INDEX
 
 The MySQL syntax is:  
 
@@ -67,7 +67,9 @@ CREATE INDEX index_name ON TABLE_NAME
 
 NOTE: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres, etc.)
 
-##### TYPES OF INDEXES
+
+
+#### TYPES OF INDEXES
 
 __Single-column__: the simplest and most common.  Best used with frequently searched columns used in the `WHERE` clause. 
 
@@ -92,11 +94,14 @@ CREATE UNIQUE INDEX customer_idx
 ON Customers (last_name, first_name)
 ```
 
-##### Implicit Indexes
+
+
+
+#### Implicit Indexes
  
 Indexes are automatically created for primary key and unique constraints. 
 
-##### To index or not to index
+#### To index or not to index
 
 __USE__: As already mentioned, Indexes are automatically created for primary key and unique constraints. Also, __foreign keys__ are excellent candidates to be indexed as they are often used to join the parent table.  In short, __columns used for table joins should be indexed__.  Columns used in `ORDER BY` and `GROUP BY` should be indexed.  Index columns columns with high frequency of unique values and columns used in `WHERE` clause that return a low percentage of rows. 
 
@@ -106,7 +111,10 @@ __DO__:  Test using different indexes.
 
 __DO NOT USE__: On small tables, filter conditions returning high percentage of the table's data, columns with high number of NULL values, or columns that are frequently manipulated.  
 
----
+
+
+
+
 
 
 ### SQL Statement Tuning 
@@ -160,7 +168,7 @@ GROUP BY M.manufacturer_id;
 ```
 
 
-##### Other considerations
+#### Other considerations
 ---
 1. Avoid the `LIKE` operator or wildcards
 2. Avoid the `OR` operator
