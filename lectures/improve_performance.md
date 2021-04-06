@@ -65,7 +65,7 @@ The MySQL syntax is:
 CREATE INDEX index_name ON TABLE_NAME
 ```
 
-NOTE: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres, etc.)
+Note: Syntax varies on database vendors (MySQL, MS SQL Server, Oracle, Postgres, etc.)
 
 
 
@@ -173,5 +173,5 @@ GROUP BY M.manufacturer_id;
 1. Avoid the `LIKE` operator or wildcards
 2. Avoid the `OR` operator
 3. Avoid the `HAVING` clause (recall: used with `GROUP BY` and aggregate functions)
-4. Avoid sorting (large recordsets)
+4. Avoid sorting, especially large recordsets!
 5. Do use stored procedures
