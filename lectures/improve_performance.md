@@ -2,13 +2,11 @@
 
 In many cases queries return tens of thousands (if not hundreds of thousands) of records or are highly complex, subsequently affecting the performance (i.e., slow queries).  There are several techniques for improving the performance of database queries, this is referred to as __performance tuning__.
 
-Some ways to improve the performance of a database (assuming it is in third normal form 3NF):
+We examine three ways to improve the performance of a database (assuming it is in third normal form 3NF). These are:
 
 1. Create indexes
 2. SQL statement tuning
-3. Properly joining tables
-4. Avoid using `OR` and `HAVING`
-5. Avoid using large sorting operations
+3. Stored Procedures
 
 
 
@@ -131,7 +129,7 @@ SELECT * FROM Smallest_Table, Largest_Table;
 ```
 
 
-- Place the most restrictive conditions first in the `WHERE` clause (which actually maybe last since some optimizers read bottom up).  The most restrictive condition is the one that returns the fewest rows of data.  You can test the order of the optimizer by switching conditions in the `WHERE` condition.  For example, test the two queries 
+- Place the most restrictive conditions first in the `WHERE` clause (which actually maybe last since some optimizers read bottom up).  The most restrictive condition is the one that returns the fewest rows of data.  You can test the order of the optimizer by switching conditions in the `WHERE` condition.  For example using the `Store` database, test the following two queries 
 ```sql
 Select * from Products Where inventory<100 and category_id=200;
 ```
