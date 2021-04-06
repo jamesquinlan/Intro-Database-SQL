@@ -133,11 +133,11 @@ SELECT * FROM Smallest_Table, Largest_Table;
 
 - Place the most restrictive conditions first in the `WHERE` clause (which actually maybe last since some optimizers read bottom up).  The most restrictive condition is the one that returns the fewest rows of data.  You can test the order of the optimizer by switching conditions in the `WHERE` condition.  For example, test the two queries 
 ```sql
-Select * from unemath_LastName.Products Where inventory<100 and category_id=200;
+Select * from Products Where inventory<100 and category_id=200;
 ```
 
 ```sql
-Select * from unemath_LastName.Products Where category_id=200 and inventory<100;
+Select * from Products Where category_id=200 and inventory<100;
 ```
 
 
@@ -152,7 +152,7 @@ It is also good practice to use an indexed column as the most restrictive condit
 - Placement of join conditions in the `WHERE` clause.  The general rule of thumb is to place the base table condition on the right side of the `WHERE` condition.  A __base__ table is a table that links two tables with a common column when needing to retrieve data from two tables taht do not have a common column to join.  If no need to use a base table, then place the most restrictive condition on the right side of the `WHERE` condition.  For example, suppose we want a list of categories that manufacturer 200 makes.  Notice the Categories and Manufacturers tables are not directly linked, but indirectly through the (base) table Products.
 
 ```sql
-use unemath_quinlan;
+use db;
 SELECT 
     M.manufacturer_id
 FROM
