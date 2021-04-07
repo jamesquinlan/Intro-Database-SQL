@@ -1,0 +1,2 @@
+## LaTeX source files
+---
