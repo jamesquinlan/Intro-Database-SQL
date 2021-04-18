@@ -1,2 +1,0 @@
-# Products database 
-Online store
