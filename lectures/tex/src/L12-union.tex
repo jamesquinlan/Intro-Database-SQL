@@ -1,0 +1,197 @@
+% &latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+% 
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Combination queries (\texttt{UNION} \&  \texttt{UPDATE})}
+\author{DSC 301: Lecture 12}
+\date{March 24, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1  Arithmetic functions
+        \1  \texttt{DISTINCT} clause
+        \1  Aggregate Functions
+       
+       
+        
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+% --------   -------- %
+\section*{Combined Queries}
+ 
+So far we have written queries that contain a single \texttt{SELECT} statement (well except subqueries) that returned data form one or more tables.  Combined queries is the mechanism that enables performing multiple queries (multiple \texttt{SELECT} statements) and return results as a single result set.  
+
+Use combined queries to
+\begin{outline} 
+          \1 Return data from different tables in a single result set
+          \1 Perform multiple queries on a single table, but return data                 as one set
+\end{outline}
+
+  
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+   
+\subsection*{The \texttt{UNION} Operator}
+  
+ As in set theory, a union operator combines the elements of two sets where the element is in either (or both) sets.  Note however, if in both, only one is listed (not two). In other words, by defaulty, the  \texttt{UNION} operator automatically removes any duplicate rows from the query results.  This default can be changed to include the duplicates (i.e., \texttt{UNION  ALL}).      \\
+
+
+\noindent \textbf{Rules on \texttt{UNION} operator}
+\begin{outline}[enumerate]
+        \1 Each query in a \texttt{UNION} must contain the same columns, expressions, or aggregate functions.
+
+        \1 The columns, expressions, and aggregate functions must occur in the same order in each \texttt{SELECT} statement.
+
+        \1 Column datatypes must be compatible (numeric type or date type).
+        
+        \1 Only one \texttt{ORDER BY} clause can be used and must be placed after the final \texttt{SELECT} statement.  
+\end{outline}
+  
+  
+\noindent \textbf{NOTE}: Often  the same results can be produced using multiple \texttt{WHERE} clauses.  However, \texttt{UNION} can simplify these complex query statements.   
+
+
+
+
+
+
+
+
+
+
+ 
+  \subsection*{UPDATE}
+  
+  
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <col1>  = expression1 [, <col2> = expression2, ...]
+[WHERE <someColumn> = value];
+\end{lstlisting} 
+
+
+  
+  
+  
+  
+  
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <colName>  = value
+WHERE <someColumn> = value;
+\end{lstlisting} 
+
+
+  
+  You can SET
+  \begin{outline}
+  	\1 One column for one row
+	\1 One column for multiple rows
+	\1 Multiple columns for one row
+  \end{outline}
+  
+  
+  
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <colName>  = value
+WHERE <someColumn> = value;
+\end{lstlisting} 
+
+
+  
+  
+  
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <colName>  = value
+WHERE <someColumn> = value;
+\end{lstlisting} 
+
+
+  
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

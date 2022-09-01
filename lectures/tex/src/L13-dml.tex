@@ -1,0 +1,447 @@
+% &latex
+
+% Wed Mar  26 01:42:18 EDT 2021
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% SUMMARY   :  DML: INSERT, UPDATE, DELETE Queries
+%            		:   
+%            		:  Quinlan, J 
+%            		:  University of New England
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+% 
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Data Manipulation Language (DML)}
+\author{DSC 301: Lecture 14}
+\date{March 26, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+%\begin{outline}[enumerate]
+
+%\end{outline}
+% ---------------- %
+%\begin{outline}
+        
+%\end{outline}
+
+
+\noindent Until now we only had \textit{read} privileges (e.g., chmod 444).  Now we add write privileges (e.g., chmod 666) which enables us to insert, update, and delete data from any (or all) tables.  The SQL keywords we examine in this lecture are:  \texttt{INSERT}, \texttt{UPDATE}, and \texttt{DELETE}.  
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+This lecture cover the data manipulation language (DML) items:
+\begin{outline}
+        \1   \texttt{INSERT}
+        \1   \texttt{UPDATE}  
+        \1   \texttt{DELETE}     
+       % \1   \texttt{COMMIT} 
+        % \1   \texttt{ROLLBACK} 
+
+\end{outline}
+
+
+
+ 
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+\section*{\texttt{INSERT}}
+
+It is obviously necessary to populate the database initially, else we would have no data to query.  This data needed to be ``inserted into'' the database.  To \textbf{insert} one or more new records \textbf{into} a table (e.g., new customer, new product, new categories, etc.), use the following syntax:
+
+  
+\begin{lstlisting}[frame=single]  
+INSERT [INTO] <TableX>[(column_1, 
+	column_2, 
+	column_3, 
+	. 
+	.
+	. 
+	column_N)]
+VALUES('value_1',
+	'value_2',
+	.
+	.
+	.
+	'value_N');  
+\end{lstlisting} 
+  
+  
+  
+ \subsection*{Insert Rules}
+
+ \begin{outline}[enumerate]
+	\1 \texttt{INTO} may not be necessary depending on the specific implementation of SQL.  
+		\2 It is good practice to \texttt{INTO} to ensure the SQL code is portable to other DBMS.   
+
+	\1 If no column list is specified, the \texttt{VALUES} list must contain all columns in the order given by the table.  
+	\1 If column allows null values, enter the \texttt{NULL} keyword.  
+	\1 If the column is defined with a default value (or auto-incremented), then use the \texttt{DEFAULT} keyword to assign the default values.
+	
+	\1 If a  column list is included (preferred), then columns with default values and null values can be omitted and automatically generated.  
+	\1 The column list can be ordered in any way, but the values must then follow this same ordering.  
+	
+	\1 Data values must be compatible with the data type specified by the column.  
+		\2 Strings, dates, must contain single quotes, which are optional on numeric literals.  
+		\2 the left quote, `, is often used
+	
+
+\end{outline}
+ 
+ 
+ 
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+ 
+ 
+ 
+ \begin{example}
+ 	Insert a new customer into the Customers table.
+ \end{example}
+ 
+ 	
+\begin{lstlisting}[frame=single]  
+INSERT INTO Customers(id, 
+	fname, 
+    lname, 
+    phone, 
+    email, 
+    address1, 
+    address2, 
+    zip) 
+VALUES(
+	default,
+    'John', 
+    'Smith', 
+    '941-261-9620', 
+    'smitty@yopmail', 
+    '810 Hollywood Blvd.',
+    '',
+    '90210');
+\end{lstlisting} 
+	
+	
+
+
+
+ \begin{example}
+ 	Insert multiple new customer into the Customers table.
+ \end{example}
+	
+\begin{lstlisting}[frame=single]  
+INSERT INTO Customers(id, 
+	fname, 
+    lname, 
+    phone, 
+    email, 
+    address1, 
+    address2, 
+    zip) 
+VALUES
+	(default, 'John', 'Jones', '207-743-8632', 'jonesy@gmail.com', '85 E. 5th St.','Apt. #3','04106'), 
+	(default, 'Jane', 'Smith', '216-285-9512', 'maryjane@gmail.com', '420 Franklin Ave.','','26034'), 
+	(default, 'Rick', 'James', '513-392-1128', 'rj@yahoo.com', '4927 Norwich Ave.','','04005');
+\end{lstlisting} 
+	
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+% ---------------- UPDATE --------------------
+\subsection*{UPDATE}
+% --------------------------------------------------
+
+The basic syntax for \texttt{UPDATE} queries follows (remember statements in square brackets are optional).
+
+% Update template
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <col1>  = expression1 [, <col2> = expression2, ...]
+[WHERE <someColumn> = valueX];
+\end{lstlisting} 
+
+
+  
+  
+  
+\noindent In particular, the syntax to update \underline{a single value}  is: 
+% Update single value  
+\begin{lstlisting}[frame=single]  
+UPDATE <TableX> 
+SET <colName>  = value1
+WHERE <someColumn> = value2;
+\end{lstlisting} 
+
+
+  
+ \subsection*{Notes for \texttt{UPDATE}}
+   \begin{outline}
+
+% what is valid for VALUE
+\1 The value for a column can be a literal or an expression.  
+ 
+
+% use where clause
+ \1 \texttt{WHERE} is used to specify the conditions that must be met for a records to be updated.  
+ 
+
+
+ 
+% SAFE-MODE
+\1 By default, MySQL Workbench runs in \textit{safe mode} that prevents from updateing rows if the \texttt{WHERE} clause is omitted or does not refer to a primary key or foreign key column.  To circumvent this restriction\footnote{\textbf{Warning!} Proceed with care, you could update ALL rows in the table without \texttt{WHERE}}, go to \texttt{Edit $\to$ Preferences} menus and select \texttt{SQL Editor} and uncheck ``Safe Updates''.  Another method is to execute \texttt{SET SQL\_SAFE\_UPDATES=0} statement prior to the \texttt{UPDATE} query.  % placed above the query
+
+
+
+
+% set one column for one row
+ \1You can \texttt{SET}:   One column for one row	
+	\1[]  
+	\begin{lstlisting}[frame=none]  
+UPDATE TblA SET colX=value1 WHERE colY=value2;
+	\end{lstlisting} 
+
+
+
+
+
+% set one column for multiple rows
+\1 You can \texttt{SET}:  One column for multiple rows (if \texttt{colY=value2} is in multiple records) 
+	\1[]  
+	\begin{lstlisting}[frame=none]  
+UPDATE TblA SET colX=value1 WHERE colY=value2;
+	\end{lstlisting} 
+	
+
+
+
+	
+% set multiple columns	
+\1 You can \texttt{SET}:  Multiple columns for one row (e.g., two column values)
+	
+	\1[]  
+	\begin{lstlisting}[frame=none]  
+UPDATE TblA SET 
+	colX=value1, 
+	colY=value2 
+WHERE colZ=value3;
+	\end{lstlisting} 
+
+
+
+ 
+ 
+ % subquery in where clause
+ \1 A subquery can be used in the \texttt{WHERE} clause to identify rows to be updated. 
+ \1[]  
+	\begin{lstlisting}[frame=none]  
+UPDATE TblA SET 
+	colX=value1, 
+	colY=value2 
+WHERE colZ IN
+	(SELECT colA FROM TblB WHERE colB = value3);
+	\end{lstlisting} 
+
+ \1[]  \textbf{Example} (from Store)
+	\begin{lstlisting}[frame=none]  
+UPDATE Products SET 
+	category_id = 5000
+WHERE category_id IN
+	(SELECT category_id FROM Categories 
+	WHERE category like 'Unknown%');
+	\end{lstlisting} 
+
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{\texttt{DELETE}}
+It is necessary to \textbf{delete} records from the database on occasion.  NOTE: There is a large potential do damage the database by losing records by performing the delete operation.  Therefore, \textbf{ALWAYS} use a \texttt{WHERE} clause.  \texttt{DELETE} removes rows, not columns (therefore, you do not list column names in a \texttt{DELETE} query.  
+ 
+ 
+ 
+ 
+ 
+ 
+  
+\begin{lstlisting}[frame=single]  
+DELETE FROM  <TableX> 
+WHERE <someColumn> = value;
+\end{lstlisting} 
+
+
+
+
+
+ 
+ \subsection*{Delete Rules}
+
+ \begin{outline}[enumerate]
+ 
+ 	\1 \texttt{DELETE} statement is used to delete one or more records from a specified table.
+	
+	% \1 The \texttt{FROM} clause is optional, but good practice to use it to ensure compatibility between SQL implementations.  
+	
+	\1 Use a \texttt{WHERE} clause to specify conditions that must be satisfied for records to be removed\footnote{\textbf{Warning!} Always use a \texttt{WHERE} clause.  Without a \texttt{WHERE} condition, ALL records will be deleted.}.
+	
+	\1 	SAFE-MODE is automatically ON in MySQL Workbench.  Reason: see previous item's footnote.   
+
+	
+	\1 Subqueries can be used within the \texttt{WHERE} condition.
+	\1[]  
+	\begin{lstlisting}[frame=none]  
+DELETE FROM Categories WHERE category_id IN
+	(
+	SELECT category_id 
+	FROM Categories 
+	WHERE category LIKE 'Unknow%'
+	);
+	\end{lstlisting} 
+	
+	\1 A foreign key constraint may prevent deletion.  Must delete all ``child rows'' first to prevent orphan records.
+		
+
+
+\end{outline}
+ 
+
+
+
+
+
+\begin{example}
+Remove the customer 1232.  
+\end{example}
+
+
+
+
+  
+\begin{lstlisting}[frame=single]  
+DELETE FROM  Customers
+WHERE id = '1232';
+\end{lstlisting} 
+
+
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+
+
+
+
+
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

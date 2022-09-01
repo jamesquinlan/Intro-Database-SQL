@@ -1,0 +1,366 @@
+%&latex
+\documentclass{article}
+% Wed Feb  17 09:55:15 EDT 2021
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% SUMMARY    :  Database design
+%            :   - Keys
+%            :   - Relationships (1:M, M:N, 1:1)
+%            :   - Referential Inegreity
+%            :   - Normalization
+%            :   
+%            :  Quinlan, J 
+%            :  University of New England
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\input{coding.tex}
+
+
+% ------ Packages ------ %
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+
+
+% ------ Color ------ %
+\definecolor{excel}{rgb}{0.95,0.975,0.997} % Powder blue
+
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Database Design I: Functional Dependencies}
+\author{DSC 301: Lecture 8}
+\date{February 19, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1  Functional dependencies
+        % \1  Keys: primary and foreign
+        % \1  Normalization
+       
+       
+        
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+\subsection*{Introduction}
+
+\noindent We have been querying single table databases.  However, the power of the relational database model is in its use of multiple relations (i.e., tables).  In this lecture, we return to the relational data model and examine essential elements in its \textbf{design} structure. The quality of the design directly affect the ability to properly query the database.  Poor design makes querying very difficult.  Understanding design makes for more efficient  MySQL programmer.  The key (no pun intended) piece of theory is functional dependencies.\\  % We begin with database keys.   
+
+
+
+
+
+
+
+
+
+  
+\subsection*{Functional Dependencies (FD)}
+
+%Common constraint that \textbf{generalizes the concept of a key}.  Important %tool in designing database relations (they help in determining ``key" information). %Functional dependencies are used to  
+% \textbf{define normal forms} - decomposition of relation into two or more %relations to remove anomalies.  In additional 
+ 
+ 
+ \begin{outline}
+ 
+ \1 Tool to improve the design of relational model.
+        \2 Describes relationship (constraint) among attributes
+        \2 Used to determine keys
+        %\2 Used to decompose one relation into two or more 
+        \2  Used to \textbf{define normal forms} - decomposition of relation             into two or more relations to remove anomalies.
+            
+        %  \2 Used to normalize into Boyce-Codd Normal Form
+          
+         \2 Used to reason about queries and query optimization
+         
+         \2 Used in data storage and compression % https://www.youtube.com/watch?v=Mkm1h5AtsXI
+                \3 e.g., eliminate redundancy
+                
+        
+         
+ 
+ \1 FD is a  constraint that \textbf{generalizes the concept of a key}.         \2 A \textit{key} is a special case of FD
+ 
+
+
+
+%  \1 Multi-valued dependencies (one or more independent attributes from others) lead to normal forms that eliminate redundancies.
+
+
+
+
+%\begin{definition}
+% Let $A$ and $B$ be sets of attributes of relation
+%$R$.  A \textbf{functional dependency}, $A \to B$ exists if for every $x,
+%y \in R$, 
+%\[
+%\pi_A(x) = \pi_A(y) \; \Rightarrow \; \pi_B(x) = \pi_B(y)
+%\]
+%\end{definition}
+
+
+\1[] \textbf{Definition}:  Let $A$ and $B$ be sets of attributes\footnote{  Attribute $A$ \underline{can} represent a set of multiple attributes,
+i.e.,  $A = \{A_1, A_2, \dots, A_m \}$, or a single set.  We simply write $A$ to represent
+this set.  Similarly for $B$, $C$, $\dots$.} of relation
+$R$.  A \textbf{functional dependency}, $A \to B$ exists if for every $x, y \in R$, 
+\[
+\pi_A(x) = \pi_A(y) \; \Rightarrow \; \pi_B(x) = \pi_B(y)
+\]
+
+\1[] \textbf{Definition} (Equivalent):  Let $A$ and $B$ be sets of attributes of relation $R$.  Then there is a functional dependency  $A \to B$ if the two tuples $t_i[B] = t_j[B]$ when $t_i[A] =  t_j[A] \in R$ for all $i,j$.  
+ 
+ 
+ \1 Notation and interpretation      
+        \2 The left hand side ($A$) is called the \textit{determinant}
+        
+        \2 We say $A$ ``functionally" determines $B$, (or $B$ is dependent on $A$)
+
+        \2 Standard mathematical notation can also be used, $f(A) = B$. 
+        
+        \2 Note: functional dependency on $R$ is a constraint on the schema, not just a one-off property of a particular instance.   
+
+        \2 \textbf{Key dependencies} are a special case of functional dependencies.  That is, if $U$ is the set of all attributes of a relation, then a \textbf{key dependency} is a functional dependency of the form $K \to U$.  
+
+\1 \textbf{Example}: Table \ref{tab:xfd} shows a relation $R$ with four attributes ($A, B, C, D$).  We can see that $A \to B$ exists.  What are some others?    
+  
+ 
+ % ------ Table with San Serif Font ------ %              
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{Example: Functional Dependency}
+\begin{center}
+
+R = \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{A}  & \cellcolor{excel}{B}  &   \cellcolor{excel}{C}
+&  \cellcolor{excel}{D}  \\
+  \hline
+        $a_1$ & $b_1$ & $c_1$  &   $d_1$ \\\hline
+        
+        $a_1$ & $b_1$ & $c_3$  &   $d_2$ \\\hline
+        
+         $a_2$ & $b_1$ & $c_3$  &   $d_3$ \\\hline
+         
+        $a_2$ & $b_1$ & $c_3$  &   $d_3$ \\\hline
+         
+        $a_3$ & $b_6$ & $c_3$  &   $d_4$ \\\hline
+         
+\end{tabular}
+\end{center}
+\label{tab:xfd}
+\end{table}%
+% ------------------------- % 
+% 
+%
+%
+%
+ 
+
+
+\1 \textbf{Full Functional Dependency}: $A \to B$, but if $C \subset A$, $C \not\to B$.  That is, $B$ is functionally dependent on $A$ but not on a proper subset of $A$.  Said another way, if removal of an attribute from the set $A$ ``breaks'' the dependency.  For example, in Table \ref{tab:xfd}, $D$ is fully functional dependent on $AC$, but not on $A$.    
+         
+          \2 If $B$ depends on a subset of $A$, then we say that $A \to B$ is a \textbf{partial dependency}.  In the case of keys, a partial dependency is a superkey.  
+ 
+
+
+
+\1 A functional dependency $A \to B$ is \textbf{trivial} if $B \subseteq A$.
+        \2  i.e., $A \to A$ is a trivial FD, because $A \subseteq A$.    
+
+
+
+
+ 
+%\1 \textbf{Theorem}:  The functional dependency $A \to B_1B_2 \cdots B_n$ %is equivalent to the set of dependencies:
+%
+%\begin{eqnarray*}
+%        A \to  B_1\\
+%        A \to  B_2 \\
+%         \vdots  \hspace{0.51cm} \\
+%        A \to B_n
+%\end{eqnarray*}
+       
+%        \2  Note: Attribute $A$ can represent a set of multiple attributes, %i.e.,  $A = \{A_1, A_2, \dots, A_m \}$.  We simply write $A$ to represent % this set.  
+ 
+
+
+
+
+
+
+\end{outline}
+  
+
+  
+  
+  
+
+
+% --------- Dependency Rules -------- %
+\subsection*{Armstrong Axioms and derived rules}
+Denote the sets of attributes as $A = \{A_1, A_2, \cdots , A_i\}$, $B = \{B_1, B_2, \dots, B_j \}$, $C = \{C_1, C_2, \dots, C_k \}$, and $D = \{D_1, D_2,
+\dots, D_l \}$.  Rules (1)--(3) are called \textbf{Armstrong Axioms} \cite{armstrong1974dependency1}  and are used to derive \textbf{closure} of the set of functional dependencies.    Rules (4)--(7) can be derived from (1)--(3).
+ Armstrong's Axioms are  \textit{complete}.  
+
+\begin{outline}[enumerate]
+        
+\1 \textbf{Reflexive}: if $B \subseteq A$, then $A \to B$. 
+
+\1 \textbf{Augmentation}:  If $A \to B$, then $AC \to BC$. 
+ 
+\1 \textbf{Transitive dependence}: If $A \to B$ and $B \to C$, then $A\to
+C$.
+
+
+% --------------------------------- %
+
+\1 \textbf{Self-determinant}:  $A \to A$
+
+\1 \textbf{Decomposition}: If $A \to BC$, then $A \to B$ and $A \to C$.  
+
+\1 \textbf{Union}: If $A \to B$ and $A \to C$, then $A \to BC$.
+
+\1 \textbf{Composition}: If $A \to B$ and $C \to D$, then $AC \to BD$.  
+\end{outline}
+  
+  
+   
+ 
+ 
+ % ------ Table with San Serif Font ------ %              
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{\textbf{Example}: Functional Dependency $A \to B$}
+\begin{center}
+
+R = \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{A}  & \cellcolor{excel}{B}  &   \cellcolor{excel}{C}
+&  \cellcolor{excel}{D}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  1 & 1 & 3  &   1 \\
+      \hline
+  2 & 1 & 3  &   4 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline 
+  3 & 6 & 3  &   1 \\
+      \hline 
+\end{tabular}
+\end{center}
+\label{tab:1}
+\end{table}%
+% ------------------------- % 
+% 
+% 
+  
+
+\noindent \textbf{Goal}: a minimal set of completely nontrivial FDs such that all FDs that hold on the relation follow from the dependencies in this set.  
+ 
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+% --------   -------- %
+
+
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+   
+ 
+ 
+  
+  
+  
+%+Bibliography
+\begin{thebibliography}{99}
+\bibitem{armstrong1974dependency1} Armstrong, W. W. (1974, August). Dependency Structures of Data Base Relationships. In \textit{IFIP congress} (Vol. 74, pp. 580-583).
+
+% \bibitem{Label2} ...
+\end{thebibliography}
+%-Bibliography
+
+
+
+
+ 
+
+\end{document}

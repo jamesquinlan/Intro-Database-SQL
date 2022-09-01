@@ -1,0 +1,521 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Aggregate Functions}
+\author{DSC 301: Lecture 7}
+\date{February 12, 2021} %  \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1  Review \texttt{DISTINCT} clause
+        \1  Aggregate Functions
+        \1  \texttt{GROUP BY} and \texttt{HAVING}
+        \1 Introduce Store database (and Products table)
+       
+       
+        
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+
+% -------- DISTINCT  -------- %
+\subsection*{\texttt{DISTINCT} clause}
+Recall the \texttt{DISTINCT} clause is used to elminate duplicates in a column of the data.  For example, the following statement returns $108,
+714$ records containing obvious duplicates in the \texttt{carrier} field.
+
+
+\begin{lstlisting}[frame=single]  
+SELECT carrier FROM Flights;
+\end{lstlisting} 
+
+\noindent However, if we wish to list the unique airline carriers, we need to use the \texttt{DISTINCT} keyword, as in: 
+
+
+\begin{lstlisting}[frame=single]  
+SELECT DISTINCT(carrier) FROM Flights;
+\end{lstlisting} 
+
+\noindent Often we will use the \texttt{DISTINCT} keyword with the aggregate function \texttt{COUNT}.    
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+
+
+
+
+
+
+% -------- Aggregate  -------- %
+\subsection*{Aggregate Functions}
+ 
+\textbf{Aggregate functions}, (also called \textit{column functions}), summarize data.  Aggregate functions allow us to calculate averages, totals, or find the highest or lowest value in a given column.  In addition, aggregate functions provide a means to count the occurrence of a field in the database.  Queries containing one or more aggregate functions are often called \textit{summary queries}. The \textbf{aggregate functions} are: \texttt{COUNT(), MIN(), MAX(), SUM(),} and \texttt{AVG()}.  \textbf{Note}:  by default, all values are included in aggregate calculations (including duplicates).  Use \texttt{DISTINCT} to remove duplicates in these calculations.  
+
+
+
+\subsection*{COUNT \& COUNT(*)}
+
+
+\begin{outline}
+    \1 \texttt{COUNT}: Counts the number of non-null records  in a given column
+        \2 \texttt{COUNT([ALL | DISTINCT] )}
+                 \3 Default is \texttt{ALL}
+        \2 Data type is unimportant (counts non-null records) in column
+        \2 Duplicate rows are counted unless \texttt{DISTINCT} is applied.        
+        \2 \texttt{COUNT(*)} counts all records INCLUDING \texttt{NULL} values
+\end{outline}
+
+
+\begin{lstlisting}[frame=single]
+# Basic Structure of COUNT statements  
+SELECT COUNT(<attribute>) FROM <TableX>;
+SELECT COUNT(*) FROM <TableX>;
+\end{lstlisting} 
+  
+
+\begin{example}
+Count the number of destinations.
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+SELECT COUNT(DISTINCT dest) FROM Flights;
+\end{lstlisting} 
+
+
+
+
+\begin{example}
+Count the number of destinations that American Airlines flies from Seattle.
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+SELECT COUNT(DISTINCT dest) FROM Flights WHERE carrier = 'AA';
+\end{lstlisting} 
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+
+
+%\subsection*{Count(*)}
+
+
+%\begin{outline}
+%    \1 \texttt{COUNT(*)}: Number of records selected by the query
+%        \2 Includes NULL\ values
+%        \2 All other aggregate functions IGNORE NULL\ values.
+%        \2 \texttt{COUNT(*)} counts all records INCLUDING \texttt{NULL} values
+% \end{outline}
+
+
+
+  
+
+\subsection*{Minimum}
+
+\begin{outline}
+ 
+    \1 \texttt{MIN}: Smallest value in column (data type: numeric, string, date)
+        \2 Resulting data type can be numeric, date, or string
+        
+               
+\begin{lstlisting}[frame=single]  
+SELECT MIN(distance) FROM Flights;
+\end{lstlisting} 
+   
+   
+   
+        \2 For example, if column contains string, min will result in lowest value in a sort sequence.  
+        
+\begin{lstlisting}[frame=single]  
+SELECT MIN(carrier) FROM Flights;
+\end{lstlisting} 
+   
+   
+   
+   
+ 
+
+\end{outline}
+
+\begin{example}
+Find the shortest flight.  First note that in this example the first statement produces the result $0$ (shortest flight ever!).  Therefore, add a \texttt{WHERE} clause to make sure we get flights that actually leave the airport by providing the condition that \texttt{air\_time > 0}.  Secondly, note this returns ONLY the time of the shortest flight, NOT the actual flight number, or destination, or carrier, etc.  If you want to show those as well, there are a few ways to do so.  Perhaps the best is using subqueries, but we have not covered them yet.  Another way is to make use of several clauses, some of which are not covered until later in this lecture.  We will revisit this example
+\end{example}  
+      
+\begin{lstlisting}[frame=single]  
+SELECT MIN(air_time) as AirTime FROM Flights;
+SELECT MIN(air_time) as AirTime FROM Flights WHERE air_time > 0;
+\end{lstlisting} 
+   
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+\subsection*{Maximum}
+
+\begin{outline}
+   \1 \texttt{MAX}: Largest value in column 
+        \2 Resulting data type can be numeric, date, or string
+        \2 Note: Cannot be used on right-hand side of comparison
+                \3 That is,  the following is \underline{invalid} syntax
+                
+\2[]                       
+\begin{lstlisting}[frame=single]  
+SELECT fid FROM Flights where air_time = MAX(air_time);
+\end{lstlisting} 
+   \vspace{-0.5cm}
+        \2 Must be used in subquery\footnote{Also called \textbf{nested query}.}
+if  used in \texttt{WHERE} clause  as a condition
+        \2 Same rules apply to \texttt{MIN}
+    
+\end{outline}
+ 
+  
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+\subsection*{Sum}
+
+\begin{outline}
+
+    \1 \texttt{SUM}: Total of column (or expression), under given condition
+    
+    \begin{lstlisting}[frame=single]
+# Total milage flown 2014  
+SELECT SUM(distance) FROM Flights;
+\end{lstlisting} 
+\vspace{-0.5cm}
+    \1 Must result in a numeric value 
+    
+   
+\end{outline}
+ 
+  
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+\subsection*{Average}
+
+\begin{outline}
+ 
+    \1 \texttt{AVG()} - the average of all non-null values, default is \texttt{ALL}.
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT AVG(dep_delay) FROM Flights;
+\end{lstlisting}                
+\vspace{-0.5cm}
+
+    \1 May be used with the keyword \texttt{DISTINCT}.  Note the difference between the next query results and the previous.   The results are vastly different.  Make sure you select the correct options based on your needs.   
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT AVG(DISTINCT dep_delay) FROM Flights;
+\end{lstlisting}                
+\vspace{-0.5cm}     
+
+     
+    \1 Must result in a numeric value
+   
+\end{outline}
+ 
+  
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+\vspace{0.5cm} 
+  
+  
+   
+  
+  
+  
+   
+   
+\noindent NOTE: A \texttt{SELECT} clause that contains an aggregate function
+can only contain aggregate functions except if there is a \textit{literal}
+or a \texttt{GROUP\ BY} clause is used.  Here is an example with a literal.  We will see examples with \texttt{GROUP BY} in the next section.  
+
+     
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT 'Total Records' AS '', count(*) AS '' from Flights;
+\end{lstlisting}  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+\subsection*{GROUP BY}
+
+  
+
+
+\begin{outline}
+ 
+     \1 \texttt{GROUP BY}  clause groups the records based on one or more columns (or expressions).
+
+    \1 If an aggregate function is in the \texttt{SELECT} clause, then the aggregate is calculated for each group specified by the \texttt{GROUP BY} clause.  In this case, we may place columns in the \texttt{SELECT} clause as mentioned above. 
+
+   
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT carrier, avg(dep_delay) FROM Flights group by carrier;
+\end{lstlisting}  
+\vspace{-0.5cm}
+ 
+    \1 \texttt{GROUP BY} sorts columns in ascending order (by default).  Place \texttt{DESC} after column names in \texttt{GROUP BY}  clause.
+    
+   %  \1 \texttt{GROUP BY} 
+   
+\end{outline}
+  
+  
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+   
+  
+
+\subsection*{Having}
+
+ \texttt{HAVING} is to \texttt{GROUP BY} as \texttt{WHERE} is to \texttt{SELECT}.
+In particular, the \texttt{WHERE} clause places conditions on selected columns,
+whereas the \texttt{HAVING} clause places conditions on groups created by
+the \texttt{GROUP BY} clause.  
+
+
+\begin{outline}
+ 
+    \1 \texttt{HAVING} clause can only refer to a column included in the \texttt{SELECT} clause.
+
+    \1 \texttt{HAVING} clause can contain aggregate functions
+        \2 \texttt{WHERE} clause cannot contain aggregate functions.  
+   
+\end{outline}
+ 
+  
+\begin{example}
+Find the average distance by destinations that start with the letter `C'.
+Round up to next whole number of miles.\end{example} 
+ 
+ 
+% CODE: 
+\begin{lstlisting}[frame=single]
+SELECT 
+    dest, CEIL(AVG(distance))
+FROM
+    Flights
+GROUP BY dest
+HAVING dest like 'C%';  
+\end{lstlisting}  
+\vspace{-0.5cm}
+ 
+
+
+ 
+  
+\begin{example}
+Find the longest flight and show its destination. This was mentioned by a student during lecture (and there are a couple problems on the homework where this will come in handy).  The ``trick" here is to make use of several clauses (perhaps just until we learn subqueries).  
+\end{example} 
+ 
+ 
+% CODE: 
+\begin{lstlisting}[frame=single]
+SELECT 
+    dest as City, MAX(distance) AS Distance
+FROM
+    Flights
+GROUP BY City
+ORDER BY Distance DESC
+LIMIT 1;
+\end{lstlisting}  
+\vspace{-0.5cm}
+  
+  
+
+\subsection*{Store Database}
+A store database, with only one table (\texttt{Products}) was added to the server.    The table contains approximately 13000 nature/gardening/pet type products. Eventually we will add more tables to this database including (\texttt{Customers,
+Orders, Manufacturers, ZipCodes, ...}).  \\
+
+\noindent  Become familiar with this table by running several queries such as:
+\begin{outline}[enumerate]
+        \1  countries manufacture the products?
+        \1 What is the difference between the \texttt{price} and \texttt{MSRP}?  Literally and figuratively.
+ 
+ \1 How many products are out of stock?
+ 
+ \1 Are there any products that do not have image files?
+ \1 etc.
+\end{outline}
+  
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

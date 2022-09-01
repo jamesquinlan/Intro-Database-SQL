@@ -1,0 +1,634 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{String and Scalar Functions}
+\author{DSC 301: Lecture 6}
+\date{February 10, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1 String functions
+        \1 Arithmetic functions
+        % \1 Date functions
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+% --------   -------- %
+\section*{String Functions}
+ 
+\textbf{String functions} include such functions concatenation, trimming, locating substrings, obtaining string length, replacing parts, capitalizing, padding, etc.  
+
+
+
+\subsection*{Concatenation}
+
+
+\begin{outline}
+    \1 \texttt{CONCAT(str1,str2)}: Concatenates two or more strings.  If one of the strings is \texttt{null}, the entire result is \texttt{null}.
+
+
+\begin{lstlisting}[frame=single]  
+SELECT CONCAT(carrier,flight) as Flight from Flights;
+\end{lstlisting} 
+Note the use of aliasing in the example above.  
+
+
+
+    \1 \texttt{CONCAT\_WS(sep,str1,str2)}: Concatenates two or more strings with a separator (\texttt{sep}).  If \texttt{sep} is null, the result is \texttt{null}.  The example below will place a hyphen between the carrier and flight number.  
+
+
+\begin{lstlisting}[frame=single]  
+SELECT CONCAT_WS('-',carrier,flight) as Flight from Flights;
+\end{lstlisting}  
+
+\end{outline}
+
+ 
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+  
+  
+  
+% LTRIM
+\subsection*{Trimming}
+
+\begin{outline}
+ 
+        % LTRIM
+    \1 \texttt{LTRIM(str)}: Returns the string (\texttt{str}) with left spaces removed.  That is trims left spacing.  
+   
+   
+\begin{lstlisting}[frame=single]  
+SELECT LTRIM('  American Airlines') as Airline;
+\end{lstlisting} 
+
+
+
+
+        % RTRIM
+    \1 \texttt{RTRIM(str)}: Returns the string (\texttt{str}) with right spaces removed.  That is trims right spacing.    
+   
+   
+\begin{lstlisting}[frame=single]  
+SELECT RTRIM('  American Airlines  ') as Airline;
+\end{lstlisting} 
+Note left spaces still exist in the result of this example.  
+
+
+
+
+
+        % TRIM
+    \1 \texttt{TRIM([both|leading|trailing] [remove FROM] str)}: Returns
+the string (\texttt{str}) with \texttt{remove} eliminated from the   begining
+or ending (or both).  If \texttt{remove} is omitted, only spaces are removed.
+   
+   
+\begin{lstlisting}[frame=single]  
+SELECT TRIM(LEADING '---' FROM '---American Airlines') as Airline;
+\end{lstlisting} 
+
+
+
+\end{outline}
+ 
+  
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+\subsection*{Length of strings}
+
+\begin{outline}
+   \1 \texttt{LENGTH(str)}: returns number of characters in the string.
+   
+   
+\begin{lstlisting}[frame=single]  
+SELECT LENGTH('American Airlines') as 'Length of Name';
+\end{lstlisting} 
+
+Note difference in length between the previous query and the following.   
+   
+\begin{lstlisting}[frame=single]  
+SELECT LENGTH('   American Airlines') as 'Length of Name';
+\end{lstlisting}
+
+\end{outline}
+ 
+  
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+  
+
+\subsection*{Substrings}
+
+\begin{outline}
+
+ % --------- LEFT ---------- %  
+   \1 \texttt{LEFT(str,length)}: Returns a specified number of characters from the beginning of the  string.
+        
+         
+\begin{lstlisting}[frame=single]  
+SELECT LEFT('American Airlines',4) as 'Begining 4 characters';
+\end{lstlisting}
+
+        
+\begin{lstlisting}[frame=single]  
+SELECT LEFT(tailnum,2) as 'Part tailnum' from Flights;
+\end{lstlisting}
+
+         
+         
+         
+         
+         
+    % --------- RIGHT ---------- %     
+   \1 \texttt{RIGHT(str,length)}: Returns a specified number of characters
+from the end of the  string.
+
+       
+\begin{lstlisting}[frame=single]  
+SELECT RIGHT('American Airlines',5) as 'Last 5 characters';
+\end{lstlisting}
+
+
+
+
+
+      
+    % --------- SUBSTRING ---------- %     
+   \1 \texttt{SUBSTRING(str,start,[length])}: Returns the a specified number of characters starting from the \texttt{start} position.  If \texttt{length} is empty, it returns from the starting position to the end.    
+       
+\begin{lstlisting}[frame=single]  
+SELECT SUBSTRING('American Airlines', 4,5) as 'Substring';
+\end{lstlisting}
+
+
+       
+\begin{lstlisting}[frame=single]  
+SELECT SUBSTRING(tailnum, 2,3) as 'PartTail' from Flights;
+\end{lstlisting}
+
+       
+
+  
+  
+  
+  
+  
+  
+  
+      
+    % --------- SUBSTRING INDEX ---------- %     
+   \1 \texttt{SUBSTRING\_INDEX(str,delimiter,number)}: Returns  the substring before the specified \texttt{number} of occurences of the delimiter.  When \texttt{number} is positive, it starts from the beginning and when negative from the end. Used to parse strings. 
+       
+\begin{lstlisting}[frame=single]  
+SELECT SUBSTRING_INDEX('https://www.une.edu', '.',-2) as 'Domain Name';
+\end{lstlisting}
+
+
+ 
+   
+
+
+      
+    % --------- LOCATE ---------- %     
+   \1 \texttt{LOCATE(lookfor,search,[start])}: Returns the \textbf{position} of the first occurrence of \texttt{lookfor} in the \texttt{search} string starting at the optional parameter \texttt{start}.  If \texttt{start} is empty, the search starts at the beginning of the string.  
+       
+\begin{lstlisting}[frame=single]  
+SELECT LOCATE('irl','American Airlines') as 'Position of irl';
+\end{lstlisting}
+
+   
+      
+\begin{lstlisting}[frame=single]  
+ SELECT LOCATE('O',dest,2) as 'Position of O' from Flights;
+\end{lstlisting}
+
+   
+   
+   
+   
+   
+   
+   
+      
+    % --------- REPLACE ---------- %     
+   \1 \texttt{REPLACE(search,find, replace)}: Returns the \texttt{search} string with the characters \texttt{find} replaced by \texttt{replace}.  
+       
+\begin{lstlisting}[frame=single]  
+SELECT REPLACE('American Airlines','Air','Van') as 'New Str';
+\end{lstlisting}
+
+    
+    
+    
+
+   
+      
+    % --------- INSERT ---------- %     
+   \1 \texttt{INSERT(str,start, length,insert)}: Returns the \texttt{search}
+string with the characters \texttt{find} replaced by \texttt{replace}.  
+       
+\begin{lstlisting}[frame=single]  
+SELECT INSERT('American Airlines',5,3,'Van') as 'New Str';
+\end{lstlisting}
+
+    
+    
+    
+    
+   
+      
+    % --------- UPPER ---------- %     
+   \1 \texttt{UPPER(str)}: Returns the \texttt{str}
+converted to uppercase letters.  
+       
+\begin{lstlisting}[frame=single]  
+SELECT UPPER('American Airlines') as 'All UPPERCASE';
+\end{lstlisting}
+
+    
+    
+    
+    
+   
+      
+    % --------- LOWER ---------- %     
+   \1 \texttt{LOWER(str)}:  Returns the \texttt{str}
+converted to lowercase letters.
+       
+\begin{lstlisting}[frame=single]  
+SELECT LOWER('American Airlines') as 'All lowercase';
+\end{lstlisting}
+
+    
+    
+    
+    
+    
+    
+   
+      
+    % --------- LPAD ---------- %     
+   \1 \texttt{LPAD(str, length, char)}: Returns a string of length \texttt{length} padded on the \textbf{left} with \texttt{char}.  If \texttt{str} is longer than the \texttt{length}, the \texttt{str} is truncated and not padding occurs.      
+       
+\begin{lstlisting}[frame=single]  
+SELECT LPAD('American Airlines',20,'.') as 'Padded String'; 
+\end{lstlisting}
+
+
+
+   
+\begin{lstlisting}[frame=single]  
+SELECT LPAD('American Airlines',15,'.') as 'Truncated String'; 
+\end{lstlisting}
+
+        
+    
+    
+    
+   
+      
+    % --------- RPAD ---------- %     
+  \1 \texttt{RPAD(str, length, char)}: Returns a string of length \texttt{length}
+padded on the \textbf{right} with \texttt{char}.  If \texttt{str} is longer than the \texttt{length}, the \texttt{str} is truncated and not padding occurs.  
+   
+       
+\begin{lstlisting}[frame=single]  
+SELECT RPAD('American Airlines',20,'.') as 'Padded String'; 
+\end{lstlisting}
+
+    
+    
+    
+    
+    
+    
+   
+      
+    % --------- SPACE ---------- %     
+   \1 \texttt{SPACE(number)}: Returns the specified \texttt{number} of space characters.
+   
+       
+\begin{lstlisting}[frame=single]  
+SELECT CONCAT('American',  SPACE(10), 'Airlines') as 'New Str';
+\end{lstlisting}
+
+    
+    
+    
+    
+   
+      
+    % --------- REPLACE ---------- %     
+   \1 \texttt{REPLACE(str,replace,with)}: Returns the string (\texttt{str}) with all occurances of the substring \texttt{replace}, replaced by \texttt{with}.  For example, the code below will change `American Airlines' to `American Vanlines'.   
+       
+\begin{lstlisting}[frame=single]  
+SELECT REPLACE('American Airlines','Air','Van') as 'New Str';
+\end{lstlisting}
+
+    
+    
+   
+      
+    % --------- REVERSE ---------- %     
+   \1 \texttt{REVERSE(str)}: Returns  \texttt{str} with characters in reverse order. 
+
+       
+\begin{lstlisting}[frame=single]  
+SELECT REVERSE('American Airlines') as 'Reverse Str';
+\end{lstlisting}
+
+    
+    
+    
+    
+    
+   
+      
+    % --------- REPEAT ---------- %     
+   \1 \texttt{REPEAT(str,times)}: Returns the \texttt{str}
+repeated  \texttt{times} number of times.  
+       
+\begin{lstlisting}[frame=single]  
+SELECT REPEAT('Air',3) as 'Repeat Str 3 times';
+\end{lstlisting}
+
+
+\end{outline}
+  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+
+
+
+
+
+
+  
+
+\section*{Numeric Functions}
+
+\subsection*{Basic Math}
+Basic math function include addition, subtraction, multiplication,  division, modulo, and exponentiation.
+
+ 
+\begin{outline}
+
+    \1 \texttt{+}: Adds values.  For example to add 30 minutes to the air time of a flight, we write:
+
+\begin{lstlisting}[frame=single]  
+SELECT air_time + 30 as 'New Air Time' FROM Flights;
+\end{lstlisting}
+
+
+    \1 \texttt{-}: Subtraction.  Similar to subtract 30 minutes.  
+
+\begin{lstlisting}[frame=single]  
+SELECT air_time - 30 as 'New Air Time' FROM Flights;
+\end{lstlisting}
+
+
+    \1 \texttt{*}: Multiply.  Scales values.  For example, to convert to flight distance in miles to kilometers.  
+
+\begin{lstlisting}[frame=single]  
+SELECT 1.609344*distance as 'Distance (km)' FROM Flights;
+\end{lstlisting}
+
+
+    \1 \texttt{/}: Divide.  Similar usage to multiplication.  For example, lets determine the flight time in hours.  
+
+
+\begin{lstlisting}[frame=single]  
+SELECT air_time / 60 as 'Travel time (hours)' FROM Flights;
+\end{lstlisting}
+
+    
+    
+    %IF distance was stored in kilometers in the table, then to convert to miles we would divide.
+
+%\begin{lstlisting}[frame=single]  
+%SELECT distance/1.609344 as 'Distance (miles)' FROM Flights;
+%\end{lstlisting}
+   
+\end{outline}
+ 
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+   
+ 
+ 
+ 
+  
+ \subsection*{Scalar Functions}
+ 
+\begin{outline}
+   \1 \texttt{abs(x)}: absolute value, e.g., abs(-17.4)
+   \1 \texttt{cbrt(x)}: cube root, e.g., cbrt(8)
+   \1 \texttt{ceil(x)}: smallest integer not less than argument, e.g., ceil(-42.8)
+   \1 \texttt{ceiling(x)}:same as \texttt{ceil(x)}
+   \1 \texttt{degree(x)}: radians to degrees
+   \1 \texttt{floor(x)}: largest integer not greater than argument, e.g.,  floor(-42.8)
+   \1 \texttt{exp(x)}: exp(1) is the natural number $e$
+   \1 \texttt{ln(x)}: natural logarithm, e.g., ln(2.0)
+   \1 \texttt{log(x)}: base 10 logarithm,  e.g., log(100)
+   \1 \texttt{mod(y,x)}: remainder of y/x, e.g., mod(9,4)
+   \1 \texttt{pi()}: $\pi$
+   \1 \texttt{pow(x,y)}: raise a number to exponent y, e.g., pow(9.0, 3.0)
+   \1 \texttt{power(x,y)}: same as \texttt{pow}
+   \1 \texttt{radians(x)}: degree to radians
+   \1 \texttt{rand()}: random value between 0.0 and 1.0
+   \1 \texttt{round(x,p)}: round to p decimal places, e.g., round(42.4382, 2)
+   \1 \texttt{sign(x)}: sign of the argument, i.e., $(-1, 0, +1)$
+   \1 \texttt{sqrt(x)}: square root, e.g., sqrt(2.0)
+   \1 \texttt{truncate(x,p)}: truncate to s decimal places, trunc(42.4382,2)
+\end{outline}
+ 
+  
+  
+   
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+ 
+ 
+  
+ \subsection*{Date Functions}
+ 
+ Not covered in this lecture.     
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ \subsection*{Next time}
+ 
+ Aggregate functions  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

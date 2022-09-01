@@ -1,0 +1,411 @@
+% &latex
+
+% Wed Apr  23 02:54:19 EDT 2021
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% SUMMARY   :  Introduction to Database
+%           		:  User functions, triggers, and events
+%			:
+%            		:  (c) 2021. Quinlan, J 
+%            		:  MIT License.
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\documentclass{article}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+% CODE (SQL)
+\input{coding.tex}
+
+
+
+\begin{document}
+
+%+Title
+\title{Functions, Triggers, and Events}
+\author{DSC 301: Lecture 17}
+\date{\today}
+\maketitle
+%-Title
+
+%+Abstract
+\begin{abstract}
+\noindent MySQL 5.0 introduced stored procedures, functions, triggers, and events.  In this lecture we cover these three stored programs.  
+\end{abstract}
+%-Abstract
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ------------------------------------------------------------
+
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+We cover the following three topics in this lesson:
+\begin{outline}
+        \1  User defined functions
+        \1  Triggers
+        \1  Events        
+\end{outline}
+
+
+
+
+
+
+
+
+
+
+% --------- SECTION: User defined functions ------- %
+\section{User Defined Functions}
+ 
+Aggregate functions such as \texttt{sum}, \texttt{avg}, \texttt{count} and string functions including \texttt{concat}, \texttt{ltrim}, and \texttt{substring} are built in functions.  Users can create their own utility functions.  These are called \textbf{user defined functions}, or simply \textbf{functions}.  \\
+
+\noindent Before we present a function template, here are a few items to keep in mind when working with functions in MySQL.
+
+
+\subsubsection*{Function Rules}
+\noindent Functions, 
+\begin{outline}
+        \1  return a single value, as opposed to a result set (therefore functions are sometimes called \textit{scalar functions})
+        \1   cannot execute \texttt{UPDATE}, \texttt{INSERT}, or \texttt{DELETE} statements.  
+	\1  are called by using it as an expression just like built-in functions (e.g., \texttt{COUNT})
+\end{outline}
+
+
+% TEMPLATE:  user defined function
+\subsubsection*{Function Template}
+
+\begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE FUNCTION name_of_function
+	(
+	[parameter1 dataType]
+	[, parameter2 dataType, ...]
+	)
+RETURNS dataType
+
+BEGIN
+	DECLARE local_variable dataType;
+	
+	# SQL statement(s) and/or other code
+	
+	RETURN(local_variable);
+	
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+% EXAMPLE: user defined function
+\begin{example}
+Write a function that accepts an order number and returns the total.  Then apply this function to order number 1.
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+use dbsoln_Store;
+DROP FUNCTION if exists getTotal;
+DELIMITER $$
+
+CREATE FUNCTION getTotal
+	(
+		oid 	INT
+	)
+RETURNS decimal(9,2)
+
+BEGIN
+	DECLARE total decimal(9,3);
+	
+	SELECT sum(qty*msrp) INTO total 
+    FROM OrderDetails D 
+	INNER JOIN
+        Products P ON D.product = P.product_id 
+    WHERE D.order = oid;
+	
+	RETURN(total);	
+END$$
+
+DELIMITER ;
+
+#  Function in use:
+SELECT getTotal(1);
+\end{lstlisting} 
+% --------------------------------------------------
+
+
+
+
+
+\begin{example}
+	Write a function that doubles MSRP and then adds \$10.00.  
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+USE dbsoln_Store;
+DROP function IF EXISTS qpricing;
+
+DELIMITER $$
+CREATE FUNCTION  qpricing(x decimal(9,2))
+RETURNS decimal(9,2)
+
+BEGIN
+	DECLARE y int;
+        SET y = 2*x+10;
+	RETURN y;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+\begin{lstlisting}[frame=single]  
+# Test the function:
+SELECT qpricing(msrp) FROM Products WHERE product_id = 1111;
+SELECT qpricing(msrp) FROM Products WHERE product_id in(1111,1345,1853);
+\end{lstlisting} 
+
+
+
+
+% HOW TO DROP A FUNCTION (IF EXISTS)
+\subsubsection*{DROP a function}
+
+To drop a function type:  
+\begin{lstlisting}[frame=single]  
+DROP FUNCTION [IF EXISTS] function_name
+\end{lstlisting} 
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+% --------- SECTION: Triggers ------- %
+\section{Triggers}
+ 
+\textbf{Triggers} are classified as \textit{stored programs}.  Triggers can be executed before or after an \texttt{INSERT}, \texttt{UPDATE}, or \texttt{DELETE} query is executed.  Triggers aid in data consistency.   A \texttt{FOR EACH ROW} clause must be specified that indicates that the statements are executed for all modified rows.  If the body executes a single statement, the \texttt{BEGIN} and \texttt{END} statements are not needed.  \texttt{NEW} and \texttt{OLD} keywords indicate whether we are working with new or old values.  NOTE: If trigger uses \texttt{INSERT}, then \texttt{OLD} cannot be used as there are no old values.  Likewise, \texttt{NEW} cannot be used with \texttt{DELETE}, since there will not be a new row deleted (you only delete old rows).\\
+
+\newpage
+
+
+% TEMPLATE: Triggers
+\noindent The basic syntax for triggers is:
+
+\begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE TRIGGER name_of_trigger
+	{BEFORE | AFTER} {INSERT | UPDATE | DELETE} ON Table_Name
+	FOR EACH ROW
+
+BEGIN
+	# SQL statement(s)	
+END$$
+\end{lstlisting} 
+
+
+
+
+% EXAMPLE: create a trigger
+\begin{example}
+Create a trigger to capitalize the first letter of a new customers first and last name.  Note how this adds consistency.  
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+use dbsoln_Store;
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS `dbsoln_Store`.`capFname` $$
+CREATE TRIGGER `dbsoln_Store`.`capFname`
+	BEFORE INSERT ON `Customers`
+	FOR EACH ROW
+
+BEGIN
+	SET NEW.fname = concat(UPPER(LEFT(NEW.fname,1)),LOWER(SUBSTRING(NEW.fname,2,LENGTH(NEW.fname))));
+
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+% --------------------------------------------------
+
+
+
+
+% How to SHOW and DROP triggers 
+\subsubsection*{SHOW and DROP Triggers}
+
+You can show a list of all triggers using: 
+
+% show
+\begin{lstlisting}[frame=none]  
+SHOW TRIGGERS IN database;
+\end{lstlisting} 
+
+\noindent The \texttt{LIKE} keyword can be added to the SQL statement to filter the triggers, 
+
+\begin{lstlisting}[frame=none]  
+SHOW TRIGGERS IN database LIKE 'cap%';
+\end{lstlisting} 
+
+
+
+
+% drop
+\noindent Dropping a trigger is done by, 
+\begin{lstlisting}[frame=none]  
+DROP TRIGGER [IF EXISTS] trigger_name;
+\end{lstlisting} 
+
+\noindent Note: \texttt{IF EXISTS} is optional.
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% --------- SECTION: Events  ------- %
+\section{Events}
+ 
+ \textbf{Events} (introduced in MySQL 5.1) are executed on a schedule. They provide automation of tasks that need to be run  \textit{one-time} or \textit{recurring}.    
+
+\begin{outline}
+	\1 To use events, the \textit{event scheduler} must be turned \texttt{ON}.  By default it is \texttt{OFF}.
+		
+		\2 To see if the event schedule is on, type: \texttt{SHOW VARIABLES LIKE 'event\%';}
+		\2 If \texttt{OFF}, then \texttt{SET GLOBAL event\_scheduler $=$ ON;}
+		\2 Note: 1 and 0 are equivalent to \texttt{ON} and \texttt{OFF} respectively
+		
+	% \1 An event can be \textit{one-time} or \textit{recurring}
+	
+\end{outline}
+
+ 
+ % TEMPATE: Event
+\begin{lstlisting}[frame=single]  
+USE whichDatabase;
+
+# Change the delimiter because semi-colon used inside
+DELIMITER $$
+
+CREATE EVENT name_of_event
+ON SCHEDULE 
+{AT timestamp  |  EVERY interval [STARTS timestamp]  [ENDS timestamp]
+DO 
+BEGIN
+	# SQL Statements
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+
+
+\begin{lstlisting}[frame=single]  
+DROP EVENT [IF EXISTS] event_name
+\end{lstlisting} 
+
+\noindent For example, delete certain records monthly.
+
+\begin{lstlisting}[frame=single]  
+USE whichDatabase;
+DELIMITER $$
+
+CREATE EVENT outofstock
+ON SCHEDULE 
+EVERY 1 month STARTS '2021-06-01'
+DO 
+BEGIN
+	DELETE FROM Products 
+	WHERE inventory < 1;
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+\end{lstlisting} 
+
+
+% select product_id, name, inventory, price, msrp, qbomb(msrp) as QBOMB from Products; 
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+
+
+
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}
+
+% Outline environment templates
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}

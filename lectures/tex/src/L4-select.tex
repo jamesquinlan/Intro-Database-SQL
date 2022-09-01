@@ -1,0 +1,514 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\input{coding.tex}
+
+\begin{document}
+
+%+Title
+\title{Data Query Language (DQL)}
+\author{DSC 301: Lecture 4}
+\date{\today}
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1  Access Database Server
+        \1  Examine Flights data (in Excel)
+        \1  Log in to db server
+        \1  Examine Flights data on Server
+        \1  SELECT statements (single table queries)
+\end{outline}
+
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+% -------- Flights data (in Excel)  -------- %
+\subsection*{Flights data (in Excel)}
+\begin{outline}
+ \1 Download \texttt{Flights.csv} from Blackboard
+ 
+ \1 Determine how many flights departing Seattle on Christmas day that were delayed more than 30 minutes.
+
+ \1 Determine the carriers that service \texttt{CLT}.  
+ 
+ \1 Make your own query and find the answer. 
+ 
+ \1 \underline{Observe the difficulty in querying data in this format}  
+\end{outline} 
+
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+% -------- Server Access  -------- %
+\subsection*{Gain Access to Server}
+\begin{outline}
+ \1 \texttt{https://www.dbsoln.com}
+ \1 Enter UNE email address
+ \1 Copy login credentials
+\end{outline} 
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+% -------- Flights data (in server) -------- %
+\subsection*{Connect to Database Server}
+\begin{outline}
+
+ \1 Open MySQL Workbench - enter credentials and connect
+    \2 Use commands at the terminal or command line interface
+    
+ \1 View features of software after connecting
+\end{outline} 
+
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+% -------- SELECT STATEMETS -------- %
+\subsection*{SELECT Statements}
+\begin{outline}
+
+        \1 \texttt{SELECT} (without \texttt{FROM})
+                \2 Technically works, but trivial, impractical, and nonsensical
+                \2 \texttt{SELECT 2+3;}
+                \2\texttt{SELECT `Hello World!';}
+               
+
+
+         \1 \texttt{SELECT FROM}
+                
+                
+            \2 Besides trivial case (see above), ALL \texttt{SELECT}  statements have \texttt{FROM} clause
+                
+                
+                
+            \2 Basic SELECT FROM syntax
+
+\1[]                
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT <column_X> FROM <Table_Y>;
+\end{lstlisting}                        
+
+
+\textbf{Example}:  \texttt{SELECT fid FROM Flights;}\\
+where \texttt{fid} is a column in the \texttt{Flights} table. \\
+                
+                
+                
+            \2 \textbf{Note}: Use \textbf{Semicolon} to terminate \texttt{SQL}  statements
+                 
+              
+              
+              
+ 
+ 
+ 
+             
+              
+              
+              
+              
+              
+
+% SELECT %
+
+                \1 \texttt{SELECT} multiple columns by separating column names by comma(s): 
+                
+              % CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT <column1, column2> FROM <Table_Y>;
+\end{lstlisting} 
+                
+               
+    \textbf{Example}: \texttt{SELECT flight, origin, dest FROM Flights;}\\
+               
+                            
+                 
+             \1 Wildcard - used to select ALL columns in a table (not advisable
+to use!)\\
+
+ \texttt{SELECT * FROM Flights;} \\
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+% LIMIT % 
+                
+           \1 \texttt{LIMIT} - Use the \texttt{LIMIT}  clause to limit the number of records returned by the \texttt{SELECT} query.  The syntax of the \texttt{LIMIT} clause is:  \texttt{LIMIT [skip] number\_of\_records}.  If a single argument is used, it represents the maximum number of records returned by the query, starting with the first.  An optional integer $N$ is used to skip the first $N$ records.  The following query string returns the first 100 records (if 100 records exist).  
+
+
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT <column1> FROM <table_Y> LIMIT 100;
+\end{lstlisting} 
+% ----------------------- 
+% 
+% 
+% 
+
+\textbf{Example}: Return the departure time of the first 100 flights in the database.
+
+\texttt{SELECT dept\_time FROM Flights LIMIT 100;}
+
+
+
+
+
+
+
+
+
+
+
+
+% ORDER\ BY %
+
+         \1 \texttt{ORDER BY} clause
+         
+         The \texttt{ORDER BY} clause sorts the resulting record set in ascending (\texttt{ASC}) or descending (\texttt{DESC}) order using one or more columns.  Ascending order is the default.  \texttt{ORDER BY}  can be used with or without the \texttt{WHERE} clause.  Null values will always be displayed first.  The general query statement using an \texttt{ORDER BY} clause is given as follows. \\
+
+
+        
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT <column1> FROM <table_Y> ORDER BY <column2>;
+\end{lstlisting} 
+% ----------------------- 
+% 
+% 
+% 
+
+
+
+
+ 
+        
+         
+       \1 Results sorted by \texttt{column1}, then by \texttt{column2}. \\
+              
+        
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT * FROM <table_Y> ORDER BY <column1, column2>;
+\end{lstlisting} 
+% ----------------------- 
+% 
+% 
+% 
+% 
+% 
+ 
+        
+        
+        
+        \1 Results sorted by column two (i.e., the second column).  Specify the column number in the \texttt{ORDER BY} clause. \\
+        
+               
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT * FROM <table_Y> ORDER BY 2;
+\end{lstlisting} 
+% ----------------------- 
+% 
+% 
+%         
+                
+It is important to note that SQL follows ASCII character sort order.  In particular, numeric digits 0 - 9 come before capital letters A - Z, which come before lower case letters a - z.  Additionally, because all values are considered characters, SQL would sort the numeric values 1, 2, 3, 5, 8, 13, 21, 34, and 55 as 1, 13, 2, 21, 3, 5, 55, and then 8.   
+
+
+
+
+
+
+
+\1 Lastly, query results can be ordered even by columns not requested in the \texttt{SELECT} statement (same as above).  Note in code below, \texttt{column2} is not displayed, but the results, \texttt{column1} is nevertheless sorted by \texttt{column2}.
+ 
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT <column1> FROM <table_Y> ORDER BY <column2>;
+\end{lstlisting} 
+% ----------------------- 
+% 
+% 
+%         
+\end{outline} 
+
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ----------- Odds and ends ------------ %
+\subsection*{Odds and ends}
+
+\begin{outline} 
+ 
+  \1 Broom icon - Cleans SQL code
+
+
+  \1 SQL syntax is not case sensitive (i.e., \texttt{SELECT} same as
+\texttt{select})
+
+
+  \1 \textbf{Comments} - are brief explanations or annotations that
+make code more user friendly.  Comments are not executed but useful to user
+to indicate the process or understand the results of a query, etc.
+
+      \2 Single line comment\ syntax:  MySQL \texttt{\#} .  Standard
+SQL \texttt{--}.
+
+              \3 That is, \texttt{--} works with all flavors of
+SQL, while \texttt{\#} is a MySQL thing.  
+
+
+       \2 Multiple lines or Block comments: \texttt{/*} starts the
+block and \texttt{*/} ends the block.  
+       
+               \3 Note: This can be used within the code as well.
+                        
+ \1[] \textbf{Example}: 
+           
+ 
+ 
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT fid, flight, /* tailnum,*/ origin FROM Flights;
+\end{lstlisting} 
+% ----------------------- 
+
+\end{outline} 
+
+
+
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+\subsection*{Examples}
+% ------------------- %
+\begin{outline}[enumerate]
+
+\1 Display the entire data set (all columns and all rows). 
+
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT * FROM Flights;
+\end{lstlisting} 
+
+
+
+\1 List  tail numbers from the first 150 flights.
+ 
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT tailnum FROM Flights LIMIT 150;
+\end{lstlisting} 
+
+
+
+
+\1 List the flight ID and tail numbers of 10 flights starting with the 6th.
+  Note: First number after \texttt{LIMIT} in code below is an offset (i.e., excludes the  first 5 records).  
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]   
+SELECT fid, tailnum FROM Flights LIMIT 5,10;
+\end{lstlisting} 
+
+
+
+
+
+\1 List the flight ID and tail numbers of 10 flights starting with the 1st.
+  This example is for comparison with the example above.  Note: \texttt{LIMIT 0,10} is the same as \texttt{LIMIT 10}.
+   
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]   
+SELECT fid,tailnum FROM Flights LIMIT 0,10;
+\end{lstlisting} 
+
+
+
+
+\1 List flight number, origin and destination sorted by flight number in ascending order.
+ 
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT flight, origin, dest FROM Flights ORDER BY flight;
+\end{lstlisting} 
+
+
+
+
+
+
+
+\1  List flight number, origin and destination sorted by carrier in
+descending order.
+ 
+% CODE: 
+\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+SELECT flight,origin,dest FROM Flights ORDER BY carrier desc; 
+\end{lstlisting} 
+
+% ----------------------- 
+
+
+
+
+\end{outline}
+% ---------------- %
+
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+
+\subsection*{Next Time}
+ \texttt{WHERE} clause - used to filter rows (i.e., selection operator) based on criteria.
+ 
+ 
+% CODE: 
+%\begin{lstlisting}[belowskip=-1.5 \baselineskip]  
+%SELECT <Field 2, Field 4, Field 5> FROM <table>;
+%\end{lstlisting} 
+
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

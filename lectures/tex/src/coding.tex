@@ -1,0 +1,73 @@
+
+\usepackage{framed}  % https://latexcolor.com
+\usepackage{xcolor}
+
+
+\usepackage{tcolorbox, graphicx}
+\usepackage{colortbl}
+\usepackage{textcomp}
+
+% Colors
+%\definecolor{anti-flashwhite}{rgb}{0.95, 0.95, 0.96}
+%\definecolor{magnolia}{rgb}{0.97, 0.96, 1.0}
+\definecolor{antiquewhite}{rgb}{0.96, 0.96, 0.96} % {0.98, 0.92, 0.84}
+%\definecolor{shadecolor}{rgb}{0.95,0.975,0.997}
+%\definecolor{shadecode}{rgb}{0.91,0.91,0.91}
+%\definecolor{red_1}{rgb}{1,0.8,0.8}
+%\definecolor{yellow_1}{rgb}{1,0.96,0.63}
+%\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{appleGray}{rgb}{0.75,0.75,0.75}
+\definecolor{lightGray}{rgb}{0.975,0.975,0.975}
+\definecolor{relhead}{rgb}{0.70,0.80,0.90}
+\definecolor{borderGray}{rgb}{0.8,0.8,0.8}
+%\definecolor{gray}{rgb}{0.975,0.975,0.975}
+\definecolor{nearwhite}{rgb}{0.985,0.985,0.985}
+%\definecolor{supergray}{cmyk}{0,0,0.04,0}
+%\definecolor{stainlessSteel}{cmyk}{0,0,0.02,0.12}
+%\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.20,0.20,0.20}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{excel}{rgb}{0.94, 0.94, 0.94}
+
+
+
+\usepackage{listings}  
+
+ \lstset{ 
+  backgroundcolor=\color{white},  	 % background color; e.g., nearwhite you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         		    % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 		    % sets automatic line breaking
+  framextopmargin=5pt,
+  framexleftmargin=5pt, 
+  framexbottommargin=5pt,
+  framexrightmargin=0pt,
+  framesep=0pt,
+  captionpos=b,                    			% sets the caption-position to bottom
+  commentstyle=\color{mygreen},    		    % comment style
+  morecomment=[s]{/*}{*/},
+  deletekeywords={...},            			% if want to delete keywords from the given language
+  escapeinside={\%*}{*)},          			% if you want to add LaTeX within your code
+  extendedchars=true,              			% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   			% adds a frame around the code
+  keepspaces=false,               			% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},      		% keyword style blue
+  language=SQL,                 			% the language of the code
+  morekeywords={ORDER, USE, DELIMITER, CALL, DECLARE, IF, ELSE, ELSEIF, WHILE, DO, LOOP, REPEAT, UNTIL, CURSOR, FOR, HANDLER, OUT, INTO, FROM, RETURNS, RETURN, FUNCTION, SHOW, TRIGGER, TRIGGERS, END$$, EVENT},   % if you want to add more keywords to the set
+  numbers=none,                    			% where to put the line-numbers; possible values are (none, left, right)
+  numbersep=0pt,                   			% how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, 		    % the style that is used for the line-numbers
+  rulecolor=\color{appleGray},  % appleGray     % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  sensitive=true,
+  showspaces=false,                			% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          		    % underline spaces within strings only
+  showtabs=false,                  			% show tabs within strings adding particular underscores
+  stepnumber=2,                    			% the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     		    % string literal style
+  tabsize=4,	                   			% sets default tabsize to 2 spaces
+  title=\lstname,                  			% show the filename of files included with \lstinputlisting; also try caption instead of title
+  upquote=true,      % Straight quotes
+  belowcaptionskip=0em,
+  belowskip=0em
+}
+ 

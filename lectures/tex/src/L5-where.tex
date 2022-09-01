@@ -1,0 +1,524 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\usepackage{soul}
+
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\input{coding.tex}
+
+
+
+\begin{document}
+
+%+Title
+\title{Selection Operator: \texttt{WHERE} Clause}
+\author{DSC 301: Lecture 5}
+\date{\today}
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+% ------- Resources -------- %
+% https://www.techonthenet.com/sql/not.php
+% https://www.techonthenet.com/sql/like.php
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1  \texttt{WHERE} clause
+        \1  SQL operators
+        \1  Rename operator (alias)
+\end{outline}
+
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+
+
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+\noindent Last time we covered \textit{projection} operators, $\Pi_{(a,b,c)}(R)$, that filtered attributes by selecting a subset of the columns.  In this lecture, we cover the \textit{selection} operator from \textit{relational algebra}.  Recall these operators are written as $\sigma_p(R)$ where $p$ is a predicate.  The form of this predicate is our focus.   
+
+
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% -------- WHERE  -------- %
+\subsection*{The \texttt{WHERE} Clause}
+ 
+ The \verb@WHERE@ clause is used to filter records based on a conditional predicate.  A predicate is a statement containing a conditional expression that is either TRUE or FALSE. \\ %The \verb@WHERE@ clause filters the number of records returned by the query. 
+
+
+\noindent The general syntax is:
+
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT <columns> FROM <TableX> WHERE [condition];
+\end{lstlisting} 
+
+%\hspace{-0.95cm}\rule[0.101in]{\textwidth}{0.0025in}
+
+
+
+
+
+
+
+
+% ---------- COMPARISONS: =, <, >, <> ---------- %
+\subsubsection*{Comparison Operators}
+
+Comparison operators include equal ($=$), non-equal ($<>$), less than ($<$), less than or equal ($<=$),  greater than ($>$), and greater than or equal ($>=$).  The equal sign is used to test equality.\\
+
+\begin{example}
+Select all carriers and flight numbers whose destination is San Francisco.    
+\end{example}
+\begin{lstlisting}[frame=single]  
+SELECT flight FROM Flights WHERE dest = `SFO';
+\end{lstlisting} 
+
+
+
+
+
+
+\begin{example}
+Select all flights that whose departure was delayed at least 30 minutes.
+   
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+SELECT flight FROM Flights WHERE dep_delay >= 30;
+\end{lstlisting} 
+
+
+% ------------------------------------------------% 
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% ------------------------------------------------% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ---------- Conjunctive: AND and OR, negation  ---------- %
+\subsubsection*{Conjunctive Operators}
+
+Conjunctions are used to build more complex queries. For \textbf{example}, if we want to know the flights to San Francisco that arrive on time, we would write:
+
+
+
+\begin{lstlisting}[frame=single]  
+SELECT flight FROM Flights WHERE dest='SFO' AND arr_delay <=0;
+\end{lstlisting} 
+
+
+
+\noindent Here are a few more examples.
+
+%%%%
+\begin{example}
+Find all flights going to Chicago, either O'hara or Midway.  
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT flight FROM Flights WHERE dest='ORD' OR dest='MDW';
+\end{lstlisting} 
+
+
+
+
+
+
+%%%%
+\begin{example}
+Find all flight IDs going to Chicago Midway on Christmas day.    
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT fid FROM Flights WHERE dest='MDW' AND month=12 AND day=25;
+\end{lstlisting} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ---------- LOGICAL  ---------- %
+\subsubsection*{Logical Operators}
+
+Logical operators used with the \verb@WHERE@ clause include\footnote{ALL, ANY, EXIST, SOME, UNIQUE will be used with subqueries.    }: 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lll}
+    \hline
+        \texttt{IS NULL} \hspace{0.5cm}  & \texttt{BETWEEN}\hspace{0.5cm}  & \texttt{IN}  \\
+         \texttt{LIKE} \hspace{0.5cm}  & \texttt{EXISTS}  \hspace{0.5cm}  &  \texttt{UNIQUE} \\
+          \texttt{ALL}  \hspace{0.5cm}  & \texttt{SOME}  \hspace{0.5cm}  & \texttt{ANY}  \\
+    \hline 
+    \end{tabular}
+    \caption{Logical Operators in SQL}
+    \label{tab:logical}
+\end{table}
+
+
+% See: https://www.dummies.com/programming/sql/how-to-use-exists-unique-distinct-and-overlaps-in-sql-statements/
+
+
+
+
+
+
+
+\begin{example}
+Select fights with delays ranging between 10 and 20 minutes.
+\end{example}
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    flight, dep_delay
+FROM
+    Flights
+WHERE
+    dep_delay BETWEEN 10 AND 30;
+\end{lstlisting} 
+
+
+
+
+% --------- IN
+\subsubsection*{IN}
+Records where field is in a list of criteria.  For example, flights whose destination matches one of many.  For  \textbf{example}, flights with destination San Francisco, Los Angles, or Oakland California.   
+
+
+
+\begin{lstlisting}[frame=single]  
+SELECT fid FROM Flights WHERE dest IN ('SFO','LAX','OAK');
+\end{lstlisting} 
+
+
+
+%--------  LIKE
+\subsubsection*{LIKE}
+The \texttt{LIKE} condition is used in the \texttt{WHERE} clause and allows the use of wildcards to perform pattern matching in a query.  Wildcards include: 
+
+
+%    %  Allows you to match any string of any length (including zero length)
+%    _ Allows you to match on a single character
+ 
+ \begin{table}
+  \centering
+    \begin{tabular}{cll}
+     \hline
+   \textbf{\texttt{LIKE }Wildcards} & & \textbf{Description} \\ 
+    \hline
+        \texttt{\%} & &  Match any string of any length (including zero length)  \\
+         \texttt{\_} & & Match on a single character \\
+
+    \hline 
+    \end{tabular}
+    \caption{Wildcards for \texttt{LIKE}}
+ \end{table} 
+
+
+
+
+
+
+\begin{lstlisting}[frame=single]  
+SELECT dest FROM Flights where dest like 'H%';
+\end{lstlisting} 
+
+
+\begin{lstlisting}[frame=single]  
+SELECT dest FROM Flights where dest like '_N_';
+\end{lstlisting} 
+
+
+
+% ------------------------------------------------% 
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% ------------------------------------------------% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection*{Negation}
+How about not?  Many times you want the compliment of a set or results that
+do \textbf{not} include some parameter.  Equality is negated using \texttt{<>}
+(or \texttt{!=}).   See the next example.
+
+
+
+
+
+%%%%
+\begin{example}
+Find all flight IDs not going to Chicago Midway on Christmas day.    
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT fid FROM Flights WHERE dest<>'MDW' AND month=12 AND day=25;
+\end{lstlisting} 
+
+
+
+\noindent Negate logical operators using the keyword \texttt{NOT}.  It can be used with any logical operator, e.g., \texttt{NOT LIKE, NOT IN, NOT BETWEEN, NOT\ EXISTS, NOT\ ANY}, etc.  Here are two examples using \texttt{NOT}\footnote{\texttt{NOT} is often used together with the \texttt{IS NULL} operator.}. 
+
+%%%%
+\begin{example}
+Find all carriers departing SEA excluding AS, DL, WN, and UA.   
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    carrier
+FROM
+    Flights
+WHERE
+    carrier NOT IN ('AS' , 'DL', 'WN', 'UA'); 
+\end{lstlisting} 
+
+
+
+
+
+
+
+%%%%
+\begin{example}
+Find flgiths departing SEA whose distances are less than 500 or greater than 1000 using \texttt{NOT BETWEEN}.  Can you do this another way?     
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    flight
+FROM
+    Flights
+WHERE
+    distance NOT BETWEEN 500 AND 1000; 
+\end{lstlisting} 
+
+
+
+
+\begin{lstlisting}[frame=single]  
+SELECT flight FROM Flights WHERE distance<500 OR distance > 1000; 
+\end{lstlisting} 
+
+
+
+
+
+
+
+
+
+% ------------------------------------------------% 
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% ------------------------------------------------% 
+
+
+
+
+
+
+
+
+
+
+
+% ---------- Arithmetic  ---------- %
+% \subsubsection*{Arithmetic Operators}
+
+
+% Do with Aggregates
+
+% ------------------------------------------------% 
+% \hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% ------------------------------------------------% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ---------- Rename  ---------- %
+\subsection*{Rename Operator}
+
+We studied \textit{rename} operators, $\rho_{a}(R)$, in the section on relational algebra. The idea is simple, sometimes we want to rename an attribute or relation\footnote{We will not rename tables until working with multiple tables.}.  Here is an example illustrating the rename operator.  This operation is also called \textbf{aliasing}. 
+
+
+
+
+
+%%%%
+\begin{example}[Column alias]
+List the departure delays from flights to San Francisco in June.  Rename departure delay field to just ``Delay''.  
+\end{example}
+
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    dep_delay AS Delay
+FROM
+    Flights
+WHERE
+    dest = 'SFO' AND month = 6; 
+\end{lstlisting} 
+
+\noindent \textbf{Note 1}: This displays all delays (even if early).  How can you change it to display only flights that were actually late departing?\\
+
+ 
+ 
+\noindent \textbf{Note 2}: If you want to rename column with multiple words (e.g., Departure Delay), you must use single quotations. The example above would be:  
+ 
+
+\begin{lstlisting}[frame=single]
+SELECT 
+    dep_delay AS 'Departure Delay'
+FROM
+    Flights
+WHERE
+    dest = 'SFO' AND month = 6; 
+
+\end{lstlisting} 
+
+
+
+% ------------------------------------------------% 
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% ------------------------------------------------% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}
+

@@ -1,0 +1,310 @@
+%&latex
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+
+\usepackage{tcolorbox, graphicx}
+\usepackage{xcolor,colortbl}
+
+
+\usepackage{framed,color}
+\definecolor{excel}{rgb}{0.95,0.975,0.997}
+
+
+
+\begin{document}
+
+%+Title
+\title{Relational Data Model}
+\author{DSC 301: Lecture 2}
+\date{\today}
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Learning Objectives}
+In this lecture, we introduce the notion of the \textbf{relational data model} and the associated terminology.  In particular, we will cover:  
+\begin{outline}
+        \1 What is a data model?
+        \1 List types of data models
+                %\2 Network model
+                %\2 hierarchical model: represents data as a tree 
+                %\2 relational model
+
+ \1 Identify problems with some data models           
+        \1 Define Relational data model
+        \1 Define key terms
+              %  \2 Relation
+              %  \2 Tuple, record, row
+              %  \2 Attribute, column, field
+              %  \2 Domain
+              %  \2 Dimension
+   \1 Data Keys
+                
+\end{outline}
+
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+% -------- What are data models? -------- %
+\section{What are data models?}
+
+A model represents real-world objects and events, and their relationships/associations.  A model is an abstraction that concentrates on the essential, inherent aspects of an idea (or notion) and ignores incidental or irrelevant  properties.   
+%
+%\begin{definition}
+
+% A \textbf{data structure} is a mechanism organize and represent data.
+%\end{definition}
+
+
+%
+\begin{definition}
+
+ A \textbf{data model} is a mechanism to describe, organize, and represent data consisting of the following components%  \cite{abiteboul1995foundations,ullman2008first}:
+\end{definition}
+
+\begin{outline}[enumerate]
+    \1 Structure - physical representation of the data such as a two-dimensional array.  
+    
+    \1 Operations -  defines the types of operations that are allowed on the data (include data retrieval and modification).
+    
+    \1 Constraints - specify the data type, whether null values are allowed, and identify keys used in relationships between tables (e.g., common attributes).  
+\end{outline}
+ 
+
+
+
+% ------------- Model Types ---------- % 
+
+\subsubsection*{Model used in databases}
+\begin{outline}
+   %  \1 File-based System - tree structure
+        % disadvantages = Data redundancy, Data isolation, Integrity problems, Security problems, Concurrency access
+        % https://opentextbc.ca/dbdesign01/chapter/chapter-1-before-the-advent-of-database-systems/
+   %  \1 Entity-Relationship model
+    
+        \1 Network (or Graph-based) model
+
+        \1 Hierarchy model - (restricted graph model) a tree-based model where each node has only one parent.  Records = nodes
+                \2 Primary problem is data dependence.  The program is depended on the data model.  Any changes to the program (or data model) will break the system.
+
+                \2 Data redundancy is an issue
+                        \3 Same information in multiple files
+                                \4  Larger memory footprint
+                                \4 Difficult to manage
+                
+                \2 Inconsistency is an issue - different programmers create different file structures. 
+                        \3 Same user, different input % (see Table 1)
+    
+    \1 Object-based model -
+analogous to Object-Oriented Programming where a class object has properties and methods.  There is also an ORDBMS.      
+   %  \1 Semi-structured model - Several ``tagged'' technologies (i.e., XML, HTML, CSS, XSLT) central to the World Wide Web (www) are semistructured data.    
+    
+    
+    \1 \textbf{Relational model} - based on the mathematical relation (covered next time), refers to relations as data structures and includes an algebra to specify queries.
+\end{outline}
+
+
+
+
+
+%\begin{example}
+%asdf
+%\end{example}
+
+
+
+
+
+
+% ------------ Relational Model --------------- %
+\section{Relational Model}
+E.F. Codd of IBM proposed the \textbf{relational data model} in 1970 which limited some data redundancy and integrity problems in the flat file design (see [1]).\\%  \cite{codd}).\\
+
+
+
+\noindent The relational model is the \underline{primary model used in modern database management systems}.
+
+
+% ------------ Definitions --------------- %
+\subsubsection*{Definitions}
+\begin{outline}
+        \1 A \textbf{relation} is a two-dimensional array, called a \textbf{table},
+consisting of \textbf{rows} and \textbf{columns} and form the basis of the
+relational database model.  Note: relations are typically time-varying (living, breathing)
+        \2 Relation =  Table (which has rows and columns\2 Set of tuples (see below)
+        
+        
+        \1  An \textbf{attribute} is a column of a relation.  Attributes can be sorted in any order and produces an equivalent relation.
+        \2 Each attribute has a domain, denoted $\textsf{dom}(A_i)$. 
+
+        \1   The \textbf{degree} (or \textbf{dimension}) of a relation is the number of attributes.  
+
+
+        \1  Each attribute is defined on a \textbf{domain} which represents the possible values it can attain.  Domains are a ``pool of values", some or all of which may be represented in the database at any instant.  Relations should be domain-unordered.  If a given relation is domain-ordered, we can transform a domain-ordered relation to a domain-unorderded relation by supplying a unique name for the column.   
+                \2 The set of values represeted at some instant is called the \textbf{active domain}.   
+
+        \1 The elements of a relation are called \textbf{tuples}, (also called  \textbf{records}) and are the \textbf{rows} of the table.
+
+        \1  The number of tuples of a relation is the \textbf{cardinality}.
+                \2 Symbolically: $|R|$
+        
+        \1 \textbf{Relational schema }: Name and attributes of a relation (analogous to variable type definition in programming), e.g., The relation ``is of type double.''  
+
+Examples of relational schema: \\ 
+  \textsf{Courses(department, number, credits)}\\
+ \textsf{Sections(course, room, time, instructor)}\\
+ \textsf{Classrooms(building, room, capacity)}\\
+ \textsf{Instructors(name, email, department,salary)}\\
+ \textsf{Students(name, major, hometown, email)}\\
+ 
+ 
+        
+        \textbf{Note}: Naming conventions - Upper case, plural.  This may NOT\ be standard naming convention. 
+      
+\end{outline}
+
+
+
+
+
+
+
+ 
+\AtBeginEnvironment{tabular}{\sffamily} 
+\begin{table}[htdp]
+\caption{Course Relation}
+{\scriptsize
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  \cellcolor{excel}\textsf{Title} & \cellcolor{excel}\textsf{Room}
+& \cellcolor{excel}\textsf{Time} & \cellcolor{excel}\textsf{Instructor}  \\
+  \hline
+  Calculus 1 & Jones Hall 110   & 1:00  & Dr. Smith\\
+    \hline
+     Calculus 1 & Ramsey Hall 236   & 2:00  & Dr. Adams\\
+    \hline
+     Calculus 2 & Jones Hall 120   & 3:00  & Dr. Williams\\
+    \hline
+     History 111 & Lambert Hall 325   & 1:00  & Dr. Roberts\\
+    \hline
+\end{tabular}
+\end{center}
+}
+\label{tab1}
+\end{table}%
+
+
+
+
+
+
+\begin{outline}[enumerate]
+        \1 What is the dimension of the relation above?
+        \1 What is the cardinality of the relation above?
+        \1 What is the domain of the attribute Time?
+\end{outline}
+
+ 
+ 
+ \subsection{Primary Keys}
+ 
+   \begin{outline}
+        \1 A \textbf{superkey} is a set of one or more attributes whose values are used to uniquely identify tuples.
+                \2 A \textbf{candidate key} is a minimal superkey, i.e., no subset of is a superkey.  The least number of attributes needed to produce a unique identifier.  
+                \2 \textbf{Primary key} is one of the candidate key. 
+        % \1 A domain (or combination of domains) that uniquely identifies
+each element ($n$-tuple) of a relation is called a \textbf{primary key}.
+
+                \3 A relation may contain more than one \textit{nonredundant}
+                 primary key.
+
+                        \4 i.e., Candidate keys
+                 
+                 \2 A combination of domains used as a primary key is called
+a \textbf{composite key}. \\ Example: A \textit{Classroom} relation has building and room number as a composite key as room number alone would not uniquely identify a particular classroom  
+
+                  \2 Natural vs. Surrogate Keys
+                        \3 A \textbf{natural key} is a primary key made up of real data. \\ Examples: Social Security Number, ISBN, Email Address
+                        \4 Pros: Easier to search (key makes sense), Fewer joins (discussed later)
+                        
+                        \4 Cons: Larger memory, may change
+
+                   \3 \textbf{Surrogate keys} that do not have a natural relationship with the rest of the columns in a table.  Typically \textit{auto-incremented}.                          \4 Pros: Small memory footprint, no meaning, no updating, sequential
+                        
+                        \4 Cons: No useful in searches since there is no meaning \\ Example: searching joe@gmail.com
+
+        \1 A \textbf{foreign key} (used to cross-reference relations) is
+a domain of a relation whose elements are values of a primary key in some
+other (possibly same) relation.     
+
+\end{outline}
+
+ 
+ 
+ 
+ 
+
+
+
+  
+%+Bibliography
+\begin{thebibliography}{99}
+
+\bibitem{codd}  Codd, E. F. (1970). A relational model of data for large shared data banks. \textit{Communications of the ACM}, 13(6):377–387.
+%\bibitem{Label2} ...
+\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

@@ -1,0 +1,382 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Relational Algebra II}
+\author{DSC 301: Lecture 11}
+\date{March 12, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+%\begin{abstract}
+%    There is abstract text that you should replace with your own. 
+%\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section*{Lecture Objectives}
+\begin{outline}
+        \1 Review basic relational algebra
+        \1  Advanced (relational) algebra        
+        \1  Introduce JOINS
+        
+       
+       
+        
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+
+% --------   -------- %
+\section*{Relational Algebra}
+ 
+Recall from Lecture 3 that a \textit{relation} (a.k.a, table, tuples) 
+is a subset of a Cartesian product and a \textit{relational algebra} defines a set of operations on relations.  An \underline{essential} property of all algebras  is the \textbf{closure} property, which says that two elements from the set combined (in some way) will remain within the set.  Symbolically, if $a,b \in R$, then $a \odot b \in R$ where $\odot$ is some operation (e.g., addition, multiplication, etc.).          
+
+
+\subsection*{Basic Operations on Relational Algebras}
+
+\begin{outline}
+
+ 
+    
+    
+   
+
+    
+\1  \textbf{Selection}: A subset of rows, $\sigma_p(R)$, where $p$ is a predicate and $R$ a relation. 
+       
+       
+             %   \[
+             %   \sigma_p(R)  = \{t \; | \; t \in R \; \wedge \; p(t) 
+             %   \textit{ true } \}
+             %   \]
+   
+       
+ 
+
+\begin{lstlisting}[frame=single]  
+SELECT * FROM Flights where distance > 1000;
+\end{lstlisting} 
+%
+%      
+        
+         
+
+
+   
+   
+   
+   \1  \textbf{Projection}: A Subset of columns, symbolically, 
+        $\Pi_{A_1, A_2, \dots, A_k}(R)$
+               
+        
+
+\begin{lstlisting}[frame=single]  
+SELECT carrier, dest FROM Flights;
+\end{lstlisting} 
+%
+%      
+    
+               
+         
+
+\1 \textbf{Rename}: $\rho_S(R) \to S$, where we rename relation $R$ to $S$.
+
+Also, $\rho_R_{(A_1, A_2, \dots , A_n)}(R)$ renames the attributes of $R$
+to $A_1, A_2, \dots , A_n$.  
+
+
+
+\begin{lstlisting}[frame=single]  
+SELECT dest as City FROM Flights;
+\end{lstlisting} 
+%
+%
+        
+\end{outline} 
+
+
+ 
+
+%\begin{lstlisting}[frame=single]  
+%SELECT COUNT(<attribute>) FROM <TableX>;
+%\end{lstlisting} 
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+  
+
+
+ \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+    \centering
+    \includegraphics[width=2in]{Selection.png} 
+    \caption{Selection}
+    \label{fig:selection}
+ \end{figure}
+
+
+
+  
+  
+
+ \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+    \centering
+    \includegraphics[width=2in]{Projection.png} 
+    \caption{Projection}
+    \label{fig:projection}
+ \end{figure}
+
+
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+     
+
+
+
+
+
+
+
+
+\subsection*{Join Operations}
+
+
+A\ \textbf{join} combines two or more tables to retreive data from multiple tables.  Tables included in the join are listed in the \texttt{FROM} clause.  The \texttt{JOIN} itself is contained in the \texttt{WHERE} clause.   The common operators that can be used to join tables include: $=, <, >, \le, \ge, <>, !=$, \texttt{BETWEEN}, \texttt{LIKE}, and \texttt{NOT}.  However, most frequently the equal sign ($=$) is used.          The common joins are:
+
+\begin{outline}
+        \1 Inner joins, $R \bowtie S$        
+                
+                
+        \1 Outer-joins, $R \ltimes S$ or 
+                \2 Left - Returns all records from the left table, and the matched records from the right table
+                \2 Right - Returns all records from the right table, and the matched records from the left table
+                \2 Full - Returns all records when there is a match in either left or right table
+\end{outline}
+
+        \1 Semi-join - (half join)
+        
+  
+  
+  
+  
+ /*
+DSC301 Spring 2021
+University of New England
+Quinlan, J.
+
+Topic: Math Functions
+
+*/
+
+USE dbsoln_Seattle2014;
+
+SELECT 
+    distinct F1.carrier, F1.dest
+FROM
+    Flights AS F1
+        JOIN
+    Flights AS F2 ON F1.dest = F2.dest
+        AND F1.carrier <> F2.carrier LIMIT 500; 
+
+
+
+      
+        
+\[
+
+%\bowtie
+
+% \ltimes
+ 
+ %\rtimes
+ 
+% \triangleleft
+ 
+ 
+\]
+
+
+ 
+  
+ \subsubsection*{Inner Join}
+  
+  \begin{outline}
+        \1 Inner joins
+                \2 Returns records that have matching values in both tables
+                \2 Most frequent
+                \2 Also called \textit{equijoin}
+    \end{outline}
+  
+                  
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+        Table1.column1, Table2.column2 
+FROM 
+        Table1 INNER JOIN Table2
+ON 
+        Table1.somecol = Table2.samecol;
+\end{lstlisting} 
+%
+%      
+  \textbf{Example}: Note the table aliases.          
+                
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    O.id, O.date, C.fname, C.lname
+FROM
+    Orders AS O
+        INNER JOIN
+    Customers AS C ON O.customer = C.id
+ORDER BY O.date; 
+\end{lstlisting} 
+%
+%              
+
+
+         
+\begin{lstlisting}[frame=single]  
+SELECT 
+        Table1.column1, Table2.column2 
+FROM 
+        Table1, Table2
+WHERE 
+        Table1.somecol = Table2.samecol;
+\end{lstlisting} 
+%
+%      
+  \textbf{Example}: Note the table aliases.          
+                
+
+\begin{lstlisting}[frame=single]  
+SELECT 
+    O.id, O.date, C.fname, C.lname
+FROM
+    Orders AS O,
+    Customers AS C
+WHERE
+    O.customer = C.id
+ORDER BY O.date;
+\end{lstlisting} 
+%
+%                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection*{Outer Joins}
+
+\begin{outline}
+     
+                
+        \1 Outer-joins
+                \2 Left - Returns all records from the left table, and the
+matched records from the right table
+                \2 Right - Returns all records from the right table, and
+the matched records from the left table
+                \2 Full - Returns all records when there is a match in either
+left or right table
+\end{outline}
+
+
+  
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

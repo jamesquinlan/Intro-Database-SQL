@@ -1,0 +1,539 @@
+% &latex
+
+% Wed Apr  09 10:00:45 EDT 2021
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% SUMMARY   :  Introduction to Database
+%           		:  Views - Stored Procedures
+%			:
+%            		:  (c) 2021. Quinlan, J 
+%            		:  MIT License.
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+% OUTLINE
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+% CODE (SQL)
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Stored Procedures}
+\author{DSC 301: Lecture 16}
+\date{April 9, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+\begin{abstract}
+\noindent  \textbf{Stored programs} are extensions to standard SQL, specifically they include:  \textit{stored procedures, stored functions, triggers}, and \textit{events}. Stored programs can control the flow of execution, can be called from other applications or within a SQL statement.  \textit{Triggers} are executed automatically when an \texttt{INSERT}, \texttt{UPDATE}, or \texttt{DELETE} statement is run on a table.  \textit{Events} are scheduled and execute at that time.  
+\end{abstract}
+%-Abstract
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+
+% --------- OBJECTIVES ------- %
+\section*{Lecture Objectives}
+\noindent In this lesson you will learn about \textit{stored procedures}.  Specifically, we cover:  %  what they are, how to use them, and when to use them.  
+
+\begin{outline}
+	\1 Why use stored procedures?  % 1. faster, 2. help debug select statements by returning messages
+        \1  Syntax to create and call a stored procedure
+     		\2 Flow control keywords
+		\2 Use \texttt{INTO} clause to store results in variables
+		
+	 
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+
+
+
+
+
+
+
+% --------- SECTION: Why use stored procedures? ------- %
+\subsection*{Why use stored procedures?}
+There are four basic reasons to use stored procedures: 
+\begin{outline}
+        \1  Simplicity - complicated workflows with multiple queries can be bundled into one procedure.  
+        		\2 For example, processing a customer order involves computing tax, total, and shipping as well as updating inventory.
+	\1 Consistency - Writing a query one time vs. 100 times  reduces the probability of errors.  All users execute the same procedure (SQL statements), the results will be the same each time.  
+	
+	\1 Security - stored procedures can be executed without user having access to underlying data to prevent data corruption (either by accident or intention)
+
+	\1 Increase performance - compiled and stored 
+     		 	 
+\end{outline}
+
+
+\noindent NOTE: There are a few drawbacks to stored procedures.  First,  different DBMS use different syntax making portability difficult.  Second, stored procedures add a level of complexity that require greater degree of skill and knowledge than simple SQL statements.  
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+% --------- SECTION: Syntax to create and call a stored procedure ------- %
+\subsection*{Syntax to create and call a stored procedure}
+
+Syntax \textbf{template} for creating a stored procedure without input parameters.
+
+\begin{lstlisting}[frame=single]  
+USE whichDatabase;
+
+# Change the delimiter because semi-colon used inside
+DELIMITER $$
+
+CREATE PROCEDURE name_of_proc()
+
+BEGIN
+	# Declare local variables if needed
+	DECLARE  localVar Type;
+	
+	# Write SQL statement(s)
+	
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+\end{lstlisting} 
+
+ 
+ % ------------------------- CALL -------------------------  %
+\subsubsection*{How to call a stored procedure}
+
+Call the stored procedure using the \texttt{CALL} keyword.  
+\begin{lstlisting}[frame=single]  
+CALL name_of_proc();
+\end{lstlisting} 
+
+
+
+ % ------------------------- Example -------------------------  %
+\begin{example}
+Create a stored procedure that displays a message (i.e., no database).
+\end{example}
+ 
+ \begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE msg()
+
+BEGIN
+	SELECT 'This is a message that will be displayed' as Message;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+ 
+ 
+ 
+ 
+ 
+ \begin{example}
+ Create and call a stored procedure \texttt{test()} that prints the message, ``This is a stored procedure."
+ \end{example}
+Using our template
+
+\begin{lstlisting}[frame=single]  
+USE dbsoln_Store;
+
+# Change the delimiter because semi-colon used inside
+DELIMITER $$
+
+CREATE PROCEDURE test()
+
+BEGIN
+	SELECT "This is a stored procedure."	
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+
+\end{lstlisting} 
+
+Then, \texttt{CALL test()};
+
+
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+\subsubsection*{ \textbf{Template} for creating a stored procedure WITH input parameters}
+
+ 
+
+\begin{lstlisting}[frame=single]  
+USE whichDatabase;
+
+# Change the delimiter because semi-colon used inside
+DELIMITER $$
+
+CREATE PROCEDURE name_of_proc(
+	IN 	x 			type,
+	IN 	y			type
+)
+
+BEGIN
+	# Declare local variables if needed
+	DECLARE  localVar Type;
+	
+	# Write SQL statement(s)
+	
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+\subsubsection*{ \textbf{Template} WITH input and OUTPUT parameters}
+
+ 
+
+\begin{lstlisting}[frame=single]  
+USE whichDatabase;
+
+# Change the delimiter because semi-colon used inside
+DELIMITER $$
+
+CREATE PROCEDURE name_of_proc(
+	IN 		x 			type,
+	IN 		y			type, 
+	OUT 	z			type
+)
+
+BEGIN
+	# Declare local variables if needed
+	DECLARE  localVar Type;
+	
+	# Write SQL statement(s)
+	
+END$$
+
+# Change delimiter back to semicolon
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+
+
+\subsection*{Declare and set variables}
+
+A \textit{variable} stores a value that can be used and changed during execution of a stored procedure.  First, a (local) variable must be declared before it can be used.  To declare a variable, use the \texttt{DECLARE} keyword after the \texttt{BEGIN} statement of the procedure body.  A data type that matches the column type must be specified for each declared variable.  For example, a variable for average price should be \texttt{DECIMAL(9,2)}.  Data types can be any data type used in column definition (e.g., \texttt{INT},  \texttt{VARCHAR()},  \texttt{DECIMAL()},  etc.).  A default value can be assigned when declaring variables by using the \texttt{DEFAULT} keyword.  For example, \texttt{DECLARE minMSRP DECIMAL(9,2) DEFAULT 1.00}, could be used to declare a minimum MSRP for the variable \texttt{minMSRP} to one dollar.
+
+
+
+ % ------------------------- Example -------------------------  %
+\begin{example}
+Create a stored procedure that displays a message (i.e., no database).
+\end{example}
+ 
+ \begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE msg()
+
+BEGIN
+	SELECT 'This is a message that will be displayed' as Message;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+
+   
+  
+  
+  % DELCARE x, y, z DECIMAL(5,2)
+  
+  % select a, b, c INTO  x, y, z FROM Table WHERE condition.
+  
+  
+  
+  
+  
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+  
+  
+\section*{Flow Control}
+
+Flow control statements include branching and looping statements.  The following 
+  
+ 
+  
+\begin{lstlisting}[frame=single]  
+IF...ELSEIF...ELSE			# Conditional
+CASE...WHEN...ELSE			# Conditional
+WHILE...DO...LOOP			# Repetition
+REPEAT...UNTIL...END REPEAT	# Repetition
+DECLARE CURSOR FOR			# Result set for looping
+DECLARE...HANDLER			# Error handler
+\end{lstlisting} 
+
+
+
+
+  
+  
+  
+\subsection*{IF Statements}
+  
+ \begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE procIF()
+
+BEGIN
+	DECLARE flight_date DATE;
+	
+	SELECT date INTO flight_date FROM Flights WHERE fid = 1;
+	
+	IF flight_date > NOW() THEN
+		SELECT 'Missed your flight.  Sorry';
+	END IF
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+  
+  
+\subsection*{CASE Statements}
+  
+\begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE procLOOP()
+
+BEGIN
+	DECLARE airline CHAR(2);
+	
+	SELECT carrier INTO airline FROM Flights WHERE fid = 1;
+	
+	CASE airline
+		WHEN 'AA' THEN 
+			SELECT 'You fly American Airlines';
+		WHEN 'UA' THEN
+			SELECT 'You fly United Airlines';
+		ELSE
+			SELECT 'You fly some other airlines';
+		END CASE;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+  
+  
+  
+  
+  
+  
+\subsection*{Repetition Structures (Looping)}
+There are three looping structures: \texttt{WHILE}, \texttt{REPEAT}, and just \texttt{LOOP}.
+
+% WHILE
+\subsection*{WHILE Loop}
+\begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE procWHILE()
+
+BEGIN
+	DECLARE i INT DEFAULT 1;
+	DECLARE s VARCHAR(45) DEFAULT ' ';
+
+	WHILE i < 10 DO
+		SET s = CONCAT_WS(',', s, i);
+		SET i = i +  1;
+	END WHILE;
+	
+	SELECT s AS Result;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+
+
+
+
+
+
+% REPEAT
+\subsection*{REPEAT Loop}
+\begin{lstlisting}[frame=single]  
+DELIMITER $$
+
+CREATE PROCEDURE procREPEAT()
+
+BEGIN
+	DECLARE i INT DEFAULT 1;
+	DECLARE s VARCHAR(45) DEFAULT ' ';
+
+	REPEAT
+		SET s = CONCAT_WS(',', s, i);
+		SET i = i +  1;
+	UNTIL i = 10
+	END REPEAT;
+	
+	SELECT s AS Result;
+END$$
+
+DELIMITER ;
+\end{lstlisting} 
+
+  
+  
+  
+  
+ \subsection*{CURSOR}
+ A cursor is a row-based operation to obtain subset of data by looping through each row one at a time.  The steps to work with cursors are:
+ 
+ \begin{outline}[enumerate]
+ 	\1 DECLARE cursor 	- \texttt{DECLARE cursorname CURSOR FOR}, then specify the \texttt{SELECT} statement.  
+	\1 OPEN cursor	 	- Opens cursor
+	\1 FETCH cursor	- fetch row from the cursor into a program variable
+	\1 CLOSE cursor 	- when operations are complete
+ \end{outline}
+ 
+  
+\begin{lstlisting}[frame=single]  
+
+DELIMITER $$
+USE `dbsoln_Store`$$
+CREATE PROCEDURE `UpdateInventory` 
+(
+       IN oid 	int		
+)
+   BEGIN
+	declare xProduct INT;
+	declare xInventory INT;
+    declare row_not_found tinyint default false;
+	declare update_count INT default 0;
+    
+	Declare curInventory CURSOR FOR
+		select D.product, D.qty from OrderDetails D where `order`=oid;
+	
+    Declare continue handler for not found
+		SET row_not_found = TRUE;
+        
+	OPEN curInventory;
+    
+    while row_not_found = FALSE DO
+		fetch curInventory into xProduct, xInventory;
+        update Products set inventory = inventory - xInventory
+        where product_id = xProduct;
+        set update_count = update_count + 1;
+	end while;
+	
+    close curInventory;
+
+	select concat(update_count, ' row(s) updated.');
+
+	END$$
+
+DELIMITER ;
+
+# Test 
+# call UpdateInventory(2)
+\end{lstlisting} 
+
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

@@ -1,0 +1,678 @@
+%&latex
+\documentclass{article}
+
+\usepackage{amsmath, amssymb} 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\usepackage{soul}
+
+
+\usepackage{tcolorbox, graphicx}
+\usepackage{xcolor,colortbl}
+
+
+\usepackage{framed,color}
+\definecolor{excel}{rgb}{0.95,0.975,0.997}
+
+
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Relational Algebra}
+\author{DSC 301: Lecture 3}
+\date{\today}
+\maketitle
+%-Title
+
+%+Abstract
+\begin{abstract}
+   Relational databases are based on the mathematical relation, which is
+the primary topic of this lecture.  We begin with elementary set
+theory notions, including basic operations. The Cartesian product is of utmost importance as it provides the foundation of relational database theory.  Finally we examine some algebra on relations.        
+\end{abstract}
+%-Abstract
+
+%+Contents
+%  \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\section{Lecture Objectives}
+\begin{outline}
+        \1  Set theory (background)
+                \2  Cartesian Product
+        \1  Define relation
+        \1  unary map
+        \1  binary map
+        
+
+\end{outline}
+
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+% --------   -------- %
+\section{Set Theory }
+ 
+ \begin{definition}
+ A set $X$ is a collection of things. For example, $X = \{1,2,3\}$.  
+ \end{definition}
+ 
+ 
+ 
+  \begin{definition}
+The universe of discourse, or \textbf{universal set}, $U$, is  a collection of all objects under consideration.  For example, in first-semester calculus, $U = \mathbb{R}$, the set of all real numbers.  
+ \end{definition}
+ 
+ 
+  \begin{definition}
+The set $A$ is a \textbf{subset} of $B$, written $A \subseteq B$ if every element of $A$ is an element of $B$.   
+\[
+A \subseteq B  \iff  (\forall x) (x \in A \Rightarrow x \in B)
+\] 
+ \end{definition}
+ 
+\noindent \underline{Example}: If $A = \{1,2\}$ and $B = \{1,2,3, 4\}$,then $A \subseteq B$, since both $1$ and $2$ from $A$ are also in $B$. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+ 
+ \subsubsection*{Set Operations}
+ 
+ Let $A$ and $B$ be sets.  
+ \begin{outline}
+
+        
+
+
+
+        \1 The \textbf{union} of $A$ and $B$, written $A \cup B$, is all the elements in $A$ or $B$.
+\[ 
+     A \cup B = \{ x :  x \in A  \textrm{ or } x \in B \}   
+\]
+
+\underline{Example}: $A = \{1,2,3  \}$ and $B = \{3,4\}$, then $A \cup B = \{1, 2, 3, 4\}$. 
+
+
+
+ 
+
+        \1  The \textbf{intersection} of $A$ and $B$, written $A \cap B$, is elements common to both $A$ and $B$.
+\[ 
+     A \cap B = \{ x :  x \in A  \textrm{ and } x \in B \}   
+\]
+
+\underline{Example}: $A = \{1,2,3  \}$ and $B = \{3,4\}$, then $A \cap B
+= \{3 \}$.
+
+
+
+
+
+
+        \1  The \textbf{difference} of $A$ and $B$, written $A - B$, is the elements of $A$ but not $B$.
+\[ 
+     A - B = \{ x :  x \in A  \textrm{ and } x \not\in B \}   
+\]
+
+\underline{Example}: $A = \{1,2,3  \}$ and $B = \{3,4\}$, then $A - B
+= \{ 1,2 \}$.
+
+
+
+
+
+        \1 The \textbf{compliment} of $A$ is the set $A^c = U - A$. Example: $U = \{1, 2, 3, 4, 5\}$ and $A = \{2, 5\}$, then $A^c = \{1, 3, 4\}$.  
+        
+ \end{outline}
+
+% \noindent \textbf{Note} 1: These are binary set operations.  \\
+\textbf{Note}: Operations can be combined, e.g., $A\cap (B \cup C)$.
+  
+  
+  
+  
+  
+
+%\rule[0.01in]{\textwidth}{0.0025in}
+ \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+
+
+ \subsection*{Cartesian Product}
+ \begin{definition}
+        
+Let $A_1$ and $A_2$ be sets.  The set 
+\[
+A_1 \times A_2 = \{(a_1, a_2) \; | \; a_1 \in A_1 \wedge a_2 \in A_2 \} 
+\]
+is the \textbf{Cartesian product} of $A_1$ and $A_2$.  
+
+ \end{definition} 
+  
+  
+  
+
+
+\begin{example}
+If $A_1 = \{1, 2, 3\}$ and $A_2 = \{ 3,4\}$, then, 
+
+\[
+A_1 \times A_2 = \{(1,3), (1,4), (2,3), (2,4), (3,3),(3,4) \}.
+\]
+\end{example}
+
+\noindent \textbf{Note}: The Cartesian product can be generalized to the product of  $n$ sets, i.e., 
+\[ 
+A_1 \times A_2 \times \dots \times A_n.
+\]   
+$^*$ The letter $A$ is chosen to represent ``attribute".
+
+
+
+
+ 
+\hspace{-0.5cm}\rule[0.01in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+ 
+  
+  
+  
+  
+  
+ \begin{definition}[]
+ A \textbf{relation} is a subset of a Cartesian product.  Relations are said to be degree $n$.  A relation of degree $1$ is called unary, degree $2$ binary, degree $3$ ternary, and degree $n$, $n$-ary.    
+ \end{definition} 
+  
+ 
+ \noindent \textbf{Recall}:  - Relations provide the framework for relational databases.   
+ 
+ 
+  % NOTE: First number in rule is vertical spacing, second width of line,
+  % third is thickness of line
+\hspace{-0.5cm}\rule[0.01in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+   
+  
+  
+  
+  
+  
+  
+  
+ % -------- Relational Algebra -------- %
+\section{Relational Algebra } 
+  
+  What is algebra?  Are there more than one type of algebra?
+  
+  \hspace{-0.5cm}\rule[0.01in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+  \begin{definition}
+        A (mathematical) structure consisting of a set with operations that follow (obey) some rules (or constraints).\\
+
+\noindent  - For example: the set could be the integers, operations addition and multiplication, and rules associative, commutative, distributive, etc.  \\
+ 
+\noindent - Perhaps the most important rule is \textbf{closure}.  
+
+  \end{definition}
+  
+  \hspace{-0.5cm}\rule[0.01in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+  
+  \begin{definition}
+   A \textbf{relational algebra} defines a set of operations on relations, paralleling usual algebraic operations such as addition, subtraction, or multiplication which operate on numbers.  
+       % A \textbf{relational algebra} is an algebra on relations.    
+  \end{definition}
+  
+  \hspace{-0.5cm}\rule[0.01in]{\textwidth}{0.0025in}
+% ---------------------------------------------------- % 
+  
+  
+  % Unary Operators
+  \begin{outline}
+  
+       \1 \textbf{Rename}: $\rho_S(R)$ or $\rho_R_{(A_1, A_2, \dots, A_n)}(R)$, where  we rename relation $R$ to $S$ and the attributes of $R$ to $A_1, A_2, \dots, A_n$ respectively.  
+       
+       
+       
+
+ 
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{Simple Relation R}
+\begin{center}
+
+R = \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A_1$}  & \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}
+&  \cellcolor{excel}{$A_4$}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+\end{center}
+\label{tab:flatfile}
+\end{table}%
+
+\begin{example}
+Example: $\rho_S_{(A,B,C,D)}(R)$
+
+
+
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{Rename relation R to S and its attributes}
+\begin{center}
+
+S = \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A$}  & \cellcolor{excel}{$B$}  &   \cellcolor{excel}{$C$}
+&  \cellcolor{excel}{$D$}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+\end{center}
+\label{tab:flatfile}
+\end{table}%
+
+\end{example}
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       % -------- SELECT ---------- %
+       \1 \textbf{Select}: $\sigma_p(R)$
+                \2 $p$ is a selection predicate  and $R$ is a relation
+                \2 Defined as:
+                \[
+                        \sigma_p(R) = \{ t : t \in R \wedge p(t) \textrm{ is true} \}
+                \]
+                \2 Select output rows  (filtering operation)
+                \2 Subset of rows                
+                
+          
+           \begin{example}
+           
+           \AtBeginEnvironment{tabular}{\sffamily}
+           
+           \begin{table}[!htb]
+    \caption{Select: $\sigma_{A_1 >2}(R)$ }
+    \begin{minipage}{.5\linewidth}
+      % \caption{}
+      \centering
+     R =    \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A_1$}  & \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}
+&  \cellcolor{excel}{$A_4$}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+    \end{minipage}%
+    \begin{minipage}{.5\linewidth}
+      \centering
+       %  \caption{}
+      $\sigma_{A_1 >2}(R)$ =    \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A_1$}  & \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}
+&  \cellcolor{excel}{$A_4$}  \\
+  \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+    \end{minipage} 
+\end{table}
+
+\end{example}
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+           
+           
+           
+           
+           
+           
+           
+           
+           
+                
+        % -------- Projection ---------- %         
+                                
+        \1 \textbf{Projection}: $\Pi_{A_1, A_2, \dots, A_k}(R)$
+                \2 A Subset of columns
+
+                 \2 Removes duplicate tuples from the output
+                        \3 Note how duplicate tuples could arises
+        
+        
+        
+        
+           \begin{example}
+           
+           \AtBeginEnvironment{tabular}{\sffamily}
+           
+           \begin{table}[!htb]
+    \caption{Projection: $\Pi_{A_2, A_3}(R)$ }
+    \begin{minipage}{.5\linewidth}
+      % \caption{}
+      \centering
+     R =    \begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A_1$}  & \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}
+&  \cellcolor{excel}{$A_4$}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+    \end{minipage}%
+    \begin{minipage}{.5\linewidth}
+      \centering
+       %  \caption{}
+     $\Pi_{A_2, A_3}(R)$ =    \begin{tabular}{|c|c|}
+   \hline
+   \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}  \\
+  \hline
+   1 & 1 \\
+      \hline
+  1 & 3  \\
+      \hline
+  2 & 3  \\
+      \hline
+ \st{ 1 } & \st{ 3 }   \\
+      \hline
+   
+\end{tabular}
+    \end{minipage} 
+\end{table}
+
+
+
+ 
+
+
+\end{example}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         % -------- Cartesian product ---------- % 
+        \1 \textbf{Cartesian product}: $\times$
+        
+        
+        
+        
+         % -------- Union ---------- % 
+        \1 \textbf{Union}: of tuples $\cup$
+        
+        
+        
+         % -------- Intersection ---------- % 
+        \1 \textbf{Intersection}: of tuples $\cap$
+        
+        
+        % -------- Difference ---------- % 
+        \1 \textbf{Set difference}: $-$ %  $\backslash$ 
+        
+        
+        
+       
+  \end{outline}
+  
+  
+  
+  
+  Binary Operators
+  \begin{outline}
+        
+  \end{outline}
+  
+  
+  
+
+
+\begin{definition}
+A \textbf{relational database} is a collection of distinct normalized relations.
+\end{definition}
+
+
+
+
+The relational model is based on a mathematical relation (see Chapter \ref{chap:theory}).
+
+
+
+% A \textbf{table}, the physical representation of a relation, is two-dimensional
+arrays consisting of \textit{rows} and \textit{columns} and form the basis
+of the relational database model. Rows and columns are also referred to as
+\textit{records} and \textit{fields}, or \textit{tuples} and \textit{attributes}.
+ Table \ref{tab:altterms}  summarizes the different terminology associated
+with the relational model.  
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        Relation      &   Table     &   File \\  
+       % \midrule 
+        Tuple         &   Row        &  Record   \\
+       % \midrule 
+        Attribute      &   Column     &  Field   \\   
+          \bottomrule
+    \end{tabular}
+    \caption{Synonyms for relational model terms. Terms in each row are equivalent.}
+    \label{tab:altterms}
+\end{table}
+ 
+ 
+ 
+ 
+ 
+  
+
+ 
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{Product Orders Spreadsheet.  Note data redunancy and inconsistencies}
+\begin{center}
+
+\begin{tabular}{|c|c|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{Date}  & \cellcolor{excel}{Customer} & \cellcolor{excel}{Address}
+&
+  \cellcolor{excel}{Product} & 
+  \cellcolor{excel}{Qty} & 
+  \cellcolor{excel}{Price} \\
+  \hline
+  12/19/2020 & Tom Kenny & 192 Hill St  & Web Camera  & 1 & \$25\\
+      \hline
+   12/22/2020 & Jake Angeli & 307 Neil Ave.  &  Buffalo Hat & 1 & \$99\\
+  \hline
+    12/22/2020 & Jake Angeli & 307 Neil Ave  &  Bird Feeder & 1 & \$50\\
+    \hline
+     12/23/2020 & Marge Simpson & 742 Evergreen   & Headphones  & 2 & \$70\\
+     \hline
+     12/23/2020 & Nate Brown & 7851 Park Avenue  & Bird Feeder  & 1 & \$50\\
+     \hline
+     12/24/2020 & Nate Brown & 7851 Park Ave  & Head phones  & 2 & \$35\\
+     \hline
+     12/24/2020 & Brian Kenny & 30 Baxter Blvd  & Leather Whip  & 1 & \$21\\
+      \hline
+\end{tabular}
+\end{center}
+\label{tab:flatfile}
+\end{table}%
+
+
+
+
+
+
+
+
+
+
+% The relational algebra uses set union, set difference, and Cartesian product
+from set theory, but adds additional constraints to these operators.
+
+
+A \textbf{relation} on a (finite or infinite) set $X$ is a subset $R$ of
+$X \times X$.  The element $x \in X$ is related to $y \in X$ is denoted as
+ $(x,y) \in R$ or $xRy$.  For example, if $X = \mathbb{N}$  then $\le$ is
+binary relation. In this case, $(2,3)$ is an element of this relation.  An
+$n$-ary relation over $X$ is a subset of $X^n = X \times X \times \dots 
+\times X$ (i.e., $X$ crossed with itself $n$ times).   
+ 
+
+
+
+
+
+
+
+
+
+ 
+\AtBeginEnvironment{tabular}{\sffamily}
+\begin{table}[h!]
+\caption{Simple Relation}
+\begin{center}
+
+\begin{tabular}{|c|c|c|c|}
+   \hline
+  \cellcolor{excel}{$A_1$}  & \cellcolor{excel}{$A_2$}  &   \cellcolor{excel}{$A_3$}
+&  \cellcolor{excel}{$A_4$}  \\
+  \hline
+  1 & 1 & 1  &   1 \\
+      \hline
+  2 & 1 & 3  &   1 \\
+      \hline
+  3 & 2 & 3  &   4 \\
+      \hline
+  4 & 1 & 3  &   1 \\
+      \hline
+   
+\end{tabular}
+\end{center}
+\label{tab:flatfile}
+\end{table}%
+
+
+
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}

@@ -1,0 +1,439 @@
+%&latex
+\documentclass{article}
+
+ 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*.}
+\setenumerate[2]{label=\alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\usepackage{graphicx}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\input{coding.tex}
+
+
+
+
+\begin{document}
+
+%+Title
+\title{Subqueries}
+\author{DSC 301: Lecture 10}
+\date{March 10, 2021} % \today
+\maketitle
+%-Title
+
+%+Abstract
+\begin{abstract}
+    Subqueries provide the means to build queries that are difficult or impossible otherwise.  We have already seen several instances where subqueries would have ``come to the rescue."  In particular, ``what percentage of flights arrive late?" and ``how many  destinations has each plane flown?" 
+\end{abstract}
+%-Abstract
+
+
+
+%+Contents
+% \tableofcontents
+%-Contents
+
+% ---------------- %
+\begin{outline}[enumerate]
+
+\end{outline}
+% ---------------- %
+\begin{outline}
+        
+\end{outline}
+
+
+
+
+% --------- Lecture Objectives ------- %
+\subsection*{Lecture Objectives}
+\begin{outline}
+        \1 What is a subquery
+        \1  Where to places subqueries
+        \1 When to use subqueries
+        \1 How to use:  
+                \2 with the \texttt{IN} operator
+                \2 with comparison operators
+                \2 with \texttt{ALL, ANY, SOME, EXISTS}
+        \1 How to code subqueries in:
+                \2 the \texttt{SELECT} clause
+                \2 the \texttt{WHERE} clause
+                \2 the \texttt{FROM} clause        
+                \2 the \texttt{HAVING} clause
+        
+
+\end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+% 
+%\begin{definition}
+%asdfasdf
+%\end{definition}
+
+
+
+
+
+
+
+
+ 
+  
+  
+  
+
+\subsection*{Subquery Basics}
+
+
+\begin{outline}
+\1 A \texttt{SELECT} statement that's nested within another SQL\ statement
+        \2 Can be used within: \texttt{SELECT,INSERT, UPDATE}, and \texttt{DELETE}
+statements
+
+% \1 Subqueries can come after \texttt{SELECT, FROM, WHERE}, and \texttt{HAVING} clauses
+\1 Subqueries \textbf{cannot} contain \texttt{ORDER BY} clause. 
+\1 Subqueries must be contained within parentheses.    
+
+\1 Subqueries can return:
+        \2  a single value,  
+        \2 a list of values (i.e., single column), or 
+        \2 a table of values.  
+
+\1 Subqueries can be nested
+
+\1Subqueries can pass aggregated values to the main query
+
+\1 Subqueries can become complex, use the ``beautifier'' to split over several lines to increase readability
+
+\1 Most subqueries can be coded as JOINS and most JOINS can be coded as subqueries
+
+ \end{outline}
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+% 
+
+\noindent Using subqueries comes down to knowing: \textit{when} to use and \textit{where} to place them (depends on what the subquery returns (single value, list of values, or table of values).   
+
+
+
+
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+
+
+\subsection*{Subquery Placement}
+\begin{outline}
+ 
+    \1 In a \texttt{WHERE} clause as a search condition
+    \1 In a \texttt{HAVING} clause as a search condition 
+    \1 In a \texttt{FROM} clause as a ``pseudo-table''
+    \1 In a \texttt{SELECT} clause as a ``pseudo-column''
+\end{outline}
+
+
+\subsubsection*{In a \texttt{WHERE} clause} 
+
+
+
+
+
+\noindent \textbf{Example}: Which destination had the most flights in 2014?
+
+
+
+
+
+
+A subquery in the \texttt{WHERE} clause is very common.  For example, find all planes from carriers that fly to ORD (Chicago O'Hara).  Note, this doesn't ask to find only planes from carriers that fly to ORD, that would be:   
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+  
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT distinct(tailnum) FROM Flights WHERE dest='ORD';
+\end{lstlisting}                
+
+\noindent Instead we want all planes of the carriers that fly to ORD.  This may include planes that never land in Chicago.\\  
+
+% --------------------------------------------------
+% \hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+ 
+  
+All flights whose air time is greater than average of all carriers.
+% CODE: 
+\begin{lstlisting}[frame=single]  
+ select fid, carrier, dest, air_time from Flights where air_time>= all(select
+avg(air_time) from Flights group by carrier);
+\end{lstlisting} 
+  
+
+  
+  
+  
+
+  
+% CODE: 
+\begin{lstlisting}[frame=single]  
+ select * from Flights where air_time = (select max(air_time) from Flights);
+\end{lstlisting} 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+  
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT DISTINCT
+    (tailnum)
+FROM
+    Flights
+WHERE
+    carrier IN (SELECT 
+            carrier
+        FROM
+            Flights
+        WHERE
+            dest = 'ORD');
+\end{lstlisting}                
+
+  
+  
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT 
+    dest, distance
+FROM
+    Flights
+WHERE
+    air_time > (SELECT 
+            AVG(air_time)
+        FROM
+            Flights);
+\end{lstlisting}                
+  
+  
+
+
+  
+  
+  
+  
+\subsubsection*{Multiple Table Queries}  
+  
+ \noindent Although subqueries can (obviously) be used to query single tables, more commonly they are used for multiple table queries.  For example, select all customers from West Virginia.  Why is a subquery needed? Answer: The state is not stored in the Customers table, only the zip code.  Therefore, we need to ``look up'' the zip codes from West Virginia using a subquery. 
+  
+% CODE: 
+\begin{lstlisting}[frame=single]   
+select * from Products where manufacturer_id in (select manufacturer_id from Manufacturers where url<>'');
+\end{lstlisting}   
+  
+  
+  
+  
+% CODE: 
+\begin{lstlisting}[frame=single]  
+SELECT C.id 
+FROM Customers as C 
+WHERE C.zip in 
+  (
+    SELECT zip 
+    FROM Zipcodes 
+    WHERE state='WV'
+  ); 
+\end{lstlisting} 
+  
+  
+  
+  
+% CODE: 
+\begin{lstlisting}[frame=single]    
+# Select 100 products that have not yet sold.
+SELECT product_id
+FROM Products as P
+WHERE P.product_id NOT IN 
+  (
+    SELECT OrderDetails.product 
+    FROM OrderDetails
+  )
+LIMIT 100;
+\end{lstlisting}   
+  
+  
+
+
+
+
+
+
+% ----------------------------------- %
+
+\subsection*{In \texttt{FROM} clause}
+
+% CODE: 
+\begin{lstlisting}[frame=single]    
+select manufacturer from (select * from Manufacturers where url<>'') as M;
+\end{lstlisting}   
+
+
+% CODE: 
+\begin{lstlisting}[frame=single]    
+select round(avg(X.price),2),max(X.msrp) from (select price, msrp, inventory
+from Products where country='China') as X where inventory>0;
+
+\end{lstlisting}   
+
+
+
+
+
+   
+
+The maximum average time of flights by carrier:
+
+% CODE: 
+\begin{lstlisting}[frame=single]  
+select max(avg_time) from (select avg(air_time) as avg_time from Flights
+group by carrier) as X;
+\end{lstlisting} 
+
+  
+  
+  
+  
+% CODE: 
+\begin{lstlisting}[frame=single]
+SELECT 
+    carrier, X.avg_time
+FROM
+    (SELECT 
+        carrier, AVG(air_time) AS avg_time
+    FROM
+        Flights
+    GROUP BY carrier) AS X where X.avg_time>200;
+\end{lstlisting}    
+    
+  
+  
+  
+  
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+% ----------------------------------- %
+
+\subsection*{In \texttt{SELECT} statement}
+
+\texttt{SELECT} subqueries are seldom used.  
+
+ 
+% CODE: 
+\begin{lstlisting}[frame=single]     
+# Percentage of flights that arrive late 
+SELECT 
+    ROUND(100 * (SELECT 
+                    COUNT(fid)
+                FROM
+                    Flights
+                WHERE
+                    arr_delay > 0) / COUNT(fid),
+            0) AS '% Arrive Late'
+FROM
+    Flights;
+\end{lstlisting}   
+
+
+% --------------------------------------------------
+\hspace{-0.5cm}\rule[-0.101in]{\textwidth}{0.0025in}
+% --------------------------------------------------
+    
+    
+  
+  
+%+Bibliography
+%\begin{thebibliography}{99}
+%\bibitem{Label1} ...
+%\bibitem{Label2} ...
+%\end{thebibliography}
+%-Bibliography
+
+
+
+ 
+
+\end{document}
