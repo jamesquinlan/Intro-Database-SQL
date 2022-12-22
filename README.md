@@ -6,7 +6,7 @@ Lectures and homework centers around an online store (products, manufacturers, c
 
 ## Course Description
 
-This course is an introduction to Database Design and Structured Query Language (SQL). Stu- dents will be exposed to relational databases including table design, relationships, dependencies, and normalization forms. Additionally, the course will cover data modeling using Entity-Relation (ER) models. Data models found in business, medicine, biology, and science will be considered.
+This course is an introduction to Database Design and Structured Query Language (SQL). Students are exposed to relational databases including table design, relationships, dependencies, and normalization forms. Additionally, the course will cover data modeling using Entity-Relation (ER) models. Data models found in business, medicine, biology, and science will be considered.
 
 This course is an introduction to Database Design and Structured Query Language (SQL). Students will be exposed to relational databases including table design, relationships, dependencies, and normalization forms. Additionally, the course will cover data modeling using Entity-Relation (ER) models. Data models found in business, medicine, biology, and science will be considered.
 
@@ -53,10 +53,14 @@ Filtering and sorting data
 
 | Assessment                   | Weight |
 |------------------------------|--------|
-| Homework                     | 50%    |
-| Attendance and Participation | 5%     |
+| Homework                     | 40%    |
+| Attendance and Participation | 10%    |
+| Quizzes 			           | 20%    |
 | Midterm Exam                 | 15%    |
-| Database Project             | 15%    |
-| Final Exam                   | 15%    |
+| Final Exam                   | 25%    |
 
+
+<!-- | Database Project             | 15%    | -->
+
+---
 
