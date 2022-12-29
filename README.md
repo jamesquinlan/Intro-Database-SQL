@@ -1,6 +1,6 @@
 # Introduction to Database and SQL
 
-Introduction to Database and SQL is a course offered at the University of New England (DSC 301).  
+Introduction to Database and SQL is an undergraduate course, listed as DSC 301.  
 Lectures and homework centers around an online store (products, manufacturers, customers, and orders).  Course materials contain optional project activity ideas and materials.    
   
 
