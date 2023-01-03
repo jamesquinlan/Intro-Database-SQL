@@ -53,9 +53,9 @@ Filtering and sorting data
 
 | Assessment                   | Weight |
 |------------------------------|--------|
-| Homework                     | 40%    |
+| Homework                     | 30%    |
 | Attendance and Participation | 10%    |
-| Quizzes 			           | 20%    |
+| Quizzes 		       | 20%    |
 | Midterm Exam                 | 15%    |
 | Final Exam                   | 25%    |
 
