@@ -173,6 +173,7 @@
 * [SQL (implementation agnostic)](#sql-implementation-agnostic)
 * [SQL Server](#sql-server)
 * [Standard ML](#standard-ml)
+* [Statistics](#statistics)
 * [Subversion](#subversion)
 * [Swift](#swift)
 * [Tcl](#tcl)
@@ -653,6 +654,11 @@
 
 * [Linux Standard Base](http://refspecs.linuxfoundation.org/lsb.shtml)
 * [UNIX - The POSIX Standard - IEEE Std 1003.1](https://github.com/geoff-codes/posix-standard)
+
+
+#### Statistics
+
+* [Matloff - Fast Statistics](https://github.com/matloff/fastStat#lesson-sampling--the-notion-of-a-sample)
 
 
 #### Theoretical Computer Science
