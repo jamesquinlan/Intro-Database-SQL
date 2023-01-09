@@ -1,7 +1,7 @@
 -- +++++++++++++++++++++++++++++++++
--- Author: 		James Quinlan
--- Date: 		Apr 09, 2021
--- Purpose:		SQL PROCEDURE
+-- Author: 	James Quinlan
+-- Date: 	Apr 09, 2021
+-- Purpose:	SQL PROCEDURE
 -- Copyright:	(c) 2021. J. Quinlan
 -- License: 	MIT 
 
