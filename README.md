@@ -25,7 +25,7 @@ DSC 301 is required for Data Science major and also counts toward data science a
 7. Design database(s) that ensure data integrity and consistency by applying normalization rules
 8. Write efficient queries, optimize a database, and apply performance tuning techniques including: creating indexes and writing stored procedures.  
 9. Create stored programs, triggers, events, transactions, and views
-
+10. Identify big data and big data technologies
 
 Upon successful completion of this course, students will be able to:
 1. Describe the structure of relational databases
