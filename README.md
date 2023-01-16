@@ -48,6 +48,10 @@ Selecting, inserting, updating, and deleting data Summarizing and grouping data
 Filtering and sorting data
 7. SQL Performance Tuning
 8. Database security and user management
+9. Distributed storage, NoSQL, Hadoop, MapReduce
+
+
+
 
 ## Assessment
 
