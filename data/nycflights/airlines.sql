@@ -2,6 +2,7 @@ CREATE TABLE Airlines(
    carrier VARCHAR(2) NOT NULL PRIMARY KEY
   ,name    VARCHAR(24) NOT NULL
 );
+
 INSERT INTO Airlines(carrier,name) VALUES ('AA','American Airlines Inc.');
 INSERT INTO Airlines(carrier,name) VALUES ('AS','Alaska Airlines Inc.');
 INSERT INTO Airlines(carrier,name) VALUES ('B6','JetBlue Airways');
