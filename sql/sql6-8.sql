@@ -14,5 +14,5 @@ FROM
     Flights
 WHERE
     origin = 'JFK' AND month = 12
-        AND day = 25 and dest = 'ORD'
+        AND day = 25 AND dest = 'ORD'
 ORDER BY sched_dep_time limit 1;
