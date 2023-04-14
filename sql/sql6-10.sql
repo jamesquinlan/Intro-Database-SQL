@@ -1,6 +1,6 @@
 -- ****************************************************
 -- Description:	How many seats were on the FIRST plane 
--- 				leaving JFK to ORD on 12/25? 
+--              leaving JFK to ORD on 12/25? 
 -- 
 -- Course: 		Intro. to Database
 -- Author: 		Quinlan, J.
