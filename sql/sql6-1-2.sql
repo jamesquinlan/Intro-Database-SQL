@@ -1,7 +1,7 @@
 -- ****************************************************
 -- Description:	How many more flights did the airport  
--- 				with the most number of flights have
--- 				over the average of the other two?
+--              with the most number of flights have
+--              over the average of the other two?
 -- 
 -- Course: 		Intro. to Database
 -- Author: 		Quinlan, J.
