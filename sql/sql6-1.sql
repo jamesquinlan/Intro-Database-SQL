@@ -1,6 +1,6 @@
 -- ****************************************************
 -- Description:	Which of the three airports had the most 
--- 				flights?
+--              flights?
 -- 
 -- Course: 		Intro. to Database
 -- Author: 		Quinlan, J.
