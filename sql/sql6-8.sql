@@ -1,6 +1,6 @@
 -- ****************************************************
 -- Description:	What was the flight number of the first 
--- 				flight on Christmas to Chicago from JFK?
+--              flight on Christmas to Chicago from JFK?
 -- 
 -- Course: 		Intro. to Database
 -- Author: 		Quinlan, J.
