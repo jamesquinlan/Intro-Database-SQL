@@ -51,6 +51,7 @@ Filtering and sorting data
 9. Distributed storage, NoSQL, Hadoop, MapReduce
 
 
+** Notes on some topics may be missing from repo.   
 
 
 ## Assessment
@@ -62,6 +63,8 @@ Filtering and sorting data
 | Quizzes 		       | 20%    |
 | Midterm Exam                 | 15%    |
 | Final Exam                   | 25%    |
+
+
 
 
 <!-- | Database Project             | 15%    | -->
