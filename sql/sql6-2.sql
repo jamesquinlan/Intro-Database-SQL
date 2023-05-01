@@ -19,6 +19,7 @@ LIMIT 1;
 
 --
 -- Modification: elect the actual name from the Airlines table.alter
+-- Subquery
 -- 
 SELECT 
     name
