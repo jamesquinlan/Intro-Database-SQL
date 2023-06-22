@@ -1,6 +1,6 @@
 # Database Project Ideas
 
-1. Advertisting agencies
+1. Advertising agencies
 2. Flight bookings
 3. WWII Aircraft
 4. Dog breeds
@@ -10,7 +10,7 @@
 8. Chess tournaments
 9. Hospital adminssions
 10. Apartments rentals
-11. Event registration
+11. Event Registration
 12. Hotel reservations
 13. College Football
 14. Crime investigation
