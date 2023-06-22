@@ -1,6 +1,6 @@
 # Database Project Ideas
 
-1.** Advertising Agencies**: Design and implement a database system to manage client information, campaigns, creative assets, and performance metrics for an advertising agency.
+1. **Advertising Agencies**: Design and implement a database system to manage client information, campaigns, creative assets, and performance metrics for an advertising agency.
 2. **Flight Bookings**: Create a database system that handles flight information, seat availability, passenger details, and reservation management for an airline or travel agency.
 3. **WWII Aircraft**: Build a database system to catalog and provide information on different types of WWII aircraft, including specifications, historical data, and notable pilots.
 4. **Dog Breeds**: Develop a database system to store information about various dog breeds, including breed characteristics, temperament, care requirements, and breeders.
